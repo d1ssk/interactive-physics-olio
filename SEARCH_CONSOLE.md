@@ -44,20 +44,39 @@ Zensical are replaced by the complete root sitemap; stale compressed versions ar
    `https://d1ssk.github.io/interactive-physics-olio/` in Google Search Console. This covers the
    Japanese `/ja/` subtree as well. A Domain property requires DNS verification, which this
    project does not control for `github.io`.
-2. Choose an offered ownership verification method. The site already has Google Analytics
-   configured, so Analytics verification may be available if the account and permissions meet
-   Google's requirements. Merely including an Analytics ID does not establish ownership.
-3. For HTML-tag verification, copy the issued `content` token into
+2. Choose **HTML file upload** or **HTML tag**. The site has Google Analytics configured, but
+   its generated integration loads `gtag.js` dynamically and Search Console has reported that
+   it cannot find the tracking code. Merely including an Analytics ID does not establish
+   ownership; use the direct file or tag method for this site.
+3. For HTML-file verification, the issued `googlec20d429ac09907a6.html` is tracked unchanged in
+   `src/physics_atlas/static/search-console/`. After both locale builds and search metadata
+   publication, `scripts/build_site.py` copies it unchanged to the production site root:
+
+   <https://d1ssk.github.io/interactive-physics-olio/googlec20d429ac09907a6.html>
+
+   The response must be HTTP 200 without a redirect and contain exactly:
+
+   ```text
+   google-site-verification: googlec20d429ac09907a6.html
+   ```
+
+   This is a technical verification resource, not a reader-facing page. It is not translated,
+   wrapped in a page template, enriched with SEO metadata, linked in navigation, or included
+   in the sitemap. It verifies the project URL-prefix property; it does not need a separate
+   publication at the `d1ssk.github.io` host root or a Japanese copy. If Search Console specifies
+   a different upload URL, confirm that the selected property has the project prefix above.
+4. Alternatively, for HTML-tag verification, copy the issued `content` token into
    `project.extra.search_console_verification` in `zensical.toml`. The build emits
    `<meta name="google-site-verification" ...>` in the English property homepage head. No
    placeholder token is published. This is a public verification token, not an Analytics ID.
-4. Deploy and check that the issued tag appears in the homepage source, then complete verification
-   in Search Console. Keep the token configured afterward; Google periodically checks ownership.
-5. In the Sitemaps report, submit `sitemap.xml` and check the processing result.
-6. Use URL Inspection on representative English and Japanese articles and standalone applications.
+5. Deploy and check the verification-file URL (or the homepage source for HTML-tag verification),
+   then click **Verify** in Search Console using the corresponding method. Keep the file or tag
+   published afterward; Google periodically checks ownership.
+6. In the Sitemaps report, submit `sitemap.xml` and check the processing result.
+7. Use URL Inspection on representative English and Japanese articles and standalone applications.
    Run the live test, inspect the rendered page and resource loading, and confirm the canonical
    URL and indexing eligibility. Request indexing for representative entry pages if needed.
-7. Monitor the Page indexing report after deployment. An embedded app being excluded by `noindex`
+8. Monitor the Page indexing report after deployment. An embedded app being excluded by `noindex`
    is expected; an article or standalone application being excluded needs investigation.
 
 ## robots.txt and GitHub Pages project paths
