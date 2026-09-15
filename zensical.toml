@@ -41,6 +41,8 @@ home_name = "Home"
 alternate_name = "日本語"
 alternate_lang = "ja"
 alternate_base_url = "https://d1ssk.github.io/interactive-physics-olio/ja/"
+# Optional HTML-tag ownership verification, issued by Google Search Console.
+# search_console_verification = "paste-the-issued-token-here"
 
 [project.extra.analytics]
 provider = "google"

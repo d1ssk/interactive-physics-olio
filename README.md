@@ -62,6 +62,8 @@ site/            generated output; never edit or commit
 ```
 
 Repository-specific development rules live in `AGENTS.md`.
+Search metadata policy and Search Console setup are documented in
+[`SEARCH_CONSOLE.md`](SEARCH_CONSOLE.md).
 Reusable rules for bounded Pyodide/Wasm-style computation runtimes live in
 [`visualizations/BROWSER_COMPUTE.md`](visualizations/BROWSER_COMPUTE.md).
 
