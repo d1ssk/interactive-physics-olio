@@ -146,11 +146,15 @@ def test_build_publishes_complete_sitemap_and_excludes_embeds(tmp_path):
     source = ROOT / "visualizations" / "complex-functions" / "metadata.yml"
     standalone = tmp_path / "visualizations" / "complex-functions"
     standalone.mkdir(parents=True)
-    standalone.joinpath("metadata.yml").write_text(source.read_text(), encoding="utf-8")
+    standalone.joinpath("metadata.yml").write_text(
+        source.read_text(encoding="utf-8"), encoding="utf-8"
+    )
     article = tmp_path / "visualizations" / "lorentz-transformation"
     article.mkdir()
     article.joinpath("metadata.yml").write_text(
-        (ROOT / "visualizations" / "lorentz-transformation" / "metadata.yml").read_text(),
+        (ROOT / "visualizations" / "lorentz-transformation" / "metadata.yml").read_text(
+            encoding="utf-8"
+        ),
         encoding="utf-8",
     )
     items = [load_metadata(standalone), load_metadata(article)]
@@ -198,13 +202,13 @@ def test_build_publishes_complete_sitemap_and_excludes_embeds(tmp_path):
         for relative in ("404.html", "relativity/lorentz-transformation/app/index.html"):
             assert any(
                 meta.get("content") == "noindex"
-                for meta in parse((site / relative).read_text()).metas
+                for meta in parse((site / relative).read_text(encoding="utf-8")).metas
             )
 
 
 def test_missing_translation_stops_publication(tmp_path):
     (tmp_path / "docs/topic").mkdir(parents=True)
-    (tmp_path / "docs/topic/index.md").write_text("# Topic\n")
+    (tmp_path / "docs/topic/index.md").write_text("# Topic\n", encoding="utf-8")
     (tmp_path / "docs_ja").mkdir()
     with pytest.raises(ValueError, match="matching English and Japanese"):
         collect_public_pages(tmp_path, [])
@@ -214,7 +218,7 @@ def test_new_prose_page_uses_authored_description(tmp_path):
     for name in ("docs", "docs_ja"):
         (tmp_path / name).mkdir()
         (tmp_path / name / "new.md").write_text(
-            '---\ndescription: "Authored explanation"\n---\n# New page\n'
+            '---\ndescription: "Authored explanation"\n---\n# New page\n', encoding="utf-8"
         )
     pages = collect_public_pages(tmp_path, [])
     assert len(pages) == 2
