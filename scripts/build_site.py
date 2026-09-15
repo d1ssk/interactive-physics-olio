@@ -13,6 +13,7 @@ from physics_atlas.assets import (
     MATHJAX_SVG_PATH,
     PLOTLY_GL3D_ASSET_NAME,
     PLOTLY_LICENSE_ASSET_NAME,
+    STATIC_DIR,
     copy_shared_plotly_assets,
 )
 from physics_atlas.seo import publish_search_metadata
@@ -22,6 +23,7 @@ ENGLISH_DOCS_DIR = ROOT / "docs"
 JAPANESE_DOCS_DIR = ROOT / "docs_ja"
 ENGLISH_BUILD_DOCS_DIR = ROOT / "build" / "docs-en"
 JAPANESE_BUILD_DOCS_DIR = ROOT / "build" / "docs-ja"
+SEARCH_CONSOLE_VERIFICATION_FILE = STATIC_DIR / "search-console" / "googlec20d429ac09907a6.html"
 LIE_RUNTIME_RELATIVE_DIR = (
     Path("mathematics-for-physics") / "lie-roots-weights-products" / "app" / "runtime"
 )
@@ -83,6 +85,10 @@ def main() -> int:
         check=True,
     )
     publish_search_metadata(ROOT, directories)
+    # Google's verification response must retain its original filename and bytes.
+    shutil.copy2(
+        SEARCH_CONSOLE_VERIFICATION_FILE, ROOT / "site" / SEARCH_CONSOLE_VERIFICATION_FILE.name
+    )
     print("Bilingual production site built at site/ (English root, Japanese under ja/).")
     return 0
 
