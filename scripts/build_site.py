@@ -15,6 +15,7 @@ from physics_atlas.assets import (
     PLOTLY_LICENSE_ASSET_NAME,
     copy_shared_plotly_assets,
 )
+from physics_atlas.seo import publish_search_metadata
 
 ROOT = Path(__file__).resolve().parents[1]
 ENGLISH_DOCS_DIR = ROOT / "docs"
@@ -81,6 +82,7 @@ def main() -> int:
         cwd=ROOT,
         check=True,
     )
+    publish_search_metadata(ROOT, directories)
     print("Bilingual production site built at site/ (English root, Japanese under ja/).")
     return 0
 

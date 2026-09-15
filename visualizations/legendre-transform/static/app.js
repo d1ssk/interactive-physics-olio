@@ -1,7 +1,11 @@
 "use strict";
 
 const DATA = JSON.parse(document.getElementById("application-data").textContent);
-const locale = new URLSearchParams(window.location.search).get("lang") === "ja" ? "ja" : "en";
+const locale = (() => {
+  const requested = new URLSearchParams(window.location.search).get("lang");
+  if (requested === "en" || requested === "ja") return requested;
+  return window.location.pathname.split("/").includes("ja") ? "ja" : "en";
+})();
 
 const I18N = {
   en: {

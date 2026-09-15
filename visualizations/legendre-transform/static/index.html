@@ -26,7 +26,9 @@
   <script defer src="mathjax-tex-svg.js"></script>
   <script>
     window.physicsAtlasPlotlyReady = new Promise((resolve, reject) => {
-      const locale = new URLSearchParams(window.location.search).get("lang") === "ja" ? "ja" : "en";
+      const requested = new URLSearchParams(window.location.search).get("lang");
+      const locale = requested === "en" || requested === "ja" ? requested
+        : window.location.pathname.split("/").includes("ja") ? "ja" : "en";
       const siteRoot = locale === "ja" ? "../../../" : "../../";
       const script = document.createElement("script");
       script.src = new URL(`${siteRoot}javascripts/__PLOTLY_ASSET__`, window.location.href);
