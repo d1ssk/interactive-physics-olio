@@ -16,6 +16,7 @@ from urllib.parse import urlsplit
 from validate_metadata import validate_all
 
 from physics_atlas.assets import (
+    STATIC_DIR,
     VISUALIZATION_THEME_CSS_NAME,
     VISUALIZATION_THEME_SCRIPT_NAME,
 )
@@ -147,6 +148,11 @@ def build_all(directories: list[Path] | None = None, docs_dir: Path = DOCS_DIR) 
                 f"{directory}: build() did not create required output {index}"
             )
         _validate_theme_contract(directory, output_dir, index)
+        # Count direct visits to apps; the script skips article-embedded frames.
+        shutil.copy2(STATIC_DIR / "analytics.js", output_dir / "analytics.js")
+        html = index.read_text(encoding="utf-8")
+        html = html.replace("</head>", '<script defer src="analytics.js"></script>\n</head>', 1)
+        index.write_text(html, encoding="utf-8")
         outputs.append(index)
         print(f"Built {metadata.id}: {index.relative_to(ROOT)}")
     return outputs
