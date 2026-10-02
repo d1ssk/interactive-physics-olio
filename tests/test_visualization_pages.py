@@ -248,12 +248,12 @@ def test_shared_iframe_resizer_tracks_content_height() -> None:
 
 
 def test_repository_documents_http_visualization_preview() -> None:
-    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    development = (ROOT / "DEVELOPMENT.md").read_text(encoding="utf-8")
     root_contract = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
     visualization_contract = (ROOT / "visualizations" / "AGENTS.md").read_text(encoding="utf-8")
 
-    assert "python -m http.server --bind 127.0.0.1 --directory site 8000" in readme
-    assert "http://127.0.0.1:8000/" in readme
+    assert "python -m http.server --bind 127.0.0.1 --directory site 8000" in development
+    assert "http://127.0.0.1:8000/" in development
     assert "direct `file://` viewing is unsupported" in root_contract
     assert "local browser QA must serve the built site over" in visualization_contract
     assert "copy_visualization_theme_assets(output_dir)" in visualization_contract
