@@ -62,6 +62,6 @@ def test_counts_include_cross_field_and_external_listings(tmp_path: Path) -> Non
 def test_published_field_counts_include_all_listings() -> None:
     root = Path(__file__).resolve().parents[1]
     counts = visualization_counts(root)
-    assert counts["cosmology"] == 3
+    assert counts["cosmology"] == 4
     assert counts["thermodynamics"] == 2
     assert counts["string-theory"] == 2

@@ -16,3 +16,8 @@
 
 - **[エネルギースケール・アトラス](../particle-physics/mass-scale-atlas/?lang=ja)**<br>
   現在のHubbleスケールからPlanck質量まで、宇宙熱史の指標を粒子質量や物理現象と比較
+
+## 原始量子ゆらぎ
+
+- **[インフレーションの量子ゆらぎとスクイージング](inflation-squeezing/)**<br>
+  モードのHamilton流のアニメーションで読み解く、Wigner楕円の変形・成長モード・音響振動の位相コヒーレンス

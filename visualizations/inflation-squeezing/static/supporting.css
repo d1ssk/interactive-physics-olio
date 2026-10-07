@@ -1,0 +1,31 @@
+[data-view] section[data-view] { display: none; }
+html[data-view="background"] section[data-view="background"], html[data-view="squeezing"] section[data-view="squeezing"], html[data-view="basis"] section[data-view="basis"], html[data-view="samples"] section[data-view="samples"], html[data-view="acoustic"] section[data-view="acoustic"] { display: block; }
+.chart { width: 100%; height: 340px; min-width: 0; }
+#background-plot { height: 410px; }
+.chart-pair, .basis-cards, .matrix-pair { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+.chart-pair > div { min-width: 0; }
+.chart-pair h3, .basis-cards h3, .matrix-pair h3 { font-size: 14px; }
+.reality-diagram { display: grid; grid-template-columns: 220px minmax(0,1fr); gap: 20px; align-items: center; }
+.k-plane { height: 175px; position: relative; border: 1px solid var(--atlas-viz-border); background: var(--atlas-viz-panel); overflow: hidden; }
+.half-plane { position: absolute; left: 50%; width: 50%; height: 100%; background: var(--flow); opacity: .14; }
+.axis-horizontal { position: absolute; width: 100%; top: 50%; border-top: 1px solid var(--muted); }
+.axis-vertical { position: absolute; height: 100%; left: 50%; border-left: 1px solid var(--muted); }
+.k-positive { position: absolute; left: calc(50% + 45px); top: calc(50% - 35px); color: var(--flow); }
+.k-negative { position: absolute; left: calc(50% - 45px); top: calc(50% + 35px); color: var(--marker); }
+.k-half { position: absolute; right: 8px; top: 4px; }.k-origin { position: absolute; left: 52%; top: 50%; }
+.same-state { font-weight: 600; text-align: center; }
+.basis-cards > section { padding: 8px; border: 1px solid var(--atlas-viz-border); border-radius: 8px; background: var(--atlas-viz-panel); }
+.mode-pair { display:flex; justify-content:space-around; align-items:center; gap: 10px; padding: 12px 0; }
+.mode-pair > span:first-child, .mode-pair > span:last-child { border: 1px solid var(--flow); border-radius: 50%; padding: 10px; }
+.mode-pair > span:nth-child(2) { font-size: 12px; }.pair-link { border-block: 1px dashed var(--marker); }
+.basis-transform { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 20px; margin: 14px 0; }
+.covariance { border-collapse:collapse; font-size: 12px; width: 100%; margin: 8px 0; font-variant-numeric: tabular-nums; }
+.covariance th, .covariance td { padding: 5px 3px; text-align:center; border: 1px solid var(--atlas-viz-border); }
+.covariance td { color: var(--ink); }.covariance th { background: var(--atlas-viz-panel-subtle); }
+.formula { overflow-x: auto; padding: 3px 0; }
+#support-error { color: var(--marker); }
+@media(max-width:650px) { .chart-pair, .basis-cards, .matrix-pair, .reality-diagram { grid-template-columns:1fr; } .k-plane { width:220px; margin:auto; } .chart { height:320px; } #background-plot { height:400px; } }
+
+.k-positive, .k-negative { width: 0; height: 0; }
+.k-positive::before, .k-negative::before { content: ""; position: absolute; width: 10px; height: 10px; border-radius: 50%; background: currentColor; transform: translate(-50%, -50%); }
+.k-positive > span, .k-negative > span { position: absolute; left: 9px; top: -13px; white-space: nowrap; }

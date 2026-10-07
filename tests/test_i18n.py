@@ -81,7 +81,8 @@ def test_homepages_link_to_bilingual_update_history() -> None:
             expected_titles.extend(re.findall(r"^[-*] \*\*\[([^]]+)]", field_index, re.M))
 
         history_titles = re.findall(r"^[-*] \[([^]]+)]", history, re.M)
-        assert history_titles == expected_titles
+        # Different update dates use chronological rather than global field order.
+        assert sorted(history_titles) == sorted(expected_titles)
 
 
 def test_header_uses_linked_brand_without_default_logo() -> None:

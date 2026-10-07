@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inflationary squeezing: supporting figures</title>
+  <link rel="stylesheet" href="visualization-theme.css"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="supporting.css">
+  <script src="visualization-theme.js"></script>
+  <script>
+    window.inflationView = new URLSearchParams(location.search).get('view');
+    if (!['background','squeezing','basis','samples','acoustic'].includes(window.inflationView)) window.inflationView='background';
+    document.documentElement.dataset.view=window.inflationView;
+    window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},startup:{ready(){
+      MathJax.startup.defaultReady(); MathJax.startup.promise.then(()=>window.dispatchEvent(new Event('physics-atlas:mathjax-ready')));
+    }}};
+    window.plotReady=new Promise((resolve,reject)=>{
+      const locale=new URLSearchParams(location.search).get('lang')==='ja'?'ja':'en';
+      const script=document.createElement('script');
+      script.src=new URL((locale==='ja'?'../../../../':'../../../')+'javascripts/__PLOTLY_ASSET__',location.href);
+      script.onload=resolve; script.onerror=reject; document.head.append(script);
+    });
+  </script>
+  <script defer src="mathjax-tex-svg.js"></script>
+</head>
+<body>
+<main>
+  <h2 id="figure-title"></h2><p id="figure-intro"></p>
+  <section data-view="background">
+    <div class="controls"><label><span data-i18n="display"></span> <select id="background-choice"><option value="frequency" data-i18n="frequency"></option><option value="mode" data-i18n="mode"></option></select></label></div>
+    <div id="background-plot" class="chart" role="img"></div>
+    <p id="background-equation" class="formula"></p><p id="background-note" class="note"></p>
+  </section>
+  <section data-view="squeezing">
+    <div class="chart-pair"><div><h3 data-i18n="magnitude"></h3><div id="magnitude-plot" class="chart" role="img"></div></div><div><h3 data-i18n="angle"></h3><div id="angle-plot" class="chart" role="img"></div></div></div>
+    <p class="formula">\(r_k=\operatorname{arsinh}\!\left(\frac{1}{2x}\right)\), \(\varphi_k=-\tfrac12\arctan(2x)\)</p><p data-i18n="squeezingNote" class="note"></p>
+  </section>
+  <section data-view="basis">
+    <div class="reality-diagram">
+      <div class="k-plane" role="img" id="k-plane"><div class="half-plane"></div><div class="axis-horizontal"></div><div class="axis-vertical"></div><span class="k-positive"><span>\(\mathbf k\)</span></span><span class="k-negative"><span>\(-\mathbf k\)</span></span><span class="k-half">\(\mathcal K_+\)</span><span class="k-origin">0</span></div>
+      <div><p data-i18n="halfspace"></p><p class="formula">\(v_{-\mathbf k}=v_{\mathbf k}^*\)</p><p class="formula">\(v_{\mathbf k}=(q_R+iq_I)/\sqrt2\)</p><p data-i18n="fieldNotOperator" class="note"></p></div>
+    </div>
+    <p class="same-state" data-i18n="sameState"></p>
+    <div class="basis-cards">
+      <section><h3 data-i18n="traveling"></h3><div class="mode-pair"><span>\(a_{\mathbf k}\)</span><span class="pair-link" data-i18n="paired"></span><span>\(a_{-\mathbf k}\)</span></div><p class="formula">\(is(a_{\mathbf k}^\dagger a_{-\mathbf k}^\dagger-a_{\mathbf k}a_{-\mathbf k})\)</p><p data-i18n="travelingNote" class="note"></p></section>
+      <section><h3 data-i18n="standing"></h3><div class="mode-pair"><span>\(b_R\)</span><span data-i18n="independent"></span><span>\(b_I\)</span></div><p class="formula">\(\tfrac{is}{2}\sum_{A=R,I}(b_A^{\dagger2}-b_A^2)\)</p><p data-i18n="standingNote" class="note"></p></section>
+    </div>
+    <div class="basis-transform"><span>\(b_R=(a_{\mathbf k}+a_{-\mathbf k})/\sqrt2\)</span><span>\(b_I=-i(a_{\mathbf k}-a_{-\mathbf k})/\sqrt2\)</span></div>
+    <div class="controls"><label><span data-i18n="epoch"></span> <select id="basis-time"><option value="0" data-i18n="early"></option><option value="1" data-i18n="cross"></option><option value="2" selected data-i18n="late"></option></select></label></div>
+    <div class="matrix-pair"><div><h3 data-i18n="travelingCov"></h3><div id="traveling-matrix"></div></div><div><h3 data-i18n="standingCov"></h3><div id="standing-matrix"></div></div></div>
+    <p data-i18n="matrixNote" class="note"></p>
+  </section>
+  <section data-view="samples">
+    <label class="timeline"><span data-i18n="sampleTime"></span><input type="range" id="sample-time" min="0" max="60" value="60" disabled></label>
+    <p class="readouts">\(x\): <output id="sample-x"></output>　\(N\): <output id="sample-n"></output></p>
+    <div class="chart-pair"><div><h3 data-i18n="initialCloud"></h3><div id="initial-cloud" class="chart" role="img"></div></div><div><h3 data-i18n="evolvedCloud"></h3><div id="evolved-cloud" class="chart" role="img"></div></div></div>
+    <p class="formula">\(Q=\sqrt{k}q,\quad P=p/\sqrt{k}\)</p><p data-i18n="sampleNote" class="note"></p>
+  </section>
+  <section data-view="acoustic">
+    <div class="controls"><button id="acoustic-play" disabled data-i18n="play"></button><button id="acoustic-reset" disabled data-i18n="reset"></button><span class="readouts">\(u=kr_s/\pi\): <output id="acoustic-u">0.00</output></span></div>
+    <label class="timeline"><span data-i18n="acousticTime"></span><input type="range" id="acoustic-time" min="0" max="240" value="0" disabled></label>
+    <div class="chart-pair"><div><h3 data-i18n="coherent"></h3><div id="coherent-plot" class="chart" role="img"></div></div><div><h3 data-i18n="incoherent"></h3><div id="incoherent-plot" class="chart" role="img"></div></div></div>
+    <div id="power-plot" class="chart power-chart" role="img"></div>
+    <p class="formula">\(X=A\cos(\pi u)+B\sin(\pi u)\)</p><p data-i18n="acousticNote" class="note"></p>
+  </section>
+  <p id="support-error" role="alert" hidden></p>
+  <noscript>These figures require JavaScript. 図の表示にはJavaScriptが必要です。</noscript>
+</main>
+<script src="frame.js"></script><script src="supporting.js"></script>
+</body></html>
