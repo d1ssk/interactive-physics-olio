@@ -7,7 +7,7 @@ publishes search metadata using `src/physics_atlas/seo.py`. Run this complete bu
 `zensical serve` is a documentation preview and does not run the final search publication step.
 Never edit or commit generated files under `site/`.
 
-The single sitemap is published at:
+This project's single URL sitemap is published at:
 
 <https://d1ssk.github.io/interactive-physics-olio/sitemap.xml>
 
@@ -38,9 +38,44 @@ are not content update dates. `priority` and `changefreq` are omitted. Locale si
 Zensical are replaced by the complete root sitemap; stale compressed versions are removed.
 `hreflang` is maintained only in HTML, rather than duplicated in the sitemap.
 
-## Register and verify the property
+## Host-wide Search Console workflow
 
-1. Add a **URL-prefix property** for
+Use the verified **URL-prefix property** `https://d1ssk.github.io/`. It covers this
+project, including its Japanese subtree, and the other projects on the same host.
+A separate project property is not required for this workflow. A Domain property requires
+DNS verification, which this project does not control for `github.io`.
+
+The host configuration is maintained in
+[`d1ssk/d1ssk.github.io`](https://github.com/d1ssk/d1ssk.github.io), following its
+[maintenance guide](https://github.com/d1ssk/d1ssk.github.io/blob/main/docs/maintenance.md).
+
+1. Select the verified `https://d1ssk.github.io/` property in Search Console. If host
+   ownership has not been verified, complete verification through the host repository first.
+   The project-local file and tag described below do not verify the host-root property.
+2. Deploy this project's complete production build. The host's
+   `https://d1ssk.github.io/sitemap-index.xml` already references
+   `https://d1ssk.github.io/interactive-physics-olio/sitemap.xml`.
+   Continue generating that child sitemap; do not replace it with a sitemap index.
+3. Before submitting the host index, deploy all referenced project sitemaps and check that
+   the index and each child URL return HTTP 200 with the expected XML, not an HTML fallback.
+4. In the host property's Sitemaps report, submit
+   `https://d1ssk.github.io/sitemap-index.xml` **once**, then check its processing status.
+   If it is already submitted, inspect the existing entry. There is no need to submit this
+   project's `sitemap.xml` separately or resubmit the index after each content update.
+5. Use URL Inspection on representative English and Japanese articles and standalone applications.
+   Run the live test, inspect the rendered page and resource loading, and confirm the canonical
+   URL and indexing eligibility. Request indexing for representative entry pages if needed.
+6. Monitor the Page indexing report after deployment. An embedded app being excluded by `noindex`
+   is expected; an article or standalone application being excluded needs investigation.
+
+## Maintain existing project ownership verification
+
+Keep the existing project verification resources published. Sitemap submission does not replace
+ownership verification. The following file/tag instructions apply only to the separate
+`https://d1ssk.github.io/interactive-physics-olio/` URL-prefix property, if it is retained
+or used independently; they are not prerequisites for the host-wide workflow.
+
+1. Select (or, if independently needed, add) the **URL-prefix property** for
    `https://d1ssk.github.io/interactive-physics-olio/` in Google Search Console. This covers the
    Japanese `/ja/` subtree as well. A Domain property requires DNS verification, which this
    project does not control for `github.io`.
@@ -62,9 +97,10 @@ Zensical are replaced by the complete root sitemap; stale compressed versions ar
 
    This is a technical verification resource, not a reader-facing page. It is not translated,
    wrapped in a page template, enriched with SEO metadata, linked in navigation, or included
-   in the sitemap. It verifies the project URL-prefix property; it does not need a separate
-   publication at the `d1ssk.github.io` host root or a Japanese copy. If Search Console specifies
-   a different upload URL, confirm that the selected property has the project prefix above.
+   in the sitemap. It verifies only the project URL-prefix property and needs no Japanese copy.
+   It does not verify `https://d1ssk.github.io/`; host verification must be managed in the
+   host repository using the method and location specified for that property. If Search Console
+   specifies a different upload URL, check which property is selected before changing this file.
 4. Alternatively, for HTML-tag verification, copy the issued `content` token into
    `project.extra.search_console_verification` in `zensical.toml`. The build emits
    `<meta name="google-site-verification" ...>` in the English property homepage head. No
@@ -72,12 +108,6 @@ Zensical are replaced by the complete root sitemap; stale compressed versions ar
 5. Deploy and check the verification-file URL (or the homepage source for HTML-tag verification),
    then click **Verify** in Search Console using the corresponding method. Keep the file or tag
    published afterward; Google periodically checks ownership.
-6. In the Sitemaps report, submit `sitemap.xml` and check the processing result.
-7. Use URL Inspection on representative English and Japanese articles and standalone applications.
-   Run the live test, inspect the rendered page and resource loading, and confirm the canonical
-   URL and indexing eligibility. Request indexing for representative entry pages if needed.
-8. Monitor the Page indexing report after deployment. An embedded app being excluded by `noindex`
-   is expected; an article or standalone application being excluded needs investigation.
 
 ## robots.txt and GitHub Pages project paths
 
@@ -88,27 +118,27 @@ Google reads robots.txt at the **host root**:
 This repository publishes below `/interactive-physics-olio/`. A file at
 `/interactive-physics-olio/robots.txt` or `/interactive-physics-olio/ja/robots.txt` cannot configure
 crawling. Therefore this project does not generate a misleading project-local robots.txt.
-If the host-root user site is managed separately, the following can be incorporated into its
-robots.txt, retaining any rules needed by other projects on the same host:
+The host repository already publishes the following `robots.txt`:
 
 ```text
 User-agent: *
-Allow: /interactive-physics-olio/
+Allow: /
 
-Sitemap: https://d1ssk.github.io/interactive-physics-olio/sitemap.xml
+Sitemap: https://d1ssk.github.io/sitemap-index.xml
 ```
 
-Without a robots.txt restriction, crawling is allowed by default; adding this file is not required
-to enable indexing. Search Console submission makes the sitemap discoverable without a robots.txt
-entry. Check the actual host-root response and rules when diagnosing production crawl problems.
+Maintain these host-wide rules in `d1ssk/d1ssk.github.io`, not this repository. The index
+advertises this project's child sitemap along with the other hosted projects. Check the actual
+host-root response and rules when diagnosing production crawl problems.
 
 ## Validation
 
 Run focused tests with `uv run pytest tests/test_seo.py tests/test_i18n.py` and the complete
 production build. Serve `site/` over loopback HTTP for local inspection. Verify the sitemap and
 representative English/Japanese article and standalone HTML responses before deploying. After
-deployment, check production HTTP responses, host-root robots.txt, and URL Inspection in Search
-Console. Local tests do not establish Google's crawl or index state.
+deployment, check production HTTP responses, the host sitemap index and its child sitemap URLs,
+host-root robots.txt, and URL Inspection in the host-wide Search Console property. Local tests do
+not establish Google's crawl or index state.
 
 Before completing a change, run `uv run python scripts/check.py --all --quiet`.
 

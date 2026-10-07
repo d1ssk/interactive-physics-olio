@@ -37,6 +37,9 @@ site/            generated output; never edit or commit
 
 Repository-specific development rules live in `AGENTS.md`.
 Search metadata policy and Search Console setup are documented in
-[`SEARCH_CONSOLE.md`](SEARCH_CONSOLE.md).
+[`SEARCH_CONSOLE.md`](SEARCH_CONSOLE.md). Use the host-wide `https://d1ssk.github.io/`
+URL-prefix property and submit `https://d1ssk.github.io/sitemap-index.xml` once; this
+project continues generating its own child `sitemap.xml`. Keep existing project ownership
+verification resources published.
 Reusable rules for bounded Pyodide/Wasm-style computation runtimes live in
 [`visualizations/BROWSER_COMPUTE.md`](visualizations/BROWSER_COMPUTE.md).
