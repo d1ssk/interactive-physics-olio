@@ -1371,13 +1371,9 @@ The left and right panels use the same coordinate ranges. The plotted Wigner con
 
 ## 8. Temporal phase coherence and the CMB acoustic peaks
 
-### From growing-mode dominance to acoustic initial conditions
+During the superhorizon freeze-out described in §5–7, the field retains finite amplitude fluctuations while its velocity fluctuations become small. For the test scalar in §6, the change per Hubble time is suppressed to $x^2\ll1$ relative to the amplitude. Suppression of the decaying mode leaves a conserved mode with an almost constant random amplitude. This is the starting point for understanding acoustic initial conditions.
 
-In §5–7, we saw that suppressing the decaying solution on superhorizon scales effectively reduces the random inputs needed for subsequent linear evolution to one amplitude per real standing-wave mode. In general, both a field amplitude and a velocity are needed as initial conditions. When only the growing solution remains, their ratio is fixed by that solution's time dependence. The thin Wigner ellipse in §6 shows this strong correlation in phase space. It does not imply that the velocity is always zero.
-
-Connecting this structure to the CMB requires assumptions about the perturbations after inflation. We assume standard single-field attractor inflation, followed by an adiabatic growing mode with no independent entropy perturbation and subsequent linear evolution. The test scalar's freeze-out in §5–6 illustrates conserved-mode dominance; that field is not itself the photon temperature perturbation.
-
-With the conserved primordial curvature perturbation denoted by $\zeta_{A,\mathbf k}^{\mathrm{prim}}$, the acoustic variable for each real standing-wave component $A=c,s$ of the photon–baryon fluid can then be written as
+In standard single-field attractor inflation, the superhorizon curvature perturbation $\zeta$ is also approximately conserved. If it feeds into an adiabatic growing mode with subsequent linear evolution, the acoustic variable for each real standing-wave component $A=c,s$ of the photon–baryon fluid can be written as
 
 $$
 X_{A,\mathbf k}(\eta)\simeq T_k(\eta)\zeta_{A,\mathbf k}^{\mathrm{prim}},
@@ -1385,42 +1381,18 @@ X_{A,\mathbf k}(\eta)\simeq T_k(\eta)\zeta_{A,\mathbf k}^{\mathrm{prim}},
 X_{A,\mathbf k}'(\eta)\simeq T_k'(\eta)\zeta_{A,\mathbf k}^{\mathrm{prim}}
 $$
 
-The transfer function $T_k$ is obtained by solving the later universe's perturbation equations with a unit primordial curvature perturbation as the initial condition. Specifying the background cosmology and wavenumber $k$ fixes its time dependence. Randomness between realizations is contained in the common factor $\zeta_{A,\mathbf k}^{\mathrm{prim}}$ multiplying both expressions.
+The transfer function $T_k$ is fixed by the background cosmology and wavenumber. Displacement and velocity share the same primordial amplitude $\zeta_{A,\mathbf k}^{\mathrm{prim}}$, so they are not independent random inputs. Realizations at the same $k$ share the times of zero crossings and extrema, despite their different amplitudes and signs. This is temporal phase coherence. The spatial Fourier phase $\arg\zeta_{\mathbf k}$ remains random.
 
-Thus, after choosing a displacement at an initial time, we do not choose the velocity as a second independent random number. Doubling the primordial amplitude doubles both displacement and velocity; reversing its sign reverses both. Realizations at the same $k$ therefore share the times of zero crossings and extrema, and squaring the amplitude removes the sign difference. This is the connection to temporal phase coherence.
-
-### Spatial phase and temporal phase
-
-This coherence does not align spatial Fourier phases. In a statistically homogeneous and isotropic Gaussian field, the spatial cosine and sine components $\zeta_{c,\mathbf k}$ and $\zeta_{s,\mathbf k}$ have equal variances. In
+Consider these initial conditions in an undriven oscillator with constant sound speed $c_s$. Select one real standing-wave component, and let $X_k$ represent a temperature or density displacement from a static gravitational equilibrium:
 
 $$
-\zeta_{\mathbf k}=\frac{\zeta_{c,\mathbf k}-i\zeta_{s,\mathbf k}}{\sqrt2}
+\begin{aligned}
+X_k(\eta)&=A_k\cos(kr_s)+B_k\sin(kr_s),\\
+r_s&=c_s(\eta-\eta_i)
+\end{aligned}
 $$
 
-the argument $\arg\zeta_{\mathbf k}$ is a random spatial Fourier phase whose value changes with the spatial origin. The phase relevant to CMB acoustic peaks is instead the temporal phase of compression and rarefaction at each wavenumber $k$. Even with random spatial phases, a definite temporal phase relation survives when displacement and velocity are set by the same growing mode.
-
-### Why the sine component is small in a simple oscillator
-
-To make this relation explicit, consider an undriven, undamped oscillator with constant sound speed $c_s$. Select one real standing-wave component and suppress its $c,s$ subscript. The model variable $X_k$ represents a temperature or density displacement measured from a static gravitational equilibrium:
-
-$$
-X_k''+(kc_s)^2X_k=0
-$$
-
-Choose an initial time $\eta_i$ and measure the acoustic distance from that time,
-
-$$
-r_s(\eta)=\int_{\eta_i}^{\eta}c_s\,d\eta'
-=c_s(\eta-\eta_i)
-$$
-
-The general solution is
-
-$$
-X_k(\eta)=A_k\cos(kr_s)+B_k\sin(kr_s)
-$$
-
-The cosine and sine are independent solutions in time, distinct from the spatial cosine and sine basis of §3. Since $r_s(\eta_i)=0$, evaluating the solution and its derivative initially gives
+Here, $\eta_i$ is the initial time, and $r_s$ is the acoustic distance measured from it. Evaluating the solution and its derivative initially gives
 
 $$
 A_k=X_k(\eta_i),
@@ -1428,63 +1400,22 @@ A_k=X_k(\eta_i),
 B_k=\frac{X_k'(\eta_i)}{kc_s}
 $$
 
-The cosine coefficient therefore specifies the initial displacement, and the sine coefficient specifies the initial velocity.
+The cosine coefficient specifies the initial displacement, and the sine coefficient specifies the initial velocity.
 
-For the usual adiabatic growing mode, a temperature or density displacement already exists at an early superhorizon epoch, well before appreciable acoustic oscillation. The displacement is nearly constant, while the fluid velocity is suppressed by spatial gradients. Representing this behavior in the model above, which omits evolving gravitational potentials and other effects, gives an oscillator released almost at rest from a random displacement. We approximate its initial conditions by
+For the adiabatic growing mode, a displacement already exists at an early superhorizon epoch, before appreciable acoustic oscillation, while spatial gradients suppress the fluid velocity. In this model, which omits evolving gravitational potentials and other effects, these conditions describe an oscillator released almost at rest from a random displacement. The initial velocity is small compared with $kc_s$ times the displacement, so $B_k$ is small relative to $A_k$, allowing the approximation $B_k\simeq0$. Cosine-type oscillations thus begin independently of the amplitude's magnitude and sign. [Hu & White](https://arxiv.org/abs/astro-ph/9602019) discuss the connection between these initial conditions and acoustic peaks.
 
-$$
-X_k(\eta_i)=C_k\zeta_k^{\mathrm{prim}},
-\qquad
-X_k'(\eta_i)\simeq0
-$$
-
-Here, $C_k$ is a deterministic conversion factor from primordial curvature to initial displacement, and $\zeta_k^{\mathrm{prim}}$ is the amplitude of the selected real standing-wave component. If a finite initial velocity is retained, we assume it is small compared with $kc_s$ times the displacement. Substituting these initial conditions into the coefficient formulas gives
-
-$$
-A_k=C_k\zeta_k^{\mathrm{prim}},
-\qquad B_k\simeq0
-$$
-
-Consequently, in this approximation,
-
-$$
-X_k(\eta)\simeq C_k\zeta_k^{\mathrm{prim}}\cos(kr_s),
-\qquad
-T_k(\eta)\simeq C_k\cos(kr_s)
-$$
-
-Realizations with different amplitude magnitudes and signs begin with the same oscillation phase, so their zero crossings align. [Hu & White](https://arxiv.org/abs/astro-ph/9602019) discuss the connection between adiabatic initial conditions and cosine-type acoustic oscillations, including gravitational driving.
-
-The relation $B_k\simeq0$ does not follow immediately from squeezing alone. Growing-mode dominance means that displacement and velocity are determined by one random amplitude. The additional approximation of the usual adiabatic initial conditions by an almost vanishing initial velocity in this oscillator gives the cosine-type solution. We are also not setting the velocity to zero at horizon re-entry.
-
-More generally, if the growing mode is represented in the two oscillator solutions by
-
-$$
-A_k=a_k\zeta_k^{\mathrm{prim}},
-\qquad
-B_k=b_k\zeta_k^{\mathrm{prim}}
-$$
-
-then $a_k,b_k$ are coefficients fixed by the background cosmology and initial conditions. Even when $b_k\neq0$, temporal phase remains coherent if the ratio $b_k/a_k$ is the same in every realization. A common phase origin can be chosen for all realizations at a given $k$, but a single shift of the time origin need not remove the phases at every $k$. The amplitudes are random, while realizations at the same wavenumber share the transfer function governing their subsequent evolution.
-
-### Peaks retained by a common temporal phase
-
-Compare this effect in two ensembles with the same total initial amplitude variance $\sigma^2$. The figure uses the simple cosine-type approximation above and defines the coherent ensemble by
+Compare two ensembles with the same total initial amplitude variance $\sigma^2$. In the coherent approximation above,
 
 $$
 \langle|A_k|^2\rangle=\sigma^2,
 \qquad B_k=0
 $$
 
-Then
-
 $$
 \langle|X_k|^2\rangle=\sigma^2\cos^2(kr_s)
 $$
 
-so averaging over random amplitudes preserves the oscillatory power pattern.
-
-If instead the cosine and sine solutions are independently excited, with
+so averaging over random amplitudes preserves the power oscillations. If instead the two temporal components are independent with equal variances,
 
 $$
 \langle|A_k|^2\rangle=\langle|B_k|^2\rangle
@@ -1499,15 +1430,13 @@ $$
 \langle|X_k|^2\rangle=\frac{\sigma^2}{2}
 $$
 
-Exciting the two temporal quadratures with equal variances and no correlation removes the oscillations from the mean power. The distinction is whether initial displacement and velocity are chosen independently or linked by a single growing mode; both ensembles have random amplitudes.
-
-Actual CMB transfer functions include gravitational driving, baryon inertia, neutrinos, Silk damping, recombination, and projection of three-dimensional perturbations onto the sky. They therefore depart from a simple cosine and can acquire phase shifts. Realizations at the same wavenumber still follow a common transfer function, giving rise to the sequence of acoustic peaks in the angular power spectrum $C_\ell$.
+and the mean power has no oscillations. The growing mode's relation between initial displacement and velocity is the key to retaining peaks.
 
 <iframe src="app/supporting.html?lang=en&amp;view=acoustic" title="Random acoustic realizations and coherent versus incoherent mean power" data-auto-height scrolling="no" style="display: block; width: 100%; height: 1400px; min-height: 650px; border: 0; overflow: hidden;" loading="eager"></iframe>
 
-In the coherent ensemble, realizations with different amplitudes and signs cross zero at the same times. In the ensemble with random temporal phases, zero crossings are scattered. The lower panels compare power estimated from a finite number of realizations with the ensemble mean. Holding the sound horizon $r_s$ fixed and varying the wavenumber $k$ turns the temporal oscillatory structure into a sequence of peaks in wavenumber space.
+In the figure, the coherent ensemble has common zero crossings, and its mean power in the lower panel retains oscillations. Holding the sound horizon $r_s$ at recombination fixed and varying the wavenumber $k$ turns these oscillations into a sequence of peaks in wavenumber space.
 
-The CMB acoustic peaks strongly indicate that primordial fluctuations were dominated by a coherent growing mode. Directly detecting the underlying quantum squeezing requires information beyond classical correlation functions.
+In the actual CMB, gravitational driving, baryons, neutrinos, damping, and recombination modify the transfer function and can shift its phase away from a simple cosine. Realizations at the same wavenumber still share a common transfer function, producing acoustic peaks in the angular power spectrum $C_\ell$ after projection onto the sky. These peaks reveal the phase structure of the growing mode. Direct detection of quantum squeezing itself requires information beyond classical correlation functions.
 
 ## Further notes and references
 
