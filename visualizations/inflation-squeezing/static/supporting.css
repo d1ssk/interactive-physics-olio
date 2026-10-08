@@ -1,7 +1,7 @@
 [data-view] section[data-view] { display: none; }
 html[data-view="background"] section[data-view="background"], html[data-view="squeezing"] section[data-view="squeezing"], html[data-view="basis"] section[data-view="basis"], html[data-view="samples"] section[data-view="samples"], html[data-view="acoustic"] section[data-view="acoustic"] { display: block; }
 .chart { width: 100%; height: 340px; min-width: 0; }
-#background-plot { height: 410px; }
+#background-plots .chart { height: 380px; }
 .chart-pair, .basis-cards, .matrix-pair { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
 .chart-pair > div { min-width: 0; }
 .chart-pair h3, .basis-cards h3, .matrix-pair h3 { font-size: 14px; }
@@ -22,9 +22,8 @@ html[data-view="background"] section[data-view="background"], html[data-view="sq
 .covariance { border-collapse:collapse; font-size: 12px; width: 100%; margin: 8px 0; font-variant-numeric: tabular-nums; }
 .covariance th, .covariance td { padding: 5px 3px; text-align:center; border: 1px solid var(--atlas-viz-border); }
 .covariance td { color: var(--ink); }.covariance th { background: var(--atlas-viz-panel-subtle); }
-.formula { overflow-x: auto; padding: 3px 0; }
 #support-error { color: var(--marker); }
-@media(max-width:650px) { .chart-pair, .basis-cards, .matrix-pair, .reality-diagram { grid-template-columns:1fr; } .k-plane { width:220px; margin:auto; } .chart { height:320px; } #background-plot { height:400px; } }
+@media(max-width:650px) { .chart-pair, .basis-cards, .matrix-pair, .reality-diagram { grid-template-columns:1fr; } .k-plane { width:220px; margin:auto; } .chart { height:320px; } }
 
 .k-positive, .k-negative { width: 0; height: 0; }
 .k-positive::before, .k-negative::before { content: ""; position: absolute; width: 10px; height: 10px; border-radius: 50%; background: currentColor; transform: translate(-50%, -50%); }

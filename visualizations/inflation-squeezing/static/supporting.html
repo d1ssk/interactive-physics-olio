@@ -25,27 +25,38 @@
 <main>
   <h2 id="figure-title"></h2><p id="figure-intro"></p>
   <section data-view="background">
-    <div class="controls"><label><span data-i18n="display"></span> <select id="background-choice"><option value="frequency" data-i18n="frequency"></option><option value="mode" data-i18n="mode"></option></select></label></div>
-    <div id="background-plot" class="chart" role="img"></div>
-    <p id="background-equation" class="formula"></p><p id="background-note" class="note"></p>
+    <div class="controls"><label><span data-i18n="display"></span> <select id="background-choice"><option value="mode" data-i18n="mode"></option><option value="late" data-i18n="lateMode"></option><option value="frequency" data-i18n="frequency"></option></select></label></div>
+    <div id="background-plots" class="chart-pair">
+      <div>
+        <h3 id="background-heading"></h3><div id="background-plot" class="chart" role="img"></div>
+        <p id="background-scale" class="note"></p><p id="background-equation" class="formula"></p>
+      </div>
+      <div id="background-secondary">
+        <h3 data-i18n="rescaledMode"></h3><div id="rescaled-plot" class="chart" role="img"></div>
+        <p data-i18n="rescaledScale" class="note"></p>
+        <p class="formula">\(\sqrt{2k}f_k=(1+i/x)e^{ix}\)</p>
+      </div>
+    </div>
+    <p id="background-note" class="note"></p>
   </section>
   <section data-view="squeezing">
     <div class="chart-pair"><div><h3 data-i18n="magnitude"></h3><div id="magnitude-plot" class="chart" role="img"></div></div><div><h3 data-i18n="angle"></h3><div id="angle-plot" class="chart" role="img"></div></div></div>
-    <p class="formula">\(r_k=\operatorname{arsinh}\!\left(\frac{1}{2x}\right)\), \(\varphi_k=-\tfrac12\arctan(2x)\)</p><p data-i18n="squeezingNote" class="note"></p>
+    <p class="formula"><span>\(r_k=\operatorname{arsinh}\!\left(\frac{1}{2x}\right)\)</span><span>\(\varphi_k=-\tfrac12\arctan(2x)\)</span></p><p data-i18n="squeezingNote" class="note"></p>
   </section>
   <section data-view="basis">
     <div class="reality-diagram">
       <div class="k-plane" role="img" id="k-plane"><div class="half-plane"></div><div class="axis-horizontal"></div><div class="axis-vertical"></div><span class="k-positive"><span>\(\mathbf k\)</span></span><span class="k-negative"><span>\(-\mathbf k\)</span></span><span class="k-half">\(\mathcal K_+\)</span><span class="k-origin">0</span></div>
-      <div><p data-i18n="halfspace"></p><p class="formula">\(v_{-\mathbf k}=v_{\mathbf k}^*\)</p><p class="formula">\(v_{\mathbf k}=(q_R+iq_I)/\sqrt2\)</p><p data-i18n="fieldNotOperator" class="note"></p></div>
+      <div><p data-i18n="halfspace"></p><p class="formula">\(v_{-\mathbf k}=v_{\mathbf k}^*\)</p><p class="formula">\(v_{\mathbf k}=\frac{q_{c,\mathbf k}-iq_{s,\mathbf k}}{\sqrt2}\)</p><p data-i18n="fieldNotOperator" class="note"></p></div>
     </div>
     <p class="same-state" data-i18n="sameState"></p>
     <div class="basis-cards">
       <section><h3 data-i18n="traveling"></h3><div class="mode-pair"><span>\(a_{\mathbf k}\)</span><span class="pair-link" data-i18n="paired"></span><span>\(a_{-\mathbf k}\)</span></div><p class="formula">\(is(a_{\mathbf k}^\dagger a_{-\mathbf k}^\dagger-a_{\mathbf k}a_{-\mathbf k})\)</p><p data-i18n="travelingNote" class="note"></p></section>
-      <section><h3 data-i18n="standing"></h3><div class="mode-pair"><span>\(b_R\)</span><span data-i18n="independent"></span><span>\(b_I\)</span></div><p class="formula">\(\tfrac{is}{2}\sum_{A=R,I}(b_A^{\dagger2}-b_A^2)\)</p><p data-i18n="standingNote" class="note"></p></section>
+      <section><h3 data-i18n="standing"></h3><div class="mode-pair"><span>\(b_{c,\mathbf k}\)</span><span data-i18n="independent"></span><span>\(b_{s,\mathbf k}\)</span></div><p class="formula">\(\frac{is}{2}\displaystyle\sum_{A=c,s}\) <span>\(\left(b_{A,\mathbf k}^{\dagger2}-b_{A,\mathbf k}^2\right)\)</span></p><p data-i18n="standingNote" class="note"></p></section>
     </div>
-    <div class="basis-transform"><span>\(b_R=(a_{\mathbf k}+a_{-\mathbf k})/\sqrt2\)</span><span>\(b_I=-i(a_{\mathbf k}-a_{-\mathbf k})/\sqrt2\)</span></div>
+    <div class="basis-transform"><span>\(b_{c,\mathbf k}=\frac{a_{\mathbf k}+a_{-\mathbf k}}{\sqrt2}\)</span><span>\(b_{s,\mathbf k}=\frac{i(a_{\mathbf k}-a_{-\mathbf k})}{\sqrt2}\)</span></div>
     <div class="controls"><label><span data-i18n="epoch"></span> <select id="basis-time"><option value="0" data-i18n="early"></option><option value="1" data-i18n="cross"></option><option value="2" selected data-i18n="late"></option></select></label></div>
-    <div class="matrix-pair"><div><h3 data-i18n="travelingCov"></h3><div id="traveling-matrix"></div></div><div><h3 data-i18n="standingCov"></h3><div id="standing-matrix"></div></div></div>
+    <div class="matrix-pair"><div><h3 data-i18n="travelingCov"></h3><p class="formula"><span>\(\mathbf Z_{\rm tr}=(Q_+,P_+,Q_-,P_-)^T\)</span></p><div id="traveling-matrix"></div></div><div><h3 data-i18n="standingCov"></h3><p class="formula"><span>\(\mathbf Z_{\rm st}=(Q_c,P_c,Q_s,P_s)^T\)</span></p><div id="standing-matrix"></div></div></div>
+    <p data-i18n="matrixCoordinates" class="note"></p>
     <p data-i18n="matrixNote" class="note"></p>
   </section>
   <section data-view="samples">

@@ -75,8 +75,8 @@ def acoustic_power(phase: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
 
 
 def standing_to_traveling() -> np.ndarray:
-    """Map (Q_R,P_R,Q_I,P_I) to (Q_+,P_+,Q_-,P_-), a_+=(b_R+i b_I)/sqrt(2)."""
-    return np.array([[1, 0, 0, -1], [0, 1, 1, 0], [1, 0, 0, 1], [0, 1, -1, 0]]) / np.sqrt(2)
+    """Map (Q_c,P_c,Q_s,P_s) to (Q_+,P_+,Q_-,P_-), a_+=(b_c-i b_s)/sqrt(2)."""
+    return np.array([[1, 0, 0, 1], [0, 1, -1, 0], [1, 0, 0, -1], [0, 1, 1, 0]]) / np.sqrt(2)
 
 
 def pair_covariances(x: float) -> tuple[np.ndarray, np.ndarray]:
@@ -100,6 +100,7 @@ def mode_history(times: np.ndarray) -> dict[str, np.ndarray]:
         "background": 2 / x**2,
         "rescaled": rescaled,
         "field": x * rescaled,
+        "field_decaying_asymptote": x**3 / 3,
     }
 
 

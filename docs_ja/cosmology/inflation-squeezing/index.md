@@ -1,4 +1,4 @@
-# インフレーションの量子揺らぎと squeezing 
+# インフレーションの量子揺らぎと squeezing
 
 ## 1. インフレーションは何を生成するのか
 
@@ -16,7 +16,9 @@
 
 以下の図は、これから詳しく追う時間発展を先取りして示したものです。
 
-![共通の quadrature 座標軸で見た Wigner 等高線の三つの時期](app/teaser.svg)
+<figure style="margin-inline: auto; text-align: center;">
+  <img src="app/teaser.svg" alt="共通の quadrature 座標軸で見た Wigner 等高線の三つの時期" width="720" height="250" style="display: block; max-width: 100%; height: auto; margin-inline: auto;">
+</figure>
 
 一つの定在波モードの Wigner 関数の等高線を、三つの時刻について同じ位相空間上に示しています。横軸は場の振幅、縦軸は正準運動量に対応する quadrature です。初期にはほぼ円形だった分布が、時間とともに細長い楕円へ変形していく様子が、この後で扱う squeezing の全体像です。
 
@@ -171,7 +173,7 @@ $$
 
 その結果、初めに円形だった Gaussian 状態の Wigner 関数は、一般には回転しながら楕円へと変形します。特に vacuum や coherent state のような等方的な最小不確定状態から出発すると、一方の quadrature の揺らぎが真空揺らぎより小さくなり、共役な方向の揺らぎが大きくなる squeezing が生じます。
 
-### Heisenberg 描像：固定した軸で状態の変化を見る
+### Heisenberg 描像：演算子の時間発展と Bogoliubov 混合
 
 同じ固定基底を Heisenberg 描像で見てみます。今度は状態を固定し、
 
@@ -286,7 +288,7 @@ $$
 
 例えば後に詳しく見るように、インフレーション中の Mukhanov-Sasaki mode では、有効振動数の二乗が正から負へ変化します。subhorizon では通常の振動子として振る舞い、正周波数 mode や粒子・真空の概念が自然に使えますが、superhorizon では振動的な粒子描像は適切でなくなり、growing/decaying mode や squeezing の言葉の方が自然になります。
 
-このような領域まで一貫して Wigner 関数の時間発展を追うには、固定した $Q,P$ 軸による記述が見通しのよい表現になります。以下では主にこの記述を用います。
+以下では、時間発展の計算には主に Heisenberg 描像を用い、Bogoliubov 係数やモード関数から共分散を求めます。その共分散を使い、Schrödinger 描像での状態の Wigner 関数を、固定した $Q,P$ 軸の上に描きます。ここで「固定した軸」とは、瞬間基底に合わせて座標を取り直さないという意味であり、計算を Schrödinger 描像で行うという意味ではありません。このように、演算子の時間発展を計算し、その結果を状態の分布の変形として表示することで、振動的な領域から superhorizon まで一貫して追うことができます。
 
 ## 3. 実スカラー場のモードと自由度
 
@@ -406,11 +408,11 @@ $a_{\mathbf k}$ は空間依存性 $e^{i\mathbf k\cdot\mathbf x}$ を持つモ�
 $$
 \hat v_{\mathbf k}
 =
-\frac{\hat q_c-i\hat q_s}{\sqrt2},
+\frac{\hat q_{c,\mathbf k}-i\hat q_{s,\mathbf k}}{\sqrt2},
 \qquad
 \hat v_{-\mathbf k}
 =
-\frac{\hat q_c+i\hat q_s}{\sqrt2}
+\frac{\hat q_{c,\mathbf k}+i\hat q_{s,\mathbf k}}{\sqrt2}
 $$
 
 と分解すると、場の演算子は
@@ -429,42 +431,43 @@ $$
 
 と書けます。ただしここでも零モードは省略しています。
 
-$\hat q_c,\hat q_s$ は Hermitian 演算子であり、cos 型と sin 型の二つの実配置自由度を表します。
+$\hat q_{c,\mathbf k},\hat q_{s,\mathbf k}$ は Hermitian 演算子であり、cos 型と sin 型の二つの実配置自由度を表します。
 
 正準運動量についても同様に
 
 $$
 \hat\pi_{\mathbf k}
 =
-\frac{\hat p_c-i\hat p_s}{\sqrt2}
+\frac{\hat p_{c,\mathbf k}-i\hat p_{s,\mathbf k}}{\sqrt2}
 $$
 
 と分解すると、
 
 $$
-[\hat q_A,\hat p_B]=i\delta_{AB},
-\qquad
-[\hat q_A,\hat q_B]=[\hat p_A,\hat p_B]=0,
-\qquad A,B=c,s
+[\hat q_{A,\mathbf k},\hat p_{B,\mathbf k^{\prime}}]=i\delta_{AB}\delta_{\mathbf k,\mathbf k^{\prime}},
 $$
 
-が成り立ちます。したがって、各波数対は二つの独立な実調和振動子として扱えます。
+$$
+[\hat q_{A,\mathbf k},\hat q_{B,\mathbf k^{\prime}}]=[\hat p_{A,\mathbf k},\hat p_{B,\mathbf k^{\prime}}]=0
+$$
+
+が成り立ちます。ここで $A,B=c,s$、$\mathbf k,\mathbf k^{\prime}\in\mathcal K_+$ です。したがって、各波数対は二つの独立な実調和振動子として扱えます。
 
 それぞれの振動子に対して、進行波基底と同じ基準周波数 $k$ を用いて
 
 $$
-b_A
+b_{A,\mathbf k}
 =
 \frac1{\sqrt2}
 \left(
-\sqrt{k}\,\hat q_A
+\sqrt{k}\,\hat q_{A,\mathbf k}
 +
-\frac{i\hat p_A}{\sqrt{k}}
+\frac{i\hat p_{A,\mathbf k}}{\sqrt{k}}
 \right),
 \qquad A=c,s
 $$
 
-と定義します。$b_c,b_s$ は、それぞれ cos 型と sin 型の**定在波モード（standing-wave modes）**の消滅演算子です。
+と定義します。$b_{c,\mathbf k},b_{s,\mathbf k}$ は、それぞれ cos 型と sin 型の**定在波モード（standing-wave modes）**の消滅演算子です。
 
 これらと進行波モードの消滅演算子の関係は、
 
@@ -472,10 +475,10 @@ $$
 \begin{aligned}
 a_{\mathbf k}
 &=
-\frac{b_c-ib_s}{\sqrt2},\\
+\frac{b_{c,\mathbf k}-ib_{s,\mathbf k}}{\sqrt2},\\
 a_{-\mathbf k}
 &=
-\frac{b_c+ib_s}{\sqrt2}
+\frac{b_{c,\mathbf k}+ib_{s,\mathbf k}}{\sqrt2}
 \end{aligned}
 $$
 
@@ -491,9 +494,9 @@ a_{\mathbf k}|0\rangle
 a_{-\mathbf k}|0\rangle
 =0
 \quad\Longleftrightarrow\quad
-b_c|0\rangle
+b_{c,\mathbf k}|0\rangle
 =
-b_s|0\rangle
+b_{s,\mathbf k}|0\rangle
 =0
 $$
 
@@ -694,11 +697,11 @@ $r_k$ は **squeezing parameter** と呼ばれ、squeezing の強さを表しま
 $$
 a_{\mathbf k}
 =
-\frac{b_c-ib_s}{\sqrt2},
+\frac{b_{c,\mathbf k}-ib_{s,\mathbf k}}{\sqrt2},
 \qquad
 a_{-\mathbf k}
 =
-\frac{b_c+ib_s}{\sqrt2}
+\frac{b_{c,\mathbf k}+ib_{s,\mathbf k}}{\sqrt2}
 $$
 
 です。この変換を Hamiltonian に代入すると、
@@ -708,10 +711,10 @@ H_{\eta,\mathbf k}
 =
 \sum_{A=c,s}
 \left[
-k\left(b_A^\dagger b_A+\frac12\right)
+k\left(b_{A,\mathbf k}^\dagger b_{A,\mathbf k}+\frac12\right)
 +
 \frac{is}{2}
-\left(b_A^{\dagger2}-b_A^2\right)
+\left(b_{A,\mathbf k}^{\dagger2}-b_{A,\mathbf k}^2\right)
 \right]
 $$
 
@@ -722,20 +725,20 @@ $$
 実際、Heisenberg 方程式は
 
 $$
-\frac{db_A(\eta)}{d\eta}
+\frac{db_{A,\mathbf k}(\eta)}{d\eta}
 =
--ik\,b_A(\eta)
-+s(\eta)b_A^\dagger(\eta)
+-ik\,b_{A,\mathbf k}(\eta)
++s(\eta)b_{A,\mathbf k}^\dagger(\eta)
 $$
 
 となり、
 
 $$
-b_A(\eta)
+b_{A,\mathbf k}(\eta)
 =
-\alpha_k(\eta)b_A^{\mathrm{in}}
+\alpha_k(\eta)b_{A,\mathbf k}^{\mathrm{in}}
 +
-\beta_k(\eta)b_A^{\mathrm{in}\dagger}
+\beta_k(\eta)b_{A,\mathbf k}^{\mathrm{in}\dagger}
 $$
 
 という single-mode の Bogoliubov 変換が得られます。
@@ -752,9 +755,9 @@ $$
 は
 
 $$
-b_c^{\mathrm{in}}|0_{\mathrm{BD}}\rangle
+b_{c,\mathbf k}^{\mathrm{in}}|0_{\mathrm{BD}}\rangle
 =
-b_s^{\mathrm{in}}|0_{\mathrm{BD}}\rangle
+b_{s,\mathbf k}^{\mathrm{in}}|0_{\mathrm{BD}}\rangle
 =0
 $$
 
@@ -791,19 +794,19 @@ $$
 §3 で導入した二つの実定在波モード $A=c,s$ のそれぞれについて、正準変数と運動量を
 
 $$
-q_A=a\phi_A,
+q_{A,\mathbf k}=a\phi_{A,\mathbf k},
 \qquad
-p_A=q_A'-\mathcal Hq_A=a\phi_A'
+p_{A,\mathbf k}=q_{A,\mathbf k}'-\mathcal Hq_{A,\mathbf k}=a\phi_{A,\mathbf k}'
 $$
 
 と定義します。これは §4 の $s=z'/z$ を $s=\mathcal H$ に置き換えたものに対応し、同じ形の Hamiltonian が得られます。モード方程式は
 
 $$
-q_A''
+q_{A,\mathbf k}''
 +
 \left(
 k^2-\frac2{\eta^2}
-\right)q_A=0
+\right)q_{A,\mathbf k}=0
 $$
 
 です。
@@ -821,10 +824,10 @@ $$
 §4 で得た Heisenberg 方程式
 
 $$
-b_A'(\eta)
+b_{A,\mathbf k}'(\eta)
 =
--ik\,b_A(\eta)
-+s(\eta)b_A^\dagger(\eta)
+-ik\,b_{A,\mathbf k}(\eta)
++s(\eta)b_{A,\mathbf k}^\dagger(\eta)
 $$
 
 において、今は
@@ -838,11 +841,11 @@ $$
 Bogoliubov 変換
 
 $$
-b_A(\eta)
+b_{A,\mathbf k}(\eta)
 =
-\alpha_k(\eta)b_A^{\mathrm{in}}
+\alpha_k(\eta)b_{A,\mathbf k}^{\mathrm{in}}
 +
-\beta_k(\eta)b_A^{\mathrm{in}\dagger}
+\beta_k(\eta)b_{A,\mathbf k}^{\mathrm{in}\dagger}
 $$
 
 を代入すると、
@@ -928,9 +931,9 @@ $$
 $$
 q_{A,\mathbf k}(\eta)
 =
-f_k(\eta)b_A^{\mathrm{in}}
+f_k(\eta)b_{A,\mathbf k}^{\mathrm{in}}
 +
-f_k^*(\eta)b_A^{\mathrm{in}\dagger}
+f_k^*(\eta)b_{A,\mathbf k}^{\mathrm{in}\dagger}
 $$
 
 と展開すると、Bogoliubov 変換との比較から、
@@ -1021,26 +1024,26 @@ $$
 
 元の場の揺らぎが一定値に近づく一方、正準変数 $q_{A,\mathbf k}=a\phi_{A,\mathbf k}$ の量子状態は強く squeezing され続けます。保存モードの優勢化と squeezing の発達は、同じ量子時間発展を異なる側面から捉えたものです。
 
-次節では、この時間発展を固定した quadrature 座標上の Wigner 関数として調べます。
+下の図では、元の場のモード関数 $f_k/a$ と正準変数のモード関数 $f_k$ を別々のパネルに示しています。縦軸はそれぞれ $H/\sqrt{2k^3}$ と $1/\sqrt{2k}$ を単位とする実部・虚部・絶対値です。「superhorizon の保存・減衰成分」では、$f_k/a$ の虚部と実部の絶対値を $H/\sqrt{2k^3}$ で割って対数表示し、それぞれ 1 と $x^3/3$ に近づく様子を確認できます。実部と虚部の役割は上で選んだ位相規約によるものであり、場の凍結そのものはこの規約に依存しません。
 
 <iframe src="app/supporting.html?lang=ja&amp;view=background" title="背景項と厳密de Sitterモード関数" data-auto-height scrolling="no" style="display: block; width: 100%; height: 900px; min-height: 650px; border: 0; overflow: hidden;" loading="eager"></iframe>
 
-## 6. Visualization
+## 6. Wigner 関数の時間発展：Bogoliubov 変換と Hamilton flow
 
-ここまで求めた時間発展を、一つの実定在波モード $A=c,s$ の位相空間上で見てみます。
+ここまで求めた時間発展を、一つの実定在波モードの位相空間上で見てみます。以下では波数対と $A=c,s$ の一方を固定し、$q=q_{A,\mathbf k}$、$p=p_{A,\mathbf k}$、$\phi=\phi_{A,\mathbf k}$ と略記します。
 
 §2 と同じく、固定した基準周波数 $k$ による無次元の quadrature
 
 $$
-Q=\sqrt{k}\,q_A=\sqrt{k}\,a\phi_A,
+Q=\sqrt{k}\,q=\sqrt{k}\,a\phi,
 $$
 
 $$
-P=\frac{p_A}{\sqrt{k}}
+P=\frac{p}{\sqrt{k}}
 =
-\frac{q_A'-\mathcal Hq_A}{\sqrt{k}}
+\frac{q'-\mathcal Hq}{\sqrt{k}}
 =
-\frac{a\phi_A'}{\sqrt{k}}
+\frac{a\phi'}{\sqrt{k}}
 $$
 
 を使います。これらは
@@ -1053,13 +1056,7 @@ $$
 
 時間発展の計算には Heisenberg 描像の演算子を用いますが、図は Schrödinger 描像に対応させ、**固定した $Q,P$ 軸の上で量子状態の Wigner 関数が変形する様子**を示しています。座標軸の向き、縮尺、表示範囲はすべてのフレームで固定しています。
 
-時間は $N=-\ln x$ で表し、$x=12$ から $x=0.2$ まで動かせます。
-
-<iframe src="app/index.html?lang=ja" title="インフレーションの squeezing：回転・スクイーズ・合成Hamilton流" data-auto-height scrolling="no" style="display: block; width: 100%; height: 1800px; min-height: 900px; border: 0; overflow: hidden;" loading="eager"></iframe>
-
-最初の二つのパネルでは Hamilton flow の回転成分と squeezing 成分を別々に示し、3番目のパネルでは合成した流れと Wigner 関数の等高線を重ねています。
-
-### Bogoliubov 変換から Wigner 関数へ
+### 共分散行列と Wigner 楕円
 
 位相空間座標と共分散行列を
 
@@ -1129,7 +1126,7 @@ $$
 \mathbf Z^T\Sigma^{-1}\mathbf Z=1
 $$
 
-を満たす等高線を描いています。
+を満たす等高線を描いています。この等高線の時間発展を、[下のアニメーション](#main-animation)の3番目のパネルで確認できます。
 
 共分散行列の固有値は
 
@@ -1149,86 +1146,6 @@ $$
 
 は時間によらず一定です。Squeezing は、一方向の揺らぎを小さくしながら共役な方向の揺らぎを大きくする、位相空間の面積を保存した変形です。
 
-楕円の長軸が正の $Q$ 軸となす角度を $\varphi_k$ とすると、
-
-$$
-\varphi_k
-=
-\frac12\arg(\alpha_k\beta_k)
-=
--\frac12\arctan(2x)
-$$
-
-となります。
-
-Squeezing の強さだけでなく、楕円の向きも Bogoliubov 係数から決まります。初期にはほぼ円形だった分布が次第に細長くなり、その長軸は $Q$ 軸へ近づいていきます。
-
-<iframe src="app/supporting.html?lang=ja&amp;view=squeezing" title="e-fold時間に対する squeezing の大きさと長軸の角度" data-auto-height scrolling="no" style="display: block; width: 100%; height: 900px; min-height: 650px; border: 0; overflow: hidden;" loading="eager"></iframe>
-
-### 成長解と Wigner 楕円の関係
-
-§5 では、superhorizon で減衰解の寄与が小さくなり、場の振幅がほぼ一つの初期 quadrature で決まることを見ました。
-
-これが位相空間でどのように現れるかを考えます。
-
-共分散行列から、
-
-$$
-\operatorname{Var}(Q)
-=
-\frac12\left(1+\frac1{x^2}\right),
-\qquad
-\operatorname{Var}(P)=\frac12
-$$
-
-です。
-
-$Q$ 方向の分散は増大しますが、$P$ 方向の周辺分散は一定のままです。小さくなるのは $P$ 単独の揺らぎではなく、$Q$ と $P$ の特定の線形結合の揺らぎです。
-
-実際、
-
-$$
-\operatorname{Var}(P+xQ)=\frac{x^2}{2}
-$$
-
-が成り立ちます。
-
-この関係は、§5 のモード関数からも直接確認できます。初期 quadrature を使うと、
-
-$$
-P+xQ
-=
-x\left(
-\cos x\,Q_A^{\mathrm{in}}
--
-\sin x\,P_A^{\mathrm{in}}
-\right)
-$$
-
-となるためです。
-
-Superhorizon ではこの組合せの揺らぎが小さくなり、位相空間上の分布は
-
-$$
-P\simeq-xQ
-$$
-
-という関係の近くに集中します。
-
-これは、成長解に支配されたモードの位相空間での振る舞いに対応しています。実際、§5 の $q_g\propto a$ に対して、superhorizon では
-
-$$
-Q_g\propto\frac1x,
-\qquad
-P_g\simeq-xQ_g
-$$
-
-となります。
-
-Wigner 楕円の長軸はこの方向へ近づき、直交する方向の幅が小さくなります。
-
-ただし、成長・減衰解は運動方程式の独立な解であり、Wigner 楕円の主軸は量子状態の共分散から定まります。有限時刻では両者の方向は必ずしも一致せず、superhorizon 極限で上の対応が明瞭になります。
-
 ### Hamilton flow：回転と squeezing
 
 この Wigner 分布の変形を生み出す Hamilton flow を調べます。
@@ -1236,13 +1153,11 @@ Wigner 楕円の長軸はこの方向へ近づき、直交する方向の幅が�
 §4 の Hamiltonian を固定した quadrature で書き、時間変数を共形時間 $\eta$ から $N$ に変えると、
 
 $$
-\boxed{
 K_N
 =
 \frac{x}{2}(Q^2+P^2)
 +
 \frac12(QP+PQ)
-}
 $$
 
 となります。
@@ -1304,6 +1219,14 @@ $$
 
 なので、位相空間の面積が保存されます。これは先ほど得た $\det\Sigma=1/4$ が一定であることとも対応しています。
 
+<span id="main-animation"></span>
+
+### Wigner 楕円と Hamilton flow をアニメーションで見る
+
+時間は $N=-\ln x$ で表し、$x=12$ から $x=0.2$ まで動かせます。最初の二つのパネルは回転成分と squeezing 成分のベクトル場、3番目は合成した流れと、その流れで発展する Wigner 等高線です。最初の二つが別々の量子状態の時間発展を示しているわけではありません。
+
+<iframe src="app/index.html?lang=ja" title="インフレーションの squeezing：回転・スクイーズ・合成Hamilton流" data-auto-height scrolling="no" style="display: block; width: 100%; height: 1800px; min-height: 900px; border: 0; overflow: hidden;" loading="eager"></iframe>
+
 アニメーションでは、次の変化を追ってみてください。
 
 1. **Subhorizon（$x\gg1$）：** 回転が優勢で、Wigner 分布はほぼ円形です。表示開始時にわずかに楕円なのは、$x=\infty$ ではなく $x=12$ から描いているためです。
@@ -1312,170 +1235,96 @@ $$
 
 なお、アニメーション中のベクトル場は見やすさのため、矢印の長さに $1/\sqrt{1+x^2}$ と共通の描画倍率を掛けています。Wigner 関数の時間発展にはこの補正を加えていません。
 
-ここまで見てきた Bogoliubov 混合、成長解の優勢化、Wigner 分布の squeezing は、すべて同じ量子時間発展を異なる表現で捉えたものです。
+方向の表示を切り替えるときは、瞬間的な流れの固有方向、共分散行列で決まる楕円の主軸、成長・減衰する厳密解の方向を区別してください。これらは有限時刻では一般に一致せず、厳密解の二方向も一般に直交しません。
 
-元の場の振幅は superhorizon で一定値に近づきますが、正準変数の位相空間では、一方向の揺らぎが増幅され、共役な方向の揺らぎが抑えられていきます。こうして揺らぎは、ほぼ一つの確率的な振幅と、それに共通する成長解の時間発展によって特徴づけられるようになります。
+### squeezing の強さと楕円の向き
 
-この構造が、原始揺らぎの古典的な統計記述と、再突入後の音響振動における時間位相のコヒーレンスを理解する出発点になります。
+上のアニメーションで見た楕円の伸びと回転を、squeezing parameter と長軸の角度で定量的に調べます。
 
-## 8. 成長・減衰モードと位相空間の方向
-
-superhorizon で勾配項を無視すると、
+楕円の長軸が正の $Q$ 軸となす角度を $\varphi_k$ とすると、
 
 $$
-q''
--
-\frac{z''}{z}q
-\simeq0
-$$
-
-です。
-
-一般解は
-
-$$
-q
+\varphi_k
 =
-Cz
-+
-Dz
-\int^\eta
-\frac{d\eta'}{z^2(\eta')}
-$$
-
-と書けます。
-
-今回の正準運動量
-
-$$
-p=q'-\frac{z'}zq
-$$
-
-を使えば、
-
-$$
-p=\frac Dz
+\frac12\arg(\alpha_k\beta_k)
+=
+-\frac12\arctan(2x)
 $$
 
 となります。
 
-積分の積分定数は $C$ に吸収できます。
+Squeezing の強さだけでなく、楕円の向きも Bogoliubov 係数から決まります。初期にはほぼ円形だった分布が次第に細長くなり、その長軸は $Q$ 軸へ近づいていきます。
 
-アトラクター型のインフレーションでは、第1項は
+下の図はアニメーションより遅い時刻まで含め、Hubble crossing 後4 e-foldまでの変化を示しています。
 
-$$
-\zeta=\frac qz=C
-$$
+<iframe src="app/supporting.html?lang=ja&amp;view=squeezing" title="e-fold時間に対する squeezing の大きさと長軸の角度" data-auto-height scrolling="no" style="display: block; width: 100%; height: 900px; min-height: 650px; border: 0; overflow: hidden;" loading="eager"></iframe>
 
-という一定の曲率摂動を与えます。一方、第2の独立解は時間とともに減衰します。
+### 場の速度の揺らぎと凍結
 
-テストスカラー場では $z$ を $a$ に置き換えればよく、
-
-$$
-q\simeq Ca
-$$
-
-と成長する一方で、
-
-$$
-\phi_A=\frac qa
-$$
-
-は一定値へ近づきます。
-
-これが「再スケールした変数は大きく伸びるが、元の場は凍結する」という関係です。
-
-ただし、勾配項を完全に捨てた極限だけから、有限の $k$ における成長解の正準運動量が厳密にゼロだと結論することはできません。
-
-図で用いている厳密な成長解・減衰解のベクトルは、例えば
-
-$$
-\mathbf G(x)
-=
-\begin{pmatrix}
-\sin x+\cos x/x\\
--\cos x
-\end{pmatrix},
-$$
-
-$$
-\mathbf D(x)
-=
-\begin{pmatrix}
-\cos x-\sin x/x\\
-\sin x
-\end{pmatrix}
-$$
-
-と取れます。
-
-$x\ll1$ では
-
-$$
-\mathbf G
-\sim
-\begin{pmatrix}
-x^{-1}\\
--1
-\end{pmatrix},
-\qquad
-\mathbf D
-\sim
-\begin{pmatrix}
--x^2/3\\
-x
-\end{pmatrix}.
-$$
-
-[メインのアニメーション](#main-animation)で**厳密な成長解・減衰解の方向**を表示し、同じ時刻の**Wigner 楕円の主軸**と比較してください。
-
-成長・減衰モードは時間発展方程式の二つの独立解です。一方、楕円の主軸は共分散行列の固有ベクトルであり、瞬間的な流れの方向とも別の概念です。
-
-そのため、有限時刻ではこれらは一般に一致しません。また、$\mathbf G$ と $\mathbf D$ は互いに直交しませんが、共分散楕円の長軸と短軸は定義上直交します。
-
-ただし $x\to0$ の極限では、長軸と短軸はそれぞれ成長解と減衰解の極限方向へ近づきます。この意味で「スクイーズされた短軸が減衰モードに対応する」と表現できます。
-
- squeezing によって狭くなる方向は、条件付き分布を見るとさらに明確になります。
-
-共分散行列から、
-
-$$
-\mathbb E[P\mid Q]
-=
--\frac{x}{1+x^2}Q
-$$
-
-および
-
-$$
-\operatorname{Var}(P\mid Q)
-=
-\frac{x^2}{2(1+x^2)}
-$$
-
-が得られます。
-
-一方、
+この楕円の変形は、元の場がほぼ一定の振幅を保つ「凍結」とどう結びつくのでしょうか。まず、図の $P$ は元の場の時間微分そのものではなく、$P=a\phi'/\sqrt{k}$ です。共分散行列から
 
 $$
 \operatorname{Var}(P)=\frac12
 $$
 
-は時間によらず一定です。
-
-つまり、$P$ 自体の周辺分布が細くなるわけではありません。$Q$ が与えられたとき、古典的な軌道に対応する関係
+は一定です。短軸が $P$ 軸へ近づいても、$P$ 方向に射影した分布の幅がゼロになるわけではありません。小さくなるのは、$Q$ を与えたときに残る幅です。正の Gaussian Wigner 密度について、
 
 $$
-P\simeq-\frac{x}{1+x^2}Q
+\mathbb E[P\mid Q]=-\frac{x}{1+x^2}Q,
+\qquad
+\operatorname{Var}(P\mid Q)=\frac{x^2}{2(1+x^2)}
 $$
 
-から外れる幅が小さくなっていきます。
+となり、superhorizon では $P\simeq-xQ$ の近くに分布が集中します。ここでの条件付けは Wigner 密度に対する数学的な操作であり、$Q,P$ の同時射影測定を意味しません。
 
-ここでの条件付き分布は、正の Wigner 関数を通常の Gaussian 密度として扱ったときの数学的な条件付けです。$Q$ と $P$ の同時射影測定を表しているわけではありません。
+一方、元の場の速度の揺らぎは、モード関数を微分すれば直接求められます。§5 の厳密解と $dx/d\eta=-k$ から、
 
-また、減衰モードの**寄与**が相対的に小さくなることは、その解に掛かる時間非依存の積分定数 $D$ 自体が時間とともに消えることを意味しません。
+$$
+\left(\frac{f_k}{a}\right)'
+=-\frac{i}{a}\sqrt{\frac{k}{2}}\,e^{ix}
+$$
 
-## 9. 摂動が古典的に見える理由
+です。Bunch–Davies 真空では $\langle\phi\rangle=\langle\phi'\rangle=0$ なので、速度の二乗期待値はその分散に等しく、
+
+$$
+\left\langle(\phi')^2\right\rangle
+=\left|\left(\frac{f_k}{a}\right)'\right|^2
+=\frac{k}{2a^2}
+$$
+
+となります。宇宙時刻での速度 $\dot\phi=\phi'/a$ については、
+
+$$
+\left\langle\dot\phi^{\,2}\right\rangle
+=\frac{k}{2a^4}
+\longrightarrow0
+$$
+
+です。これに対して場の振幅は、§5 で求めたように
+
+$$
+\langle\phi^2\rangle
+=\frac{H^2}{2k^3}(1+x^2)
+\longrightarrow\frac{H^2}{2k^3}
+$$
+
+という有限の分散を保ちます。Hubble 時間あたりの変化の小ささは、無次元の比
+
+$$
+\frac{\sqrt{\langle\dot\phi^{\,2}\rangle}}
+{H\sqrt{\langle\phi^2\rangle}}
+=\frac{x^2}{\sqrt{1+x^2}}
+\simeq x^2
+\qquad(x\ll1)
+$$
+
+で表せます。例えば $x=0.1$ では約 $0.01$ です。**振幅には有限の幅を持つ重ね合わせが残りながら、元の場の時間変化は小さくなる**。これが、このモデルでの凍結の具体的な意味です。正準変数 $q=a\phi$ はその間も成長します。
+
+ここで $\phi$ と $\dot\phi$ は正準共役な組ではなく、$[\hat\phi,\hat{\dot\phi}]=i/a^3$ です。速度の幅が小さくなることは、固定した正準 quadrature の $[\hat Q,\hat P]=i$ や $\det\Sigma=1/4$ と両立します。
+
+減衰解の寄与が抑えられると、その後の線形発展に必要な独立なランダム入力は実効的に一つの振幅に絞られます。この構造が、次に述べる古典的な統計記述と、再突入後の音響振動の時間位相を結びます。
+
+## 7. 摂動が古典的に見える理由
 
 量子状態の平均値がゼロでも、その分散がゼロとは限りません。
 
@@ -1517,7 +1366,7 @@ $$
 
 では、なぜこの量子状態を後の宇宙では古典的なランダム場として扱えるのでしょうか。
 
-まず、この系は Gaussian 状態のまま時間発展し、その Wigner 関数は正です。そのため、同時刻の対称順序相関関数は、Wigner 関数を確率密度とみなした古典的な Gaussian 集団で再現できます。
+まず、この系は Gaussian 状態のまま時間発展し、その Wigner 関数は正です。そのため、同時刻の対称順序（Weyl 順序）相関関数は、Wigner 関数を確率密度とみなした古典的な Gaussian 集団で再現できます。この性質は squeezing が弱い初期真空にもあります。大きな squeezing が付け加えるのは、場と運動量の関係がほぼ一つの成長解に絞られることです。
 
 さらに大きな squeezing によって、
 
@@ -1537,7 +1386,7 @@ $$
 
 は残り、波動関数が自発的に収縮するわけでも、純粋状態が時間発展だけで混合状態へ変わるわけでもありません。
 
-環境との相互作用によるデコヒーレンスは、 squeezing とは別の物理過程です。
+環境との相互作用によるデコヒーレンスは、squeezing とは別の物理過程です。
 
 この「古典的な統計で再現できること」と「量子状態そのものが古典状態になること」の違いは、原始揺らぎの量子的起源を議論するときに重要です。詳しくは [Martin & Vennin](https://arxiv.org/abs/1510.04038) を参照してください。
 
@@ -1545,22 +1394,22 @@ $$
 
 時刻スライダーを初期から最後まで動かしてください。
 
-時間発展によってランダムさそのものが消えるわけではありません。長軸方向に許される振幅の範囲は大きくなる一方で、オレンジ色の条件付き平均線から横方向へ外れる幅が小さくなります。
+時間発展によってランダムさそのものが消えるわけではありません。長軸方向に許される振幅の範囲は大きくなる一方で、オレンジ色の条件付き平均線から $P$ 方向へ外れる幅が小さくなります。
 
 左右のパネルでは同じ座標範囲を使っています。描かれている Wigner 等高線が囲む確率重みは約39%なので、サンプル点の多くが楕円の外側に現れることも自然です。
 
-## 10. 音響振動の位相コヒーレンスと CMB
+## 8. 音響振動の位相コヒーレンスと CMB
 
 ここまで見てきた squeezing は、CMB の音響ピークとも深く関係しています。
 
 ただし、まず「位相が揃う」という表現の意味を区別する必要があります。
 
-統計的に一様・等方的な Gaussian 場では、二つの定在波成分 $\zeta_R$ と $\zeta_I$ は同じ分散を持ち、その振幅平面に特別な方向はありません。
+統計的に一様・等方的な Gaussian 場では、二つの定在波成分 $\zeta_{c,\mathbf k}$ と $\zeta_{s,\mathbf k}$ は同じ分散を持ち、その振幅平面に特別な方向はありません。
 
 $$
 \zeta_{\mathbf k}
 =
-\frac{\zeta_R+i\zeta_I}{\sqrt2}
+\frac{\zeta_{c,\mathbf k}-i\zeta_{s,\mathbf k}}{\sqrt2}
 $$
 
 と書けば、
@@ -1596,9 +1445,19 @@ $$
 
 は音響地平線です。
 
-一般には、二階の運動方程式には cos 型と sin 型という二つの独立解があります。もし $A_k$ と $B_k$ が互いに独立なランダム変数なら、各 realization は異なる時間位相で振動し、集団平均すると振動構造は消えてしまいます。
+この自由振動子の二つの独立解は、時間に関する cos 型と sin 型です。§3 の空間的な cos・sin 基底とは区別してください。$A_k$ と $B_k$ を互いに独立で同じ分散を持つランダム変数とすると、時間位相がばらつき、振幅の二乗の集団平均は時刻によらず一定になります。独立でも分散が異なれば、振動構造は一部残ります。
 
-しかし、標準的なインフレーションでは superhorizon で一つの断熱的成長モードが圧倒的に優勢になります。そのため、再突入時の密度摂動と速度摂動は独立な二つのランダム変数ではなく、同じ原始振幅から決まります。
+標準的な単一場・アトラクター型インフレーションでは、superhorizon の曲率摂動 $\zeta$ が保存され、減衰モードの寄与が抑えられます。§6 のテストスカラー場で見た「振幅の分布を保った凍結」は、この構造を理解するための模型です。CMB への接続では、曲率摂動とその後の宇宙の発展を扱います。
+
+重要なのは、凍結時の速度が小さいことに加えて、独立な減衰モードが抑えられ、密度と速度が同じ原始振幅で決まることです。各実定在波成分について、伝達関数を $T_k(\eta)$ と書けば、線形発展は
+
+$$
+X_{A,\mathbf k}(\eta)\simeq T_k(\eta)\zeta_{A,\mathbf k}^{\mathrm{prim}},
+\qquad
+X_{A,\mathbf k}'(\eta)\simeq T_k'(\eta)\zeta_{A,\mathbf k}^{\mathrm{prim}}
+$$
+
+と表せます。$\zeta_{A,\mathbf k}^{\mathrm{prim}}$ は保存された原始曲率摂動です。振幅や空間位相はランダムでも、同じ $k$ の実現例は共通の $T_k$ に従うので、時間振動の零点や極大・極小の位置が揃います。振幅の符号が反転すれば極大と極小は入れ替わりますが、二乗したパワーの振動位相は共通です。再突入時の速度そのものが厳密にゼロである必要はありません。
 
 理想化した自由振動子なら、時間原点を適切に取ることで
 
@@ -1608,7 +1467,7 @@ $$
 
 と書けます。
 
-つまり、各モードの**振幅や符号はランダムでも、時間依存する伝達関数は共通**です。
+つまり、**同じ $k$ の実現例は、振幅や符号がランダムでも、時間依存する伝達関数を共有します**。異なる $k$ のモードが同じ宇宙時刻に一斉に極大を迎えるという意味ではありません。
 
 この初期条件と音響ピークの関係については、[Hu & White](https://arxiv.org/abs/astro-ph/9602019)で詳しく議論されています。
 
@@ -1656,11 +1515,11 @@ $$
 
 となり、時間振動の模様は平均によって消えます。
 
-したがって、**振幅がランダムであること自体は音響ピークを消しません**。ピークを消すのは、二つの独立な時間 quadrature がランダムに励起されることです。
+したがって、**振幅がランダムであること自体は音響ピークを消しません**。この模型でパワーの振動が消えるのは、二つの時間 quadrature が無相関かつ同じ分散で励起される場合です。
 
 実際の CMB の伝達関数は、この単純な cos 振動より複雑です。重力ポテンシャルによる駆動、バリオンの慣性、ニュートリノ、Silk damping、再結合、そして三次元摂動から天球への射影などが含まれます。
 
-それでも、多数の Fourier モードが共通の時間位相関係を持つことが、$C_\ell$ に一連の音響ピークを残すという基本構造は変わりません。
+それでも、原始振幅から密度と速度を結ぶ一定の位相関係が、$C_\ell$ に一連の音響ピークを残すという基本構造は変わりません。
 
 <iframe src="app/supporting.html?lang=ja&amp;view=acoustic" title="ランダムな音響振動の実現例とコヒーレント・非コヒーレントな平均パワー" data-auto-height scrolling="no" style="display: block; width: 100%; height: 1400px; min-height: 650px; border: 0; overflow: hidden;" loading="eager"></iframe>
 
@@ -1683,355 +1542,3 @@ $$
 - [Polarski & Starobinsky, *Semiclassicality and Decoherence of Cosmological Perturbations*](https://arxiv.org/abs/gr-qc/9504030)：正準変数、モード関数、成長・減衰解と semiclassicality の関係。
 - [Martin & Vennin, *Quantum Discord of Cosmic Inflation*](https://arxiv.org/abs/1510.04038)：モード分解と部分系、古典的な相関関数と量子状態の違い。
 - [Hu & White, *Acoustic Signatures in the Cosmic Microwave Background*](https://arxiv.org/abs/astro-ph/9602019)：原始初期条件と CMB 音響ピークの位相構造。
-
-<!-- # インフレーションの量子揺らぎと squeezing 
-
-## 1. インフレーションは何を生成するのか
-
-インフレーションは、真空の揺らぎに確定した古典的振幅を与えるわけではありません。時間発展するのは量子状態であり、平均値がゼロのままでも、その相関は大きく変化します。各Fourier波長について、位相空間でほぼ円形だった真空の分布が、細長いGaussian楕円へと変形します。広がった方向に残るランダムな振幅が、後の宇宙の構造形成に初期条件を与えます。
-
-この記事では、この幾何学を「時間依存振動子」「生成・消滅演算子のBogoliubov混合」「Wigner関数の squeezing 」という三つの記述で追います。さらに、成長モードの優勢が音響振動の**時間位相**のコヒーレンスにつながることを説明します。空間的なFourier位相のランダムさは失われません。
-
-
-![共通のquadrature座標軸で見たWigner等高線の三つの時期](app/teaser.svg)
-
-一つの定在波モードを三つの時刻で見た予告図です。横軸は場の振幅、縦軸は正準運動量に対応するquadratureで、全時刻で同じ定義と縮尺を使っています。楕円は伸びても面積を保ちます。[メインのアニメーションへ進む](#main-animation)か、まず振動子と基底変換の説明をたどってください。
-
-## 2. 準備：時間依存調和振動子
-
-単位質量の振動子 $H=(p^2+\omega^2(t)q^2)/2$ を考えます。固定した正の基準周波数 $\omega_0$ を選び、$b=(\sqrt{\omega_0}q+ip/\sqrt{\omega_0})/\sqrt2$ と定義すると、
-
-$$
-H=\frac{\omega_0^2+\omega^2}{2\omega_0}
-\left(b^\dagger b+\frac12\right)
-+\frac{\omega^2-\omega_0^2}{4\omega_0}
-\left(b^2+b^{\dagger2}\right).
-$$
-
-となります。対生成・対消滅の項が、真空の共分散を変形させます。一方、$\omega(t)>0$ の範囲では、$\omega_0$ を $\omega(t)$ に置き換えて瞬間的な消滅演算子を定義することもできます。その全Heisenberg微分は
-
-$$
-\dot b_{\mathrm{inst}}
-=-i\omega b_{\mathrm{inst}}
-+\frac{\dot\omega}{2\omega}b_{\mathrm{inst}}^\dagger.
-$$
-
-です。この表示では、基底の時間変化によって混合が陽に現れます。どちらも同じ時間発展の記述です。$\omega^2\leq0$ になると、この瞬間的な正周波数の処方は使えなくなりますが、固定した正準変数とGaussian共分散による記述は引き続き有効です。
-
-## 3. 実場と独立な自由度
-
-記号に運動量のデルタ関数を持ち込まないため、有限の周期箱を使います。実場の演算子は $\hat v_{-\mathbf k}=\hat v_{\mathbf k}^\dagger$、古典的な実現値は $v_{-\mathbf k}=v_{\mathbf k}^*$ を満たします。各非零波数対から片方ずつを選ぶ半空間 $\mathcal K_+$ を取り、
-
-$$
-v_{\mathbf k}=\frac{q_R+iq_I}{\sqrt2},\qquad
-v_{-\mathbf k}=\frac{q_R-iq_I}{\sqrt2}.
-$$
-
-と書きます。Fourier展開を $e^{i\mathbf k\cdot\mathbf x}$ の規約で書くと、この対の寄与は、箱の規格化を除いて $\sqrt2[q_R\cos(\mathbf k\cdot\mathbf x)-q_I\sin(\mathbf k\cdot\mathbf x)]$ です。cos成分とsin成分という二つの実振動子であり、独立な実振幅が四つあるわけではありません。
-
-ただし、進行波の**消滅演算子** $a_{\mathbf k}$ と $a_{-\mathbf k}$ は独立です。場の実条件から $a_{-\mathbf k}=a_{\mathbf k}^\dagger$ が従うわけでは**ありません**。場のFourier係数には、消滅演算子と生成演算子の両方が含まれます。
-
-## 4. 振動子としてのインフレーション摂動
-
-音速が1である正準的な単一インフラトンでは、Mukhanov–Sasaki変数 $v=z\zeta$ の作用と方程式は
-
-$$
-z=\frac{a\dot\phi_0}{H},\qquad
-S=\frac12\int d\eta\,d^3x\,
-\left[(v')^2-(\nabla v)^2+\frac{z''}{z}v^2\right],
-\qquad
-v_k''+\left(k^2-\frac{z''}{z}\right)v_k=0.
-$$
-
-となります。$\phi_0$ は一様な背景インフラトンであり、アニメーションのテスト場とは区別します。各実モードは、有効振動数の二乗が $k^2-z''/z$ である時間依存振動子です。Hubble半径の十分内側では背景項が小さく、Bunch–Davies条件がMinkowski真空に近い正周波数モードを選びます。crossingの前後で、背景項の影響が連続的に大きくなります。
-
-各実成分について、境界項だけ異なる次の作用が squeezing の記述に便利です。$s=z'/z$ と置くと、
-
-$$
-L_A=\frac12\left[(q_A'-sq_A)^2-k^2q_A^2\right],\qquad
-p_A=q_A'-sq_A,
-\qquad
-H_{\eta,A}=\frac12(p_A^2+k^2q_A^2)
-+\frac{s}{2}(q_Ap_A+p_Aq_A).
-$$
-
-です。半空間での作用は $S_{\mathbf k}=S[q_R]+S[q_I]$ に分かれます。量子Hamiltonianでは交差項の対称化が必要です。一方、部分積分後の作用から始めれば、$\widetilde p=q'$ および $\widetilde H_\eta=[\widetilde p^{\,2}+(k^2-z''/z)q^2]/2$ が得られます。二階の運動方程式は同じですが、位相空間で使う運動量は異なります。アニメーションは、[PolarskiとStarobinskyの式(3)–(4)](https://arxiv.org/pdf/gr-qc/9504030)に対応する**前者**の規約を採用しています。
-
-図のテストスカラー場では、$q=a\phi_A$、$s=\mathcal H=a^\prime/a=-1/\eta$ と置きます。$a''/a=2/\eta^2$ なので、ここで使う解は厳密解です。適切に規格化した自由なテンソル偏極にも同じ記述が使えます。slow-roll曲率摂動では、$z''/z\simeq2/\eta^2$、$z'/z\simeq-1/\eta$ とする主要近似が対応します。ただし、**$\dot\phi_0=0$ の厳密de Sitter背景では $z=0$** です。その極限でテストスカラー場を $\zeta=v/z$ と同一視することはできません。
-
-この厳密解の時間変数 $x$ とe-fold数 $N$ を、次のように定義します。
-
-$$
-a=-\frac1{H\eta},\qquad
-x=-k\eta=\frac{k}{aH},\qquad
-N=\ln\frac{a}{a_{\mathrm{cross}}}=-\ln x.
-$$
-
-プライムは共形時間微分で、$d\eta=dt/a$ です。以下では $\hbar=c=1$ を使います。
-
-### 図で使うモデルの厳密モード関数
-
-アニメーションのモデルで、一つの実モードの初期真空を消す演算子を $b^{\mathrm{in}}$ とします。$\hat q=f_k b^{\mathrm{in}}+f_k^*b^{\mathrm{in}\dagger}$ および $\hat p=g_k b^{\mathrm{in}}+g_k^*b^{\mathrm{in}\dagger}$ に現れる正周波数係数は
-
-$$
-f_k=\frac{1+i/x}{\sqrt{2k}}e^{ix},\qquad
- g_k=f_k'-\mathcal H f_k=-i\sqrt{\frac{k}{2}}e^{ix},
-\qquad f_kg_k^*-f_k^*g_k=i.
-$$
-
-です。
-
-<iframe src="app/supporting.html?lang=ja&amp;view=background" title="背景項と厳密de Sitterモード関数" data-auto-height scrolling="no" style="display: block; width: 100%; height: 900px; min-height: 650px; border: 0; overflow: hidden;" loading="eager"></iframe>
-
-**モード関数**に切り替え、$F_q=\sqrt{2k}f_k$ と $F_\phi=\sqrt{2k^3}f_k/(aH)=xF_q$ を比較してください。それぞれ再スケールした場と元の場のモードを無次元化したものです。実線を右に追うと、元の場が一定に近づく一方、再スケールしたモードは成長します。背景項の比較では縦軸を対数表示し、二つの項が等しくなる時刻とHubble crossingを別々に示しています。
-
-## 5. 進行波の記述：二モード・ squeezing 
-
-逆向きの進行波の対を固定すると、背景は生成・消滅演算子を対として結びつけます。$s=z^\prime/z$ とし、各波数対を一度だけ数えると、Hamiltonianは
-
-$$
-H_{\eta,\mathbf k}=k\left(a_{\mathbf k}^\dagger a_{\mathbf k}
-+a_{-\mathbf k}^\dagger a_{-\mathbf k}+1\right)
-+is\left(a_{\mathbf k}^\dagger a_{-\mathbf k}^\dagger
--a_{\mathbf k}a_{-\mathbf k}\right).
-$$
-
-となります。この相互作用は、逆向きの各モードに一つずつ励起を生成・消滅します。これが二モード・ squeezing の記述です。
-
-Heisenberg描像では、
-
-$$
-a_{\mathbf k}(\eta)=\alpha_k a_{\mathbf k}^{\mathrm{in}}
-+\beta_k a_{-\mathbf k}^{\mathrm{in}\dagger},\qquad
-|\alpha_k|^2-|\beta_k|^2=1,
-\qquad
-\alpha_k=e^{-i\theta_k}\cosh r_k,\quad
-\beta_k=e^{i(\theta_k+2\varphi_k)}\sinh r_k.
-$$
-
-と書けます。次節で導入する定在波の演算子も、同じ係数を持つ単一モードの変換に従います。$r_k$ は主軸方向の幅を決めます。$Q=\sqrt{k}q$、$P=p/\sqrt{k}$（アニメーションとともに詳述）という規約では、$\varphi_k=\arg(\alpha_k\beta_k)/2$ は、正の $Q$ 軸から測った**長軸の角度**です（$\pi$ の不定性を除く）。回転位相 $\theta_k$ は、初期真空の共分散には影響しません。文献によって角度の符号や、長軸・短軸のどちらを基準にするかが異なるので注意が必要です。
-
-上で示した厳密な係数から、
-
-$$
-\alpha_k=\left(1+\frac{i}{2x}\right)e^{ix},\qquad
-\beta_k=-\frac{i}{2x}e^{-ix},\qquad
-r_k=\operatorname{arsinh}\frac1{2x},\qquad
-\varphi_k=-\frac12\arctan(2x).
-$$
-
-が得られます。$x\ll1$ では $r_k\simeq-\ln x=N$ となり、Hubble exit後の1 e-foldごとに、 squeezing がほぼ1ずつ増えます。$|\beta_k|^2$ は選んだ基準基底での占有数であり、時間依存背景における一意な粒子数ではありません。 squeezing の大きさの数値自体も、正準quadratureの選択に依存します。状態を一貫して記述するのは、共分散全体とその変換則です。
-
-<iframe src="app/supporting.html?lang=ja&amp;view=squeezing" title="e-fold時間に対する squeezing の大きさと長軸の角度" data-auto-height scrolling="no" style="display: block; width: 100%; height: 900px; min-height: 650px; border: 0; overflow: hidden;" loading="eager"></iframe>
-
-crossing後の厳密な曲線と $r_k\simeq N$ を比べてください。右の図は、初めから向きが固定されているのではなく、時間とともに一定方向へ収束することを示します。真空がほぼ円である初期には、角度の幾何学的な違いは小さくなります。
-
-## 6. 定在波の記述：二つの単一モード・ squeezing 
-
-$b_A=(\sqrt{k}q_A+ip_A/\sqrt{k})/\sqrt2$ と定義すると、定在波のHamiltonianは
-
-$$
-H_{\eta,A}=k\left(b_A^\dagger b_A+\frac12\right)
-+\frac{is}{2}\left(b_A^{\dagger2}-b_A^2\right),
-\qquad A=R,I.
-$$
-
-となります。二つの実モードは、同一の単一モード・ squeezing を受けます。進行波の演算子との関係は
-
-$$
-b_R=\frac{a_{\mathbf k}+a_{-\mathbf k}}{\sqrt2},\qquad
-b_I=-\frac{i}{\sqrt2}(a_{\mathbf k}-a_{-\mathbf k}),
-\qquad
-b_R^{\dagger2}+b_I^{\dagger2}
-=2a_{\mathbf k}^\dagger a_{-\mathbf k}^\dagger.
-$$
-
-です。
-
-進行波基底では対の項が二モード・ squeezing を表し、定在波基底では同じ状態が等しくスクイーズされた二つの状態の積に分かれます。図の楕円は**一つの定在波モード**の状態です。進行波対の片方を捨てた縮約状態ではありません。進行波モード間の量子もつれが部分系の選び方に依存する点は、[MartinとVennin](https://arxiv.org/abs/1510.04038)でも議論されています。
-
-<iframe src="app/supporting.html?lang=ja&amp;view=basis" title="Fourier半空間と進行波・定在波の基底変換" data-auto-height scrolling="no" style="display: block; width: 100%; height: 1200px; min-height: 650px; border: 0; overflow: hidden;" loading="eager"></iframe>
-
-色付きの半平面は、各波数対から一つずつを選ぶ操作の二次元模式図です。境界上でも各対から一つを選ぶ規約が必要です。時期を切り替え、共分散行列を見比べてください。左のquadratureの順番は $(Q_+,P_+,Q_-,P_-)$、右は $(Q_R,P_R,Q_I,P_I)$ です。左のモード間にある非零の相関が、右では独立な同一の二つのブロックになります。時間発展の前後ではなく、同じ状態全体を二通りに記述しています。
-
-<span id="main-animation"></span>
-
-## 7. 主可視化：quadrature位相空間の時間発展
-
-アニメーションが追うのは、**固定した一つのゼロでない共動波数** $k=|\mathbf k|$ と、その実定在波成分 $A=R$ または $I$ の一方です。異なる波長を並べた図でも、時空図でもありません。モデルは厳密de Sitter時空中の、自由・質量ゼロ・最小結合スカラー場です。単位系は $\hbar=c=1$ とし、空間モードの規格化は実振幅 $\phi_A$ に吸収します。
-
-**どのフレームでも**、横軸と縦軸は次の量です。
-
-$$
-Q=\sqrt{k}\,q=\sqrt{k}\,a\phi_A,
-\qquad
-P=\frac{p}{\sqrt{k}}
-=\frac{q'-\mathcal Hq}{\sqrt{k}}
-=\frac{a\phi_A'}{\sqrt{k}},
-\qquad \mathcal H=\frac{a'}a.
-$$
-
-プライムは共形時間による微分を表し、$d\eta=dt/a$ です。したがって、$Q$ は再スケールした**場の振幅**であり、空間位置ではありません。$P$ は再スケールした**正準運動量**であり、波数 $k$ でも $q'/\sqrt{k}$ でもありません。これらのquadratureは $[\hat Q,\hat P]=i$ を満たします。軸の定義・向き・表示範囲・縦横で等しい縮尺は、再生中ずっと固定されています。ただし、元の場と結びつける係数 $a$ は時間変化するので、$Q$ が増大しても $\phi_A$ が増大するとは限りません。
-
-時間は先ほど定義したe-fold変数 $N=-\ln x$ で表します。
-
-スライダーの範囲は $x=12$ から $x=0.2$ までで、$N=0$ がHubble crossingです。ここでいう「地平線の内側・外側」はHubbleスケールとの大小関係を指し、別の因果的境界を指すものではありません。この区別については[宇宙の因果構造](../cosmic-causal-structure/)を参照してください。
-
-<iframe src="app/index.html?lang=ja" title="インフレーションの squeezing ：回転・スクイーズ・合成Hamilton流" data-auto-height scrolling="no" style="display: block; width: 100%; height: 1800px; min-height: 900px; border: 0; overflow: hidden;" loading="eager"></iframe>
-
-最初の2パネルは、**その時刻の速度場**を回転とスクイーズに分解したものです。量子状態の等高線を重ねているのは、3番目のパネルだけです。オレンジの点は等高線上を流れに沿って運ばれる目印であり、量子粒子の確定した軌道ではありません。矢印には、時間依存の表示係数 $1/\sqrt{1+x^2}$ と、さらに固定の描画縮尺を共通に掛けています。同じフレーム内でのベクトルの加法は保たれますが、異なるフレームの矢印の長さを、そのまま物理的速度として比較することはできません。状態の時間発展には、この表示補正を加えず厳密解を使っています。
-
-次のように操作してみてください。
-
-1. 最初から再生します。$x$ が大きいときは回転が優勢で、$x$ が1より小さくなるにつれて楕円が伸びます。開始時の等高線は完全な円ではありません。有限の開始時刻で評価した厳密なBunch–Davies状態です。
-2. Hubble crossingで止めます。流れはゼロにならず、シアーになっています。 squeezing がこの瞬間に突然始まったわけではありません。
-3. 晩期に、楕円の主軸・瞬間的な流れの固有方向・厳密解の方向を切り替えます。それぞれ異なる問いに答える方向であり、一般には一致しません。
-4. 縦方向の広がりに注目します。楕円の**主軸方向**の幅が縮んでも、縦方向の広がりは一定です。スクイーズされるのは、相関した $Q$ と $P$ の組み合わせです。
-
-### Wigner等高線と厳密な流れ
-
-$\mathbf Z=(Q,P)^T$、$\Sigma_{ij}=\langle\{\hat Z_i,\hat Z_j\}\rangle/2$ と書くと、平均ゼロの真空から時間発展した状態は
-
-$$
-\Sigma(x)=\frac12
-\begin{pmatrix}1+x^{-2}&-x^{-1}\\-x^{-1}&1\end{pmatrix},
-\qquad
-\det\Sigma=\frac14,\qquad
-\sigma_\pm^2=\frac12e^{\pm2r_k}.
-$$
-
-で表されます。このGaussian状態のWigner関数は正です。
-
-$$
-W(\mathbf Z)=\frac{1}{2\pi\sqrt{\det\Sigma}}
-\exp\left[-\frac12\mathbf Z^T\Sigma^{-1}\mathbf Z\right].
-$$
-
-描かれた楕円は $\mathbf Z^T\Sigma^{-1}\mathbf Z=1$、すなわちWigner密度が中心値の $e^{-1/2}$ になる等高線です。内部に含まれるWigner重みは $1-e^{-1/2}\simeq0.393$ であり、一次元Gaussian分布の「1 sigmaは68%」とは異なります。半長軸・半短軸は $e^{\pm r_k}/\sqrt2$、面積は常に $\pi/2$ です。ユニタリな squeezing は面積を保存し、散逸による冷却ではありません。また、Wigner関数が正であっても、非可換な $Q$ と $P$ を同時に鋭く測定するための同時確率分布になるわけではありません。
-
-共形時間から $N$ に時間変数を変えると、Hamiltonianと流れは
-
-$$
-K_N=\frac{x}{2}(Q^2+P^2)+\frac12(QP+PQ),\qquad
-\frac{d\mathbf Z}{dN}
-=\underbrace{\begin{pmatrix}1&x\\-x&-1\end{pmatrix}}_{A(N)}\mathbf Z
-=x\begin{pmatrix}0&1\\-1&0\end{pmatrix}\mathbf Z
-+\begin{pmatrix}1&0\\0&-1\end{pmatrix}\mathbf Z.
-$$
-
-となります。これが3パネルに示した分解です。二次Hamiltonianの下では、Wigner関数は古典的なHamilton方程式と同じ線形流で運ばれます。共分散は $d\Sigma/dN=A\Sigma+\Sigma A^T$ に従い、$A$ のトレースがゼロであることが位相空間の面積保存に対応します。
-
-瞬間的な固有値は $\lambda_\pm=\pm\sqrt{1-x^2}$ です。$x>1$ では虚数、$x<1$ では実数となります。$x=1$ では $A^2=0$ ですが $A\ne0$ であり、シアーです。これは**時刻を固定した流れ**の分類です。実際の軌道は時間順序付きの発展に従い、瞬間的な固有ベクトルに沿うとは限りません。
-
-この分類自体も運動量の規約に依存します。部分積分後の作用の変数では、
-
-$$
-\widetilde P=P+\frac Qx,\qquad
-\frac{d}{dN}\begin{pmatrix}Q\\\widetilde P\end{pmatrix}
-=\begin{pmatrix}0&x\\2/x-x&0\end{pmatrix}
-\begin{pmatrix}Q\\\widetilde P\end{pmatrix}.
-$$
-
-となり、固有値は $\pm\sqrt{2-x^2}$ に変わります。時間依存正準変換により、瞬間的な楕円型・双曲型の境目は変わりますが、物理的なHubble crossingは $x=1$ のままで、場の運動方程式も変わりません。
-
-## 8. 成長・減衰モードと位相空間の方向
-
-superhorizonの方程式で勾配項を無視すると、
-
-$$
-q=Cz+Dz\int^\eta\frac{d\eta'}{z^2(\eta')},\qquad
-p=q'-\frac{z'}zq=\frac Dz.
-$$
-
-が得られます。不定積分の積分定数は $C$ に吸収できます。アトラクター型のインフレーション背景では、第1の解が一定の $\zeta=q/z$ を与え、独立な第2の寄与は減衰します。テストスカラー場なら $z$ を $a$ に置き換えます。$q$ はほぼ $a$ に比例して成長し、$\phi_A=q/a$ は凍結します。
-
-勾配を無視した式から、有限の $k$ における成長解の運動量まで厳密にゼロだとはいえません。図で使う厳密な成長解・減衰解のベクトルは、例えば次のように選べます。
-
-$$
-\mathbf G(x)=\begin{pmatrix}\sin x+\cos x/x\\-\cos x\end{pmatrix},\qquad
-\mathbf D(x)=\begin{pmatrix}\cos x-\sin x/x\\\sin x\end{pmatrix},
-\qquad
-\mathbf G\sim\begin{pmatrix}x^{-1}\\-1\end{pmatrix},\quad
-\mathbf D\sim\begin{pmatrix}-x^2/3\\x\end{pmatrix}.
-$$
-
-[メインのアニメーション](#main-animation)で**厳密な成長解・減衰解の方向**を選び、同じ時刻の**楕円の主軸**と比較してください。
-
-これらは解の方向であり、瞬間的な生成行列の固有ベクトルではありません。また、互いに直交しません。一方、共分散行列の主軸は定義上直交します。晩期には長軸と短軸が、それぞれ $\mathbf G$ と $\mathbf D$ の水平・鉛直の極限方向に近づきますが、有限時刻での傾きは異なります。「短軸が減衰モードである」という表現は、あくまで極限での幾何学的な説明です。
-
-幅が狭まる様子は、Gaussian分布の条件付き関係でより正確に表せます。
-
-$$
-\mathbb E[P\mid Q]=-\frac{x}{1+x^2}Q,\qquad
-\operatorname{Var}(P\mid Q)=\frac{x^2}{2(1+x^2)},
-\qquad \operatorname{Var}(P)=\frac12.
-$$
-
-ここでの条件付けは、正のWigner密度に対する操作であり、同時射影測定の手順を表すものではありません。$P$ 自体の周辺分布の幅は一定でも、古典的に見える関係から横に外れる不確定性が縮むことがわかります。減衰する**寄与**が抑えられることは、その時間に依存しない積分係数そのものが消えることを意味しません。
-
-## 9. 摂動が古典的に見える理由
-
-平均値がゼロでも、場の分散はゼロとは限りません。例えば、同じ厳密モード関数から、対数波数間隔あたりのテストスカラー場のパワーは
-
-$$
-\mathcal P_\phi(k)=\frac{k^3}{2\pi^2}\left|\frac{f_k}{a}\right|^2
-=\frac{H^2}{4\pi^2}(1+x^2)
-\longrightarrow\left(\frac{H}{2\pi}\right)^2.
-$$
-
-となります。$q$ の伸長と、元の場の分散が有限値に凍結することは両立します。曲率摂動では背景因子が $z$ に置き換わり、そのslow-roll発展が振幅とスペクトルの傾きを決めます。
-
-正のWigner関数を使えば、同時刻で対称順序を取ったモーメントは古典的Gaussian集団で再現できます。大きな squeezing は、さらに強い場と運動量の関係、および成長モードの優勢をもたらします。そのため、対象とする摂動は実効的に古典的な確率場として時間発展させられます。しかし、交換関係が消えるわけでも、波動関数が収縮するわけでも、この純粋状態が混合状態になるわけでも**ありません**。環境によるデコヒーレンスは別の物理過程であり、この計算には含めていません。観測可能な量子的特徴を論じるには、これらの区別が必要です（[MartinとVennin](https://arxiv.org/abs/1510.04038)）。
-
-<iframe src="app/supporting.html?lang=ja&amp;view=samples" title="シンプレクティック発展の前後におけるWignerサンプル" data-auto-height scrolling="no" style="display: block; width: 100%; height: 900px; min-height: 650px; border: 0; overflow: hidden;" loading="eager"></iframe>
-
-時刻スライダーを初期から最後まで動かしてください。ランダムさが失われるのではなく、広がった方向の振幅の範囲が増し、オレンジの条件付き平均線から横に外れる幅が小さくなります。両パネルの縮尺は共通・固定です。厳密な等高線が囲むWigner重みは約39%なので、その外にも点があるのが自然です。
-
-## 10. 音響振動の位相コヒーレンスとCMB
-
-統計的に一様なGaussian場では、二つの定在波成分の分散は等しく、その振幅平面に特別な向きはありません。したがって、
-
-$$
-\zeta_{\mathbf k}=\frac{\zeta_R+i\zeta_I}{\sqrt2}
-$$
-
-の空間位相 $\arg\zeta_{\mathbf k}$ はランダムです。インフレーションは、これらの位相をすべて同じ値にするわけではありません。空間の原点を移すだけでも位相は変わります。音響振動の位相コヒーレンスが指しているのは、この空間位相ではありません。
-
-horizon re-entry後の音響変数を模式的に書くと、二つの時間依存解があります。
-
-$$
-X_k(\eta)=A_k\cos(kr_s)+B_k\sin(kr_s),\qquad
-r_s(\eta)=\int^\eta c_s(\eta')\,d\eta'.
-$$
-
-初期条件を一つの断熱的成長モードが与えるなら、密度と速度は結びついています。$A_k$ と $B_k$ は、独立に選べる二つの任意のランダム入力ではありません。外力のない理想化した振動子では、$B_k\simeq0$ となるように時間原点を選べます。振幅がランダムでも、時間方向の伝達関数は共通です。この初期条件と音響ピークの関係は、[HuとWhite](https://arxiv.org/abs/astro-ph/9602019)で詳しく論じられています。
-
-以下の可視化では、初期振幅の分散の総和を揃えた二つの集団を使っています。その総和を $\sigma^2$ とすると、
-
-$$
-\begin{aligned}
-\langle|A_k|^2\rangle=\sigma^2,\quad B_k=0
-&\quad\Rightarrow\quad
-\langle|X_k|^2\rangle=\sigma^2\cos^2(kr_s),\\
-\langle|A_k|^2\rangle=\langle|B_k|^2\rangle=\frac{\sigma^2}{2},\quad
-\langle A_kB_k^*\rangle=0
-&\quad\Rightarrow\quad
-\langle|X_k|^2\rangle=\frac{\sigma^2}{2}.
-\end{aligned}
-$$
-
-です。したがって、振幅のランダムさだけではパワーの振動模様は消えませんが、時間方向の二つのquadratureが独立にランダムなら消えます。実際のCMB伝達関数には、重力による駆動、バリオンの慣性、ニュートリノの効果、拡散、再結合、天球への射影が含まれ、純粋なcos関数ではありません。コヒーレントな音響ピークは原始初期条件の構造を検証しますが、それだけで量子 squeezing の測定や、インフレーション起源の一意な証明になるわけではありません。
-
-<iframe src="app/supporting.html?lang=ja&amp;view=acoustic" title="ランダムな音響振動の実現例とコヒーレント・非コヒーレントな平均パワー" data-auto-height scrolling="no" style="display: block; width: 100%; height: 1400px; min-height: 650px; border: 0; overflow: hidden;" loading="eager"></iframe>
-
-コヒーレントな実現例の零点でカーソルを止めてください。振幅も符号も異なる8本が、同じ時刻にゼロを通ります。非コヒーレントな実現例では揃いません。下段は有限個のサンプルからの推定と厳密な集団平均を区別しています。一定の音響地平線で波数を変えたとき、このような振動がピークの模様に対応します。
-
-## 適用範囲と参考文献
-
-アニメーションは、与えられたde Sitter背景上での、線形・自由なGaussian状態の時間発展です。再加熱、環境との相互作用、非Gaussian性、CMBスペクトルの数値計算は扱いません。固定軸上でも細い楕円を見分けられるよう、メインのアニメーションは $x=0.2$ で終えています。さらに強い squeezing を描くには、より小さな横断方向の幅を分解する必要があります。不確定性関係が変わるわけではありません。
-
-通常の成長モードに関する結論は、アトラクター背景を仮定しています。非アトラクター型のインフレーションでは $\zeta$ の振る舞いが変わりうるため、このde Sitterの例をそのまま当てはめず、適切な $z(\eta)$ に対する方程式を解く必要があります。
-
-- [Polarski & Starobinsky, *Semiclassicality and Decoherence of Cosmological Perturbations*](https://arxiv.org/abs/gr-qc/9504030)：正準変数、モード関数、成長・減衰解による記述。
-- [Martin & Vennin, *Quantum Discord of Cosmic Inflation*](https://arxiv.org/abs/1510.04038)：部分系の選択、および古典的な相関関数と量子状態の区別。
-- [Hu & White, *Acoustic Signatures in the Cosmic Microwave Background*](https://arxiv.org/abs/astro-ph/9602019)：音響振動の初期条件とピーク構造の解釈。 -->

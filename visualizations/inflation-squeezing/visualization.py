@@ -100,12 +100,12 @@ def supporting_payload() -> dict:
         "background": _rounded(history["background"]),
         "reference": _rounded(np.ones_like(times)),
         "asymptote": _rounded(np.maximum(times, 0)),
+        # Keep small decaying amplitudes resolved on the logarithmic late-time plot.
+        "decayingAsymptote": history["field_decaying_asymptote"].tolist(),
     }
     for name in ("rescaled", "field"):
         mode = history[name]
-        evolution[name] = [
-            _rounded(component) for component in (mode.real, mode.imag, np.abs(mode))
-        ]
+        evolution[name] = [component.tolist() for component in (mode.real, mode.imag, np.abs(mode))]
     basis = []
     for x in (12.0, 1.0, 0.2):
         traveling, standing = physics.pair_covariances(x)

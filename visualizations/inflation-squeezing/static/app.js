@@ -7,12 +7,12 @@
       intro: 'Follow one fixed comoving wavenumber. Pause or drag the time slider; all three panels keep the same axes and scale.',
       play: 'Play', pause: 'Pause', reset: 'Reset', crossing: 'Hubble crossing', speed: 'Speed',
       time: 'Time (e-folds relative to Hubble crossing)', directions: 'Directions on the total flow',
-      none: 'None', flow: 'Instantaneous flow', principal: 'Ellipse principal axes', solutions: 'Exact growing / decaying solutions',
+      none: 'None', flow: 'Instantaneous flow', principal: 'Ellipse principal axes', solutions: 'Growing / decaying solutions',
       noneNote: 'The contour and orange markers evolve with the full time-dependent Hamiltonian.',
-      flowNote: 'Dashed orange: instantaneous stretching; dotted green: instantaneous contraction. Shown only for x < 1. These are not solution trajectories.',
+      flowNote: 'Dashed orange: instantaneous stretching; dotted green: instantaneous contraction. Shown only for \\(x<1\\). These are not solution trajectories.',
       principalNote: 'Dashed orange: broad principal axis; dotted green: narrow principal axis. These covariance axes are orthogonal.',
       solutionsNote: 'Dashed orange: exact solution growing at late times; dotted green: exact solution decaying at late times. They are generally not orthogonal and are not the ellipse axes.',
-      axes: 'At every time: horizontal \\(Q=\\sqrt{k}q\\), vertical \\(P=(q^\\prime-\\mathcal H q)/\\sqrt{k}\\), with \\(q=a\\phi_A\\). The axes neither rotate nor rescale; they are not position in space and time.',
+      axes: 'At every time: horizontal \\(Q=\\sqrt{k}q\\), vertical \\(P=(q^\\prime-\\mathcal H q)/\\sqrt{k}\\), with \\(q=q_{A,\\mathbf k}=a\\phi_{A,\\mathbf k}\\). The axes neither rotate nor rescale; they are not position in space and time.',
       arrows: 'Arrow vectors share the display factor \\(1/\\sqrt{1+x^2}\\) and a fixed drawing scale. Their lengths cannot be compared as physical speeds across frames. The contour encloses about 39% of the positive Gaussian Wigner weight, not 68%.',
       sub: 'Inside the Hubble radius · instantaneous elliptic flow', cross: 'Hubble crossing · instantaneous shear (nonzero flow)', super: 'Outside the Hubble radius · instantaneous hyperbolic flow',
       acoustic: 'Toy acoustic power: coherent versus random temporal phase',
@@ -27,10 +27,10 @@
       time: '時刻（Hubble crossingを基準とするe-fold数）', directions: '合成流に重ねる方向',
       none: '表示しない', flow: '瞬間的な流れの固有方向', principal: '楕円の主軸', solutions: '厳密な成長解・減衰解の方向',
       noneNote: '楕円とオレンジの点は、時間依存Hamiltonian全体による流れに従います。',
-      flowNote: 'オレンジの破線：瞬間的な伸長方向。緑の点線：瞬間的な収縮方向。x < 1でのみ表示します。これらは解の軌道ではありません。',
+      flowNote: 'オレンジの破線：瞬間的な伸長方向。緑の点線：瞬間的な収縮方向。\\(x<1\\) でのみ表示します。これらは解の軌道ではありません。',
       principalNote: 'オレンジの破線：楕円の長軸。緑の点線：短軸。共分散行列で決まる二つの主軸は直交します。',
       solutionsNote: 'オレンジの破線：晩期に成長する厳密解。緑の点線：晩期に減衰する厳密解。一般に直交せず、楕円の主軸とも異なります。',
-      axes: 'どの時刻でも、横軸は\\(Q=\\sqrt{k}q\\)、縦軸は\\(P=(q^\\prime-\\mathcal H q)/\\sqrt{k}\\)、ただし\\(q=a\\phi_A\\)です。軸は回転せず、縮尺も変わりません。空間位置と時間のグラフではありません。',
+      axes: 'どの時刻でも、横軸は\\(Q=\\sqrt{k}q\\)、縦軸は\\(P=(q^\\prime-\\mathcal H q)/\\sqrt{k}\\)、ただし\\(q=q_{A,\\mathbf k}=a\\phi_{A,\\mathbf k}\\)です。軸は回転せず、縮尺も変わりません。空間位置と時間のグラフではありません。',
       arrows: '矢印には共通の表示係数\\(1/\\sqrt{1+x^2}\\)と固定の描画縮尺を掛けています。異なる時刻の長さを、そのまま物理的速度として比較することはできません。楕円内の正のGaussian Wigner重みは約39%であり、68%ではありません。',
       sub: 'Hubble半径の内側・瞬間的な流れは楕円型', cross: 'Hubble crossing・瞬間的な流れはシアー（流れは止まりません）', super: 'Hubble半径の外側・瞬間的な流れは双曲型',
       acoustic: '音響振動の模型：時間位相が揃う場合とランダムな場合のパワー',
@@ -133,7 +133,18 @@
   $('time').addEventListener('input', () => { stop(); current=Number($('time').value); render(); });
   $('reset').addEventListener('click', () => { stop(); current=0; render(); });
   $('crossing').addEventListener('click', () => { stop(); current=data.frames.findIndex(f=>Math.abs(f.n)<1e-10); render(); });
-  $('directions').addEventListener('change', () => { $('direction-note').textContent=t[`${$('directions').value}Note`]; if(data) render(); });
+  let directionMath=Promise.resolve();
+  $('directions').addEventListener('change', () => {
+    if(data) render();
+    directionMath=directionMath.then(async()=>{
+      if(!window.MathJax?.startup?.promise) await new Promise(resolve=>window.addEventListener('physics-atlas:mathjax-ready',resolve,{once:true}));
+      await MathJax.startup.promise;
+      const note=$('direction-note');
+      MathJax.typesetClear([note]); note.textContent=t[`${$('directions').value}Note`];
+      await MathJax.typesetPromise([note]);
+      window.dispatchEvent(new Event('physics-atlas:mathjax-ready'));
+    });
+  });
   document.addEventListener('visibilitychange', () => { if(document.hidden) stop(); });
   window.addEventListener('pagehide',stop);
   fetch('data.json').then(response => {if(!response.ok) throw Error('data'); return response.json();}).then(payload => {
