@@ -1,0 +1,48 @@
+:root { --ink: #28333d; --muted: #58616a; --flow: #397da9; --squeeze: #a37d2b; --marker: #d26541; --broad: #d26541; --narrow: #569d88; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--atlas-viz-background); color: var(--ink); font: 15px/1.65 system-ui, sans-serif; }
+main { padding: 16px 12px 12px; }
+h2 { margin: 0 0 8px; font-size: 1.2rem; }
+p { margin: 10px 0; }
+.controls { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.controls label { min-width: 0; max-width: 100%; }
+select { max-width: 100%; }
+button, select { font: inherit; color: var(--ink); background: var(--atlas-viz-panel); border: 1px solid var(--atlas-viz-border); border-radius: 6px; padding: 6px 10px; min-height: 42px; }
+button { cursor: pointer; }
+button:disabled { opacity: .5; }
+button:focus-visible, select:focus-visible, input:focus-visible, summary:focus-visible { outline: 2px solid var(--atlas-viz-accent); outline-offset: 3px; }
+#play { background: var(--atlas-viz-accent); color: var(--atlas-viz-accent-contrast); min-width: 86px; }
+.timeline { display: block; margin-top: 12px; }
+input[type=range] { width: 100%; accent-color: var(--atlas-viz-accent); min-height: 30px; }
+.readouts { display: flex; flex-wrap: wrap; gap: 10px 22px; font-variant-numeric: tabular-nums; }
+.readouts span { white-space: nowrap; }
+#regime { min-height: 1.65em; }
+.panels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-bottom: 14px; }
+.panels section { background: var(--atlas-viz-panel); border: 1px solid var(--atlas-viz-border); border-radius: 8px; overflow: hidden; }
+h3 { text-align: center; font-size: 13px; margin: 12px 2px 0; }
+.formula { text-align: center; margin: 4px 0; font-size: 13px; }
+.formula, .basis-transform { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: 4px 12px; padding: 6px 4px; }
+/* MathJax's overflow wrapper creates bars even for short inline SVG formulae.
+   Keep each deliberately short expression intact and wrap between expressions. */
+main mjx-container[jax="SVG"] { overflow: visible; max-width: none; }
+.formula > span, .basis-transform > span { display: inline-block; }
+.plot { position: relative; }
+.plot svg { display: block; width: 100%; height: auto; }
+.x-label, .y-label { position: absolute; font-size: 13px; }
+.x-label { bottom: 0; left: 51%; }
+.y-label { top: 43%; left: 0; }
+svg text { fill: var(--ink); font-family: system-ui, sans-serif; font-size: 15px; }
+.grid { stroke: var(--atlas-viz-border); stroke-width: 1; }
+.flow-arrows { fill: none; stroke: var(--flow); stroke-width: 1.25; opacity: .7; }
+#squeeze .flow-arrows { stroke: var(--squeeze); }
+.contour { fill: var(--flow); fill-opacity: .10; stroke: var(--ink); stroke-width: 2.5; }
+.marker { fill: var(--marker); }
+.direction-0 { stroke: var(--broad); stroke-width: 2; stroke-dasharray: 8 4; }
+.direction-1 { stroke: var(--narrow); stroke-width: 2; stroke-dasharray: 2 4; }
+.note { font-size: .87rem; color: var(--muted); }
+#direction-note { min-height: 3.3em; }
+details { margin-top: 18px; padding: 12px; border: 1px solid var(--atlas-viz-border); border-radius: 8px; background: var(--atlas-viz-panel-subtle); }
+summary { cursor: pointer; font-weight: 600; }
+#acoustic-plot { width: 100%; max-width: 850px; display: block; margin: auto; }
+#error { color: var(--marker); }
+@media (max-width: 650px) { .panels { grid-template-columns: 1fr; } .plot { max-width: 390px; margin: auto; } h3 { font-size: 15px; } }

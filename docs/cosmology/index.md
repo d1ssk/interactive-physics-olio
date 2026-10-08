@@ -16,3 +16,8 @@ Thermal history, structure formation, and the early universe.
 
 - **[Energy Scale Atlas](../particle-physics/mass-scale-atlas/?lang=en)**<br>
   Compare cosmic thermal-history benchmarks with particle masses and physical phenomena from the present Hubble scale to the Planck mass.
+
+## Primordial quantum fluctuations
+
+- **[Inflationary Quantum Fluctuations and Squeezing](inflation-squeezing/)**<br>
+  Follow vacuum fluctuations through Bogoliubov transformations and Wigner-function animations to superhorizon freeze-out and CMB acoustic phase coherence.

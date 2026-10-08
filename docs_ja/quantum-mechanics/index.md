@@ -10,6 +10,11 @@
 - **[部分波散乱](partial-wave-scattering/)**<br>
   角運動量チャネルによる平面波の構成と、可変中心力ポテンシャルによる散乱
 
+## 位相空間の量子状態
+
+- **[インフレーションの量子揺らぎと squeezing](../cosmology/inflation-squeezing/)**<br>
+  Wigner 関数のアニメーションで見る、時間依存調和振動子、Bogoliubov 混合、進行波・定在波基底での squeezing
+
 ## 量子情報・量子計算
 
 - **[Bloch 球](bloch-sphere/)**<br>

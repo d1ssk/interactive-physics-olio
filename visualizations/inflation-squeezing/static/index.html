@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inflationary Fluctuations and Squeezing</title>
+  <link rel="stylesheet" href="visualization-theme.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="visualization-theme.js"></script>
+  <script>
+    window.MathJax = {
+      tex: {inlineMath: [["\\(", "\\)"]], displayMath: [["\\[", "\\]"]]},
+      startup: {ready() {
+        MathJax.startup.defaultReady();
+        MathJax.startup.promise.then(() => window.dispatchEvent(new Event("physics-atlas:mathjax-ready")));
+      }}
+    };
+  </script>
+  <script defer src="mathjax-tex-svg.js"></script>
+</head>
+<body>
+<main>
+  <h2 data-i18n="title">One standing mode: rotation + squeeze</h2>
+  <p data-i18n="intro"></p>
+  <div class="controls">
+    <button id="play" disabled data-i18n="play">Play</button>
+    <button id="reset" disabled data-i18n="reset">Reset</button>
+    <button id="crossing" disabled data-i18n="crossing">Hubble crossing</button>
+    <label><span data-i18n="speed">Speed</span> <select id="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label>
+  </div>
+  <label class="timeline"><span data-i18n="time">Time (equal steps in e-folds)</span><input type="range" id="time" min="0" max="181" value="0" disabled></label>
+  <div class="readouts">
+    <span>\(x=-k\eta\): <output id="x">—</output></span>
+    <span>\(N\): <output id="n">—</output></span>
+    <span>\(r_k\): <output id="r">—</output></span>
+    <span>\(\varphi_k\): <output id="angle">—</output></span>
+  </div>
+  <p id="regime" role="status"></p>
+  <div class="panels">
+    <section><h3 data-i18n="rotationTitle">Rotation</h3><p class="formula">\(x(P,-Q)\)</p><div class="plot"><svg id="rotation" viewBox="0 0 400 400" role="img"></svg><span class="x-label">\(Q\)</span><span class="y-label">\(P\)</span></div></section>
+    <section><h3 data-i18n="squeezeTitle">Squeeze</h3><p class="formula">\((Q,-P)\)</p><div class="plot"><svg id="squeeze" viewBox="0 0 400 400" role="img"></svg><span class="x-label">\(Q\)</span><span class="y-label">\(P\)</span></div></section>
+    <section><h3 data-i18n="totalTitle">Total · Bunch–Davies state</h3><p class="formula">\((Q+xP,-xQ-P)\)</p><div class="plot"><svg id="total" viewBox="0 0 400 400" role="img"></svg><span class="x-label">\(Q\)</span><span class="y-label">\(P\)</span></div></section>
+  </div>
+  <div class="controls">
+    <label><span data-i18n="directions">Directions on the total flow</span> <select id="directions"><option value="none" data-i18n="none">None</option><option value="flow" data-i18n="flow">Instantaneous flow</option><option value="principal" data-i18n="principal">Ellipse principal axes</option><option value="solutions" data-i18n="solutions">Exact growing / decaying solutions</option></select></label>
+  </div>
+  <p id="direction-note" class="note"></p>
+  <p data-i18n="axes"></p>
+  <p data-i18n="arrows" class="note"></p>
+  <p id="error" role="alert" hidden></p>
+  <noscript>This animation requires JavaScript. このアニメーションにはJavaScriptが必要です。</noscript>
+</main>
+<script src="frame.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

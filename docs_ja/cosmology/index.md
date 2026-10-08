@@ -16,3 +16,8 @@
 
 - **[エネルギースケール・アトラス](../particle-physics/mass-scale-atlas/?lang=ja)**<br>
   現在のHubbleスケールからPlanck質量まで、宇宙熱史の指標を粒子質量や物理現象と比較
+
+## 原始量子揺らぎ
+
+- **[インフレーションの量子揺らぎと squeezing](inflation-squeezing/)**<br>
+  Bogoliubov 変換と Wigner 関数のアニメーションでたどる、真空揺らぎから superhorizon での凍結、CMB 音響振動の位相コヒーレンスまで

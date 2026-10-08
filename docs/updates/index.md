@@ -3,6 +3,10 @@
 Newly published and revised articles are listed by update date, newest first. Entries sharing a
 date follow the field order on the home page and then their order within each field.
 
+## October 8, 2026
+
+- [Inflationary Quantum Fluctuations and Squeezing](../cosmology/inflation-squeezing/) — Cosmology
+
 ## September 11, 2026
 
 - [Torque-Free Rotation of an Asymmetric Rigid Body](../classical-mechanics/asymmetric-rigid-body/) — Classical Mechanics

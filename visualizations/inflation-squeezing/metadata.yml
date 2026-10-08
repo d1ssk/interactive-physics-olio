@@ -1,0 +1,16 @@
+id: inflation-squeezing
+title: Inflationary Quantum Fluctuations and Squeezing
+title_ja: インフレーションの量子揺らぎと squeezing
+field: cosmology
+topics:
+  - inflation
+  - quantum squeezing
+  - Hamiltonian flow
+  - primordial perturbations
+level:
+  - advanced undergraduate
+  - graduate
+runtime: browser-static
+page: cosmology/inflation-squeezing
+summary: Animate the Hamiltonian flow of an inflationary mode and connect its squeezed Wigner ellipse to growing modes and acoustic phase coherence.
+summary_ja: インフレーション中のモードのHamilton流を再生し、Wigner楕円の変形から成長モードと音響振動の位相コヒーレンスを読み解く
