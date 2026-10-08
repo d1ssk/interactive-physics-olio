@@ -2,7 +2,6 @@ import re
 from pathlib import Path
 
 import numpy as np
-import pytest
 from scipy.integrate import solve_ivp
 
 
@@ -103,10 +102,6 @@ def test_acoustic_ensembles_have_equal_total_variance(inflation):
     np.testing.assert_allclose(np.trapezoid(coherent, phase), np.trapezoid(incoherent, phase))
 
 
-@pytest.mark.xfail(
-    strict=True,
-    reason="Japanese-first article revision; restore equation parity after the English revision.",
-)
 def test_bilingual_article_equation_parity():
     root = Path(__file__).resolve().parents[3]
     equations = [
@@ -239,21 +234,17 @@ def test_random_acoustic_realizations_share_zeros_only_when_coherent(inflation):
 
 def test_article_section_order_and_figure_placement(builder, tmp_path):
     root = Path(__file__).resolve().parents[3]
-    placements = {
-        "docs": {"background": 4, "squeezing": 5, "basis": 6, "samples": 9, "acoustic": 10},
-        "docs_ja": {"background": 5, "squeezing": 6, "basis": 4, "samples": 7, "acoustic": 8},
-    }
+    placements = {"background": 5, "squeezing": 6, "basis": 4, "samples": 7, "acoustic": 8}
     for docs in ["docs", "docs_ja"]:
         source = (root / docs / "cosmology/inflation-squeezing/index.md").read_text()
         sections = re.split(r"^## ", source, flags=re.M)[1:]
-        section_count = 8 if docs == "docs_ja" else 10
+        section_count = 8
         assert [int(s.split(".", 1)[0]) for s in sections[:section_count]] == list(
             range(1, section_count + 1)
         )
-        for view, section in placements[docs].items():
+        for view, section in placements.items():
             assert f"&amp;view={view}" in sections[section - 1]
-        animation_section = 6 if docs == "docs_ja" else 7
-        assert "app/index.html?lang=" in sections[animation_section - 1]
+        assert "app/index.html?lang=" in sections[5]
         assert "app/teaser.svg" in sections[0]
     builder.build(tmp_path)
     assert 'width="720" height="250"' in (tmp_path / "teaser.svg").read_text()

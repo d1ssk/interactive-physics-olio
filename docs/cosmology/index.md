@@ -19,5 +19,5 @@ Thermal history, structure formation, and the early universe.
 
 ## Primordial quantum fluctuations
 
-- **[Inflationary Fluctuations and Squeezing](inflation-squeezing/)**<br>
-  Animate a mode's Hamiltonian flow and connect the squeezed Wigner ellipse to growing modes and acoustic phase coherence.
+- **[Inflationary Quantum Fluctuations and Squeezing](inflation-squeezing/)**<br>
+  Follow vacuum fluctuations through Bogoliubov transformations and Wigner-function animations to superhorizon freeze-out and CMB acoustic phase coherence.

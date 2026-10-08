@@ -3,9 +3,9 @@
 Newly published and revised articles are listed by update date, newest first. Entries sharing a
 date follow the field order on the home page and then their order within each field.
 
-## October 4, 2026
+## October 8, 2026
 
-- [Inflationary Fluctuations and Squeezing](../cosmology/inflation-squeezing/) — Cosmology
+- [Inflationary Quantum Fluctuations and Squeezing](../cosmology/inflation-squeezing/) — Cosmology
 
 ## September 11, 2026
 
