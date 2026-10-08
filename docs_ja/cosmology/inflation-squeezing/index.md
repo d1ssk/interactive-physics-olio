@@ -923,104 +923,103 @@ $$
 
 ここまでは Bogoliubov 係数を使って時間発展を記述してきました。同じ時間発展は、場の演算子を初期消滅演算子で展開したときのモード関数としても表せます。
 
-$q_A=a\phi_A$ と、固定した基準周波数 $k$ による生成・消滅演算子の定義から、
+波数対 $(\mathbf k,-\mathbf k)$ の実定在波モード $A=c,s$ について、正準変数 $q_{A,\mathbf k}=a\phi_{A,\mathbf k}$ を
 
 $$
-\phi_A(\eta)
+q_{A,\mathbf k}(\eta)
 =
-\frac{1}{a\sqrt{2k}}
-\left[
-(\alpha_k+\beta_k^*)b_A^{\mathrm{in}}
+f_k(\eta)b_A^{\mathrm{in}}
 +
-(\alpha_k^*+\beta_k)b_A^{\mathrm{in}\dagger}
-\right]
+f_k^*(\eta)b_A^{\mathrm{in}\dagger}
 $$
 
-です。先ほど求めた Bogoliubov 係数を代入すると、
+と展開すると、Bogoliubov 変換との比較から、
 
 $$
-\boxed{
-\phi_A(\eta)
+f_k(\eta)
+=
+\frac{\alpha_k+\beta_k^*}{\sqrt{2k}}
+=
+\frac{1+i/x}{\sqrt{2k}}e^{ix}
+$$
+
+を得ます。$f_k$ は Bunch–Davies 条件を満たす、正準変数のモード関数です。
+
+元の場 $\phi_{A,\mathbf k}=q_{A,\mathbf k}/a$ のモード関数は
+
+$$
+\frac{f_k}{a}
+=
+\frac{H}{\sqrt{2k^3}}(x+i)e^{ix}
+$$
+
+です。Superhorizon 極限 $x\ll1$ で展開すると、
+
+$$
+\frac{f_k}{a}
 =
 \frac{H}{\sqrt{2k^3}}
 \left[
-(x+i)e^{ix}b_A^{\mathrm{in}}
-+
-(x-i)e^{-ix}b_A^{\mathrm{in}\dagger}
-\right]
-}
-$$
-
-を得ます。$b_A^{\mathrm{in}}$ の係数が、Bunch–Davies 条件を満たすモード関数です。
-
-この解を、宇宙論的摂動で通常用いられる成長解・減衰解と対応づけてみましょう。
-
-§4 の Mukhanov–Sasaki 方程式に $v_k=z\zeta_k$ を代入すると、
-
-$$
-(z^2\zeta_k')'+k^2z^2\zeta_k=0
-$$
-
-となります。Superhorizon で勾配項を無視すれば、
-
-$$
-\boxed{
-\zeta_k(\eta)
-=
-C_1+
-C_2\int^\eta\frac{d\tilde\eta}{z^2(\tilde\eta)}
-}
-$$
-
-という二つの独立な解が得られます。
-
-通常の slow-roll インフレーションでは $z\propto a$ に近いため、
-
-$$
-\zeta_g\simeq\mathrm{const},
-\qquad
-\zeta_d\propto a^{-3}
-$$
-
-となります。第一の解は保存モード（growing mode）、第二の解は減衰モード（decaying mode）と呼ばれます。一方、正準変数 $v=z\zeta$ では、それぞれ $v_g\propto a$、$v_d\propto a^{-2}$ と振る舞います。
-
-de Sitter 背景の自由・質量ゼロスカラー場 $\phi_A$ でも、$z$ を $a$ に置き換えた同じ構造が現れます。実際、先ほどの厳密解を $x\ll1$ で展開すると、
-
-$$
-(x+i)e^{ix}
-=
 i\left(1+\frac{x^2}{2}+O(x^4)\right)
 -\frac{x^3}{3}+O(x^5)
+\right]
 $$
 
-です。虚部は一定値に近づく保存モード、実部は $x^3\propto a^{-3}$ で減衰するモードに対応します。なお、虚部の $O(x^2)$ は、有限波数による保存モードへの補正です。
+となります。虚部は一定値に近づき、実部は $x^3\propto a^{-3}$ で減衰します。
 
-したがって、superhorizon では保存モードが優勢になり、Bunch–Davies 真空における場の分散は
+この二つの振る舞いは、モード方程式の独立な解に対応しています。$f_k$ は
+
+$$
+f_k''
++
+\left(k^2-\frac{a''}{a}\right)f_k
+=0
+$$
+
+を満たすので、これを $f_k/a$ の方程式に書き換えると、
+
+$$
+\left[a^2\left(\frac{f_k}{a}\right)'\right]'
++
+k^2a^2\frac{f_k}{a}
+=0
+$$
+
+となります。Superhorizon で勾配項を無視した方程式の一般解は、
+
+$$
+\frac{f_k(\eta)}{a(\eta)}
+\simeq
+C_1+
+C_2\int^\eta\frac{d\tilde\eta}{a^2(\tilde\eta)}
+$$
+
+です。de Sitter 背景では第二項が $a^{-3}$ に比例するため、先ほどの厳密解の虚部と実部は、それぞれ保存モード（growing mode）と減衰モード（decaying mode）に対応します。虚部の $O(x^2)$ は、有限波数による保存モードへの補正です。
+
+Superhorizon では保存モードが優勢になります。実際、Bunch–Davies 真空における場の分散は
 
 $$
 \begin{aligned}
-\langle\phi_A^2\rangle
+\langle\phi_{A,\mathbf k}^2\rangle
 &=
-\frac{H^2}{2k^3}|(x+i)e^{ix}|^2\\
+\left|\frac{f_k}{a}\right|^2\\
 &=
 \frac{H^2}{2k^3}(1+x^2)
 \end{aligned}
 $$
 
-から、
+なので、
 
 $$
-\boxed{
-\langle\phi_A^2\rangle
+\langle\phi_{A,\mathbf k}^2\rangle
 \longrightarrow
 \frac{H^2}{2k^3}
-\qquad (x\to0)
-}
+\qquad(x\to0)
 $$
 
-へ近づきます。
+となります。
 
-つまり、元の場の揺らぎが一定値に近づく一方で、正準変数 $q_A=a\phi_A$ の量子状態は強く squeezing され続けます。**保存モードの優勢化と squeezing の発達は、同じ量子時間発展を異なる側面から捉えたものです。**
+元の場の揺らぎが一定値に近づく一方、正準変数 $q_{A,\mathbf k}=a\phi_{A,\mathbf k}$ の量子状態は強く squeezing され続けます。保存モードの優勢化と squeezing の発達は、同じ量子時間発展を異なる側面から捉えたものです。
 
 次節では、この時間発展を固定した quadrature 座標上の Wigner 関数として調べます。
 
@@ -1102,7 +1101,6 @@ $$
 ここに de Sitter 背景での厳密解を代入すると、
 
 $$
-\boxed{
 \Sigma(x)
 =
 \frac12
@@ -1110,7 +1108,6 @@ $$
 1+x^{-2}&-x^{-1}\\
 -x^{-1}&1
 \end{pmatrix}
-}
 $$
 
 となります。
@@ -1155,13 +1152,11 @@ $$
 楕円の長軸が正の $Q$ 軸となす角度を $\varphi_k$ とすると、
 
 $$
-\boxed{
 \varphi_k
 =
 \frac12\arg(\alpha_k\beta_k)
 =
 -\frac12\arctan(2x)
-}
 $$
 
 となります。
@@ -1193,9 +1188,7 @@ $Q$ 方向の分散は増大しますが、$P$ 方向の周辺分散は一定の
 実際、
 
 $$
-\boxed{
 \operatorname{Var}(P+xQ)=\frac{x^2}{2}
-}
 $$
 
 が成り立ちます。
