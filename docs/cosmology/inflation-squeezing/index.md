@@ -1371,9 +1371,9 @@ The left and right panels use the same coordinate ranges. The plotted Wigner con
 
 ## 8. Temporal phase coherence and the CMB acoustic peaks
 
-As we saw in §6–7, squeezing makes the Wigner distribution a thin ellipse, with the field amplitude and momentum approximately obeying a common linear relation. At a fixed time, momentum is proportional to the field velocity, so amplitude and velocity are distributed almost along a single straight line rather than varying independently. This correlation is the starting point for understanding the phase of subsequent acoustic oscillations.
+As we saw in §6–7, the thin, elongated Wigner distribution produced by squeezing points almost along the amplitude direction on superhorizon scales, and the original field's velocity becomes nearly zero. For the scalar field in §6, the relative change per Hubble time is of order $x^2\ll1$. Subsequent acoustic oscillations in the adiabatic growing mode likewise start almost at rest with random initial displacements. Their temporal phases therefore align despite their different amplitudes.
 
-As the decaying mode fades, a conserved mode with a random amplitude becomes dominant. For the scalar field in §6, the relative change per Hubble time on superhorizon scales is suppressed to order $x^2\ll1$.
+Strictly speaking, the velocity is nonzero, but squeezing confines the amplitude–velocity distribution close to a common linear relation. The small velocity carries almost no independent randomness, so the conclusion that the phases align remains unchanged.
 
 In standard single-field attractor inflation, the superhorizon curvature perturbation $\zeta$ is also approximately conserved. As this perturbation evolves as an adiabatic growing mode, the photon–baryon fluid's acoustic variable in the linear regime can be written, for each real standing-wave component $a=c,s$, as
 
@@ -1385,7 +1385,7 @@ $$
 
 Here, $T_k$ is the transfer function determined by the background evolution and wavenumber.
 
-Here too, displacement and velocity are proportional to the same primordial amplitude $\zeta_{a,\mathbf k}^{\mathrm{prim}}$ and obey a common linear relation. A nonzero velocity adds no independent randomness. Thus, although the amplitude varies between realizations, oscillations at the same wavenumber reach their zeros and extrema at the same times. This is **temporal phase coherence**. The spatial Fourier phase $\arg\zeta_{\mathbf k}$, meanwhile, remains random.
+Displacement and velocity are proportional to the same primordial amplitude $\zeta_{a,\mathbf k}^{\mathrm{prim}}$, expressing the linear relation described above. Although the amplitude varies between realizations, oscillations at the same wavenumber reach their zeros and extrema at the same times. This is **temporal phase coherence**. The spatial Fourier phase $\arg\zeta_{\mathbf k}$, meanwhile, remains random.
 
 Consider this property in a simple oscillator with constant sound speed $c_s$. Neglect gravitational driving and select one real standing-wave component. For the temperature or density displacement $X_k$ from equilibrium, we can write
 
