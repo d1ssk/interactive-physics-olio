@@ -165,6 +165,53 @@ $$
 
 その結果、初めに円形だった Gaussian 状態の Wigner 関数は、一般には回転しながら楕円へと変形します。特に vacuum や coherent state のような等方的な最小不確定状態から出発すると、一方の quadrature の揺らぎが真空揺らぎより小さくなり、共役な方向の揺らぎが大きくなる squeezing が生じます。
 
+<details markdown="1">
+<summary>Wigner 関数の定義と解釈</summary>
+
+Wigner 関数は、密度演算子 $\hat\rho$ で表される量子状態を位相空間上の実関数に写したものです。$[\hat Q,\hat P]=i$ の規約では、
+
+$$
+\begin{aligned}
+W(Q,P)&=\frac1{2\pi}\int_{-\infty}^{\infty}d\xi\,e^{-iP\xi}\left\langle Q+\frac\xi2\right|\hat\rho\left|Q-\frac\xi2\right\rangle
+\end{aligned}
+$$
+
+と定義します。ここで $|Q\rangle$ は $\hat Q$ の固有状態で、$Q,P$ は位相空間上の実数です。時間依存性は $\hat\rho$ に含め、式では省略しています。純粋状態なら、積分内の密度行列は $\psi(Q+\xi/2)\psi^*(Q-\xi/2)$ になります。
+
+全体の積分は $1$ で、一方の座標を積分した周辺分布は、それぞれの quadrature の測定確率密度を与えます。
+
+$$
+\int dQ\,dP\,W(Q,P)=1,
+$$
+
+$$
+\begin{aligned}
+\int dP\,W(Q,P)&=\langle Q|\hat\rho|Q\rangle,\\
+\int dQ\,W(Q,P)&=\langle P|\hat\rho|P\rangle
+\end{aligned}
+$$
+
+また、位相空間上のモーメントは、演算子を対称順序（Weyl 順序）に並べた期待値に対応します。例えば、
+
+$$
+\int dQ\,dP\,QP\,W(Q,P)
+=\frac12\langle\hat Q\hat P+\hat P\hat Q\rangle
+$$
+
+です。この性質により、二つの quadrature の揺らぎや相関を、一つの位相空間上で見ることができます。
+
+ただし、一般の量子状態では $W$ が負になることもあるため、通常の確率密度と区別して**準確率分布**と呼びます。Gaussian 状態では $W\geq0$ なので、対称順序の相関関数を古典的な確率分布による平均として計算できます。正の Wigner 関数を持つ真空も、交換関係と不確定性関係に従う量子状態です。定義と基本的性質は [O’Connell](https://arxiv.org/abs/1009.4431) にもまとめられています。
+
+例えば $b=(Q+iP)/\sqrt2$ の真空は、
+
+$$
+W_0(Q,P)=\frac1\pi e^{-(Q^2+P^2)}
+$$
+
+という円対称の分布です。各 quadrature の分散は $1/2$ であり、真空でも振幅と運動量の揺らぎが残ることが分かります。
+
+</details>
+
 ### Heisenberg 描像：演算子の時間発展と Bogoliubov 混合
 
 同じ固定基底を Heisenberg 描像で見てみます。今度は状態を固定し、
@@ -612,9 +659,7 @@ k\left(
 a_{\mathbf k}^\dagger a_{\mathbf k}
 +a_{-\mathbf k}^\dagger a_{-\mathbf k}
 +1
-\right)\\
-&+
-is\left(
+\right)+is\left(
 a_{\mathbf k}^\dagger a_{-\mathbf k}^\dagger
 -a_{\mathbf k}a_{-\mathbf k}
 \right)
@@ -783,25 +828,36 @@ $$
 
 です。$H$ は一定の Hubble parameter、$\eta<0$ は共形時間です。
 
-§3 で導入した二つの実定在波モード $A=c,s$ のそれぞれについて、正準変数と運動量を
+§3 で導入した二つの実定在波モード $A=c,s$ のそれぞれについて、無次元の正準 quadrature を
 
 $$
-q_{A,\mathbf k}=a\phi_{A,\mathbf k},
+Q_{A,\mathbf k}=\sqrt{k}\,a\phi_{A,\mathbf k},
 \qquad
-p_{A,\mathbf k}=q_{A,\mathbf k}'-\mathcal Hq_{A,\mathbf k}=a\phi_{A,\mathbf k}'
+P_{A,\mathbf k}=\frac{a\phi_{A,\mathbf k}'}{\sqrt{k}}
 $$
 
-と定義します。これは §4 の $s=z'/z$ を $s=\mathcal H$ に置き換えたものに対応し、同じ形の Hamiltonian が得られます。モード方程式は
+と定義します。これらは $[Q_{A,\mathbf k},P_{A,\mathbf k}]=i$ を満たし、§4 の消滅演算子とは
 
 $$
-q_{A,\mathbf k}''
+b_{A,\mathbf k}=\frac{Q_{A,\mathbf k}+iP_{A,\mathbf k}}{\sqrt2}
+$$
+
+で結ばれます。§4 の $s=z'/z$ を $s=\mathcal H$ に置き換えると、
+
+$$
+P_{A,\mathbf k}
+=\frac{Q_{A,\mathbf k}'-\mathcal H Q_{A,\mathbf k}}{k},
+$$
+
+$$
+Q_{A,\mathbf k}''
 +
 \left(
 k^2-\frac2{\eta^2}
-\right)q_{A,\mathbf k}=0
+\right)Q_{A,\mathbf k}=0
 $$
 
-です。
+となります。以下では、この $Q,P$ を使って位相空間の議論を進めます。
 
 以下では
 
@@ -918,14 +974,16 @@ $$
 
 ここまでは Bogoliubov 係数を使って時間発展を記述してきました。同じ時間発展は、場の演算子を初期消滅演算子で展開したときのモード関数としても表せます。
 
-波数対 $(\mathbf k,-\mathbf k)$ の実定在波モード $A=c,s$ について、正準変数 $q_{A,\mathbf k}=a\phi_{A,\mathbf k}$ を
+波数対 $(\mathbf k,-\mathbf k)$ の実定在波モード $A=c,s$ について、quadrature $Q_{A,\mathbf k}$ を
 
 $$
-q_{A,\mathbf k}(\eta)
+Q_{A,\mathbf k}(\eta)
 =
+\sqrt{k}\left[
 f_k(\eta)b_{A,\mathbf k}^{\mathrm{in}}
 +
 f_k^*(\eta)b_{A,\mathbf k}^{\mathrm{in}\dagger}
+\right]
 $$
 
 と展開すると、Bogoliubov 変換との比較から、
@@ -938,9 +996,9 @@ f_k(\eta)
 \frac{1+i/x}{\sqrt{2k}}e^{ix}
 $$
 
-を得ます。$f_k$ は Bunch–Davies 条件を満たす、正準変数のモード関数です。
+を得ます。$f_k$ は再スケールした場 $a\phi_{A,\mathbf k}$ のモード関数として規格化しています。無次元の $Q_{A,\mathbf k}$ の展開係数は $\sqrt{k}f_k$ です。
 
-元の場 $\phi_{A,\mathbf k}=q_{A,\mathbf k}/a$ のモード関数は
+元の場 $\phi_{A,\mathbf k}=Q_{A,\mathbf k}/(\sqrt{k}a)$ のモード関数は
 
 $$
 \frac{f_k}{a}
@@ -1014,7 +1072,7 @@ $$
 
 となります。
 
-元の場の揺らぎが一定値に近づく一方、正準変数 $q_{A,\mathbf k}=a\phi_{A,\mathbf k}$ の量子状態は強く squeezing され続けます。保存モードの優勢化と squeezing の発達は、同じ量子時間発展を異なる側面から捉えたものです。
+元の場の揺らぎが一定値に近づく一方、$Q_{A,\mathbf k},P_{A,\mathbf k}$ で見た量子状態は強く squeezing され続けます。保存モードの優勢化と squeezing の発達は、同じ量子時間発展を異なる側面から捉えたものです。
 
 次の図では、$f_k/a$ と $f_k$ の実部・虚部・絶対値を、それぞれ $H/\sqrt{2k^3}$ と $1/\sqrt{2k}$ を単位として示します。「superhorizon の保存・減衰成分」では、$|\operatorname{Im}(f_k/a)|$ と $|\operatorname{Re}(f_k/a)|$ がそれぞれ $1$ と $x^3/3$ に近づく様子を確認できます。実部と虚部の対応はモード関数の位相規約によって変わりますが、保存モードの優勢化は規約によらず成り立ちます。
 
@@ -1022,23 +1080,19 @@ $$
 
 ## 6. Wigner 関数の時間発展：Bogoliubov 変換と Hamilton flow
 
-ここまで求めた時間発展を、一つの実定在波モードの位相空間上で見てみます。以下では波数対と $A=c,s$ の一方を固定し、$q=q_{A,\mathbf k}$、$p=p_{A,\mathbf k}$、$\phi=\phi_{A,\mathbf k}$ と略記します。
+ここまで求めた時間発展を、一つの実定在波モードの位相空間上で見てみます。以下では波数対と $A=c,s$ の一方を固定し、$Q=Q_{A,\mathbf k}$、$P=P_{A,\mathbf k}$、$\phi=\phi_{A,\mathbf k}$ と略記します。
 
-§2 と同じく、固定した基準周波数 $k$ による無次元の quadrature
-
-$$
-Q=\sqrt{k}\,q=\sqrt{k}\,a\phi,
-$$
+§5 で定義した無次元の quadrature は
 
 $$
-P=\frac{p}{\sqrt{k}}
-=
-\frac{q'-\mathcal Hq}{\sqrt{k}}
-=
-\frac{a\phi'}{\sqrt{k}}
+Q=\sqrt{k}\,a\phi,
 $$
 
-を使います。これらは
+$$
+P=\frac{a\phi'}{\sqrt{k}}
+$$
+
+であり、
 
 $$
 [\hat Q,\hat P]=i
@@ -1101,7 +1155,7 @@ $$
 
 となります。
 
-Gaussian 状態の Wigner 関数は
+§2 の定義から、この平均値ゼロの Gaussian 状態の Wigner 関数は
 
 $$
 W(\mathbf Z;x)
@@ -1310,7 +1364,7 @@ $$
 \qquad(x\ll1)
 $$
 
-で表せます。例えば $x=0.1$ では約 $0.01$ です。**振幅には有限の幅を持つ重ね合わせが残りながら、元の場の時間変化は小さくなる**。これが、このモデルでの凍結の具体的な意味です。正準変数 $q=a\phi$ はその間も成長します。
+で表せます。例えば $x=0.1$ では約 $0.01$ です。**振幅には有限の幅を持つ重ね合わせが残りながら、元の場の時間変化は小さくなる**。これが、このモデルでの凍結の具体的な意味です。$Q=\sqrt{k}a\phi$ の振幅の幅はその間も広がります。
 
 ここで $\phi$ と $\dot\phi$ は正準共役な組ではなく、$[\hat\phi,\hat{\dot\phi}]=i/a^3$ です。速度の幅が小さくなることは、固定した正準 quadrature の $[\hat Q,\hat P]=i$ や $\det\Sigma=1/4$ と両立します。
 
@@ -1352,7 +1406,7 @@ $$
 \right)^2.
 $$
 
-したがって、再スケール変数 $q=a\phi$ の分散が大きく伸びることと、元の場 $\phi$ の分散が有限値へ凍結することは両立します。
+したがって、quadrature $Q=\sqrt{k}a\phi$ の分散が大きく伸びることと、元の場 $\phi$ の分散が有限値へ凍結することは両立します。
 
 曲率摂動では $a$ の代わりに $z$ が入り、その slow-roll 発展が振幅とスペクトルの傾きを決めます。
 
