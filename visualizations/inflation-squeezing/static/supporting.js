@@ -176,14 +176,25 @@
     if(initial) await plot('initial-cloud',cloudTraces(data.samples[0]),cloudLayout());
     await plot('evolved-cloud',cloudTraces(f),cloudLayout());
   }
-  let acousticPlaying=false, acousticHandle=null, acousticIndex=0;
-  function acousticStop(){acousticPlaying=false;clearTimeout(acousticHandle);$('acoustic-play').textContent=t.play;}
+  let acousticPlaying=false, acousticHandle=null, acousticIndex=0, acousticGeneration=0;
+  function acousticStop(){acousticPlaying=false;acousticGeneration++;clearTimeout(acousticHandle);acousticHandle=null;$('acoustic-play').textContent=t.play;}
   async function cursor() {
     const u=data.acoustic.u[acousticIndex];$('acoustic-u').value=u.toFixed(2);$('acoustic-time').value=acousticIndex;
     $('acoustic-time').setAttribute('aria-valuetext',`u = ${u.toFixed(2)}`);
     await Promise.all(['coherent-plot','incoherent-plot','power-plot'].map(id=>Plotly.relayout($(id),{shapes:[vertical(u,ink,'solid')]})));
   }
-  async function acousticStep(){if(!acousticPlaying)return; acousticIndex=Math.min(acousticIndex+1,data.acoustic.u.length-1);await cursor();if(acousticIndex===data.acoustic.u.length-1){acousticStop();return;}if(acousticPlaying)acousticHandle=setTimeout(acousticStep,60);}
+  async function acousticStep(generation){
+    if(!acousticPlaying || generation!==acousticGeneration)return;
+    acousticIndex=Math.min(acousticIndex+1,data.acoustic.u.length-1);
+    try { await cursor(); } catch(error) {
+      if(generation===acousticGeneration)fail(error);
+      return;
+    }
+    // A paused run can still be awaiting Plotly when a new run starts.
+    if(!acousticPlaying || generation!==acousticGeneration)return;
+    if(acousticIndex===data.acoustic.u.length-1){acousticStop();return;}
+    acousticHandle=setTimeout(()=>acousticStep(generation),60);
+  }
   async function acoustic() {
     const a=data.acoustic;
     for(const type of ['coherent','incoherent']) {
@@ -201,7 +212,7 @@
   let sampleBusy=false,samplePending=false;
   $('sample-time').addEventListener('input',async()=>{samplePending=true;if(sampleBusy)return;sampleBusy=true;try{while(samplePending){samplePending=false;await samples();}}catch(e){fail(e);}finally{sampleBusy=false;}});
   $('acoustic-time').addEventListener('input',()=>{acousticStop();acousticIndex=Number($('acoustic-time').value);cursor().catch(fail);});
-  $('acoustic-play').addEventListener('click',()=>{if(acousticPlaying)return acousticStop();if(acousticIndex===data.acoustic.u.length-1)acousticIndex=0;acousticPlaying=true;$('acoustic-play').textContent=t.pause;acousticStep().catch(fail);});
+  $('acoustic-play').addEventListener('click',()=>{if(acousticPlaying)return acousticStop();if(acousticIndex===data.acoustic.u.length-1)acousticIndex=0;acousticPlaying=true;$('acoustic-play').textContent=t.pause;acousticStep(++acousticGeneration);});
   $('acoustic-reset').addEventListener('click',()=>{acousticStop();acousticIndex=0;cursor().catch(fail);});
   document.addEventListener('visibilitychange',()=>{if(document.hidden)acousticStop();});window.addEventListener('pagehide',acousticStop);
   let resizeTimer, lastWidth=window.innerWidth;

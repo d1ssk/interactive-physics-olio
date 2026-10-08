@@ -4,6 +4,7 @@
   const strings = {
     en: {
       title: 'One standing mode: rotation + squeeze',
+      rotationTitle: 'Rotation', squeezeTitle: 'Squeeze', totalTitle: 'Total · Bunch–Davies state',
       intro: 'Follow one fixed comoving wavenumber. Pause or drag the time slider to choose a time.',
       play: 'Play', pause: 'Pause', reset: 'Reset', crossing: 'Hubble crossing', speed: 'Speed',
       time: 'Time (e-folds relative to Hubble crossing)', directions: 'Directions on the total flow',
@@ -22,6 +23,7 @@
     },
     ja: {
       title: '一つの定在波モード：回転＋スクイーズ',
+      rotationTitle: '回転', squeezeTitle: 'スクイーズ', totalTitle: '合成流・Bunch–Davies 状態',
       intro: '固定した一つの共動波数を追います。一時停止やスライダーで時刻を選べます。',
       play: '再生', pause: '一時停止', reset: '最初に戻る', crossing: 'Hubble crossingへ', speed: '再生速度',
       time: '時刻（Hubble crossingを基準とするe-fold数）', directions: '合成流に重ねる方向',
@@ -64,7 +66,7 @@
   function text(parent, x, y, label, attrs = {}) {
     const el = element('text', {x, y, ...attrs}, parent); el.textContent = label;
   }
-  let data, current = 0, playing = false, last = 0, elapsed = 0;
+  let data, current = 0, playing = false, last = 0, elapsed = 0, animationHandle = null;
   const panels = [];
   const px = q => 214 + q / data.limit * 158;
   const py = p => 190 - p / data.limit * 158;
@@ -115,20 +117,24 @@
       panel.overlay.forEach((line,j) => line.setAttribute('d', directions[j] ? polyline([directions[j].map(v=>-v),directions[j]]) : ''));
     });
   }
-  function stop() { playing=false; $('play').textContent=t.play; }
+  function stop() {
+    playing=false; cancelAnimationFrame(animationHandle); animationHandle=null;
+    $('play').textContent=t.play;
+  }
   function step(now) {
+    animationHandle=null;
     if (!playing) return;
     elapsed += Math.min(now-last,100) * Number($('speed').value); last=now;
     if (elapsed>=65) {
       current = Math.min(current+Math.floor(elapsed/65),data.frames.length-1); elapsed%=65; render();
       if (current===data.frames.length-1) { stop(); return; }
     }
-    requestAnimationFrame(step);
+    animationHandle=requestAnimationFrame(step);
   }
   $('play').addEventListener('click', () => {
     if (playing) return stop();
     if (current===data.frames.length-1) current=0;
-    playing=true; elapsed=0; last=performance.now(); $('play').textContent=t.pause; render(); requestAnimationFrame(step);
+    playing=true; elapsed=0; last=performance.now(); $('play').textContent=t.pause; render(); animationHandle=requestAnimationFrame(step);
   });
   $('time').addEventListener('input', () => { stop(); current=Number($('time').value); render(); });
   $('reset').addEventListener('click', () => { stop(); current=0; render(); });
