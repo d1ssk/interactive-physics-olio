@@ -18,7 +18,7 @@ Squeezing appears along the way. On a homogeneous background, Fourier decomposit
 
 The figure shows the quantum state of one standing-wave mode at three times in the same phase space, using the exact solution in §8. The horizontal and vertical axes are dimensionless coordinates built from the field amplitude and momentum. The nearly circular subhorizon distribution becomes an elongated ellipse in the superhorizon regime while preserving its area.
 
-The article proceeds as follows.
+The article proceeds as follows. The [main animation](#main-animation) is in §8.
 
 1. Describe the quantum theory in real space and choose canonical variables (§1–2).
 2. Decompose into wavevector pairs and derive the relation between two-mode and single-mode squeezing (§3–6).

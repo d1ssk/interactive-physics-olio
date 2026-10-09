@@ -340,6 +340,13 @@ html[lang="en"] .md-nav--primary {
   font-family: "Atlas Source Serif 4", Georgia, serif;
 }
 
+/* Use the site link color instead of MathJax's default blue for equation references. */
+.md-typeset .arithmatex mjx-container[jax="SVG"] a[href*="inflation-"] {
+  color: var(--md-typeset-a-color);
+  fill: currentColor;
+  stroke: currentColor;
+}
+
 /*
  * Zensical sizes direct children of display-math wrappers with min-content on
  * narrow screens. Chromium can resolve that to zero for MathJax's custom SVG
