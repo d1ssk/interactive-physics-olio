@@ -114,17 +114,17 @@ The middle expression uses the Schrödinger picture, and the right-hand expressi
 
 In wave-functional language, $G_\zeta$ is the average of $\zeta(\mathbf x)\zeta(\mathbf y)$ with configuration probability density $|\Psi_\eta[\zeta]|^2$, determined by the real part of $\mathcal K_\eta$. **Both field evolution and the initial state determine spatial correlations.**
 
-### Picture, canonical variables, and mode basis
+### Time-evolution picture, canonical variables, and mode basis
 
 The calculation involves three independent choices.
 
 | Choice | What it determines | Use in this article |
 | --- | --- | --- |
-| Picture | Whether states (Schrödinger) or operators (Heisenberg) carry time evolution | Heisenberg for operator evolution and expectation values; Schrödinger for the state and Wigner distribution |
+| Time-evolution picture | Whether states (Schrödinger) or operators (Heisenberg) carry time evolution | Heisenberg for operator evolution and expectation values; Schrödinger for the state and Wigner distribution |
 | Canonical variables | Configuration variable and conjugate momentum used to describe the state | From $\zeta$ to the canonically normalized $v=z\zeta$ (§2) |
 | Mode basis | How field degrees of freedom are divided | Traveling or standing waves for one wavevector pair (§3) |
 
-Expectation values are independent of the picture. Canonical variables and mode basis affect **how the state appears**, including the shape of its squeezing ellipse and whether subsystems are entangled, but physical quantities such as $G_\zeta$ are common to all descriptions. Section headings or opening paragraphs specify the choices below.
+Expectation values are independent of the time-evolution picture. Canonical variables and mode basis affect **how the state appears**, including the shape of its squeezing ellipse and whether subsystems are entangled, but physical quantities such as $G_\zeta$ are common to all descriptions. Section headings or opening paragraphs specify the choices below.
 
 ## 2. The canonical variable $v=z\zeta$
 
