@@ -126,7 +126,7 @@ $$
 
 単項式では $\epsilon_V=p^2M_{\mathrm{Pl}}^2/(2\phi_0^2)$、$\eta_V=p(p-1)M_{\mathrm{Pl}}^2/\phi_0^2$ と、$\eqref{eq:slowroll-9}$ から得られる $\phi_0^2/M_{\mathrm{Pl}}^2\simeq2p\Delta N+p^2/2$ を組み合わせます。$\phi_{\mathrm{end}}^2\simeq p^2M_{\mathrm{Pl}}^2/2$ は $\epsilon_V=1$ から決めました。$p=2,4$ は大きな場のインフレーション（カオス的インフレーション）にあたります。Starobinsky 模型は平坦な台地を持つポテンシャルの代表例で、$\epsilon_1$ が $\epsilon_2$ よりずっと小さくなります。べき乗則インフレーションは $\epsilon_1$ が厳密に一定で、§4 の解析解が厳密になる例です。ただしこの模型だけではインフレーションが終わらないので、比較のための参照として使います。
 
-ポテンシャルの全体の大きさ（$V_0$ や $\lambda$）は $H$ とパワースペクトルの規格化を変えるだけで、$x=k/(aH)$ の関数として見たモードの時間発展には影響しません。スペクトルを描くときだけ、pivot でのスカラーのパワーが $2.1\times10^{-9}$ になるよう規格化します。
+ポテンシャルの全体の大きさ（Starobinsky 模型とべき乗則では $V_0$、単項式では $\lambda$）は $H$ とパワースペクトルの規格化を変えるだけで、$x=k/(aH)$ の関数として見たモードの時間発展には影響しません。べき乗則の $\lambda$ はポテンシャルの傾きを決め、$\epsilon_1=\lambda^2/2$ を通じて背景とモードの時間発展を変えます。スペクトルを描くときだけ、pivot でのスカラーのパワーが $2.1\times10^{-9}$ になるよう規格化します。
 
 <iframe src="app/supporting.html?lang=ja&amp;view=background" title="slow-roll 背景のポテンシャルと Hubble flow パラメータ" data-auto-height scrolling="no" style="display: block; width: 100%; height: 900px; min-height: 620px; border: 0; overflow: hidden;" loading="eager"></iframe>
 
