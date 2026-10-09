@@ -1,1469 +1,928 @@
-# Inflationary Quantum Fluctuations and Squeezing
+---
+title: Inflationary quantum fluctuations and squeezing
+---
 
-## 1. From vacuum fluctuations to cosmic structure
+# Inflationary quantum fluctuations and squeezing
 
-The present universe contains fluctuations on many scales, visible in the distribution of galaxies and galaxy clusters and in the temperature and polarization anisotropies of the CMB. Their origins can be traced to tiny primordial fluctuations in the early universe. Inflationary theory attributes these primordial fluctuations to the vacuum fluctuations of quantum fields.
+<span class="center-material-tables"></span>
 
-During inflation, each Fourier mode of a quantum field evolves as the universe expands. In phase space, the vacuum's initially almost circular Wigner distribution gradually becomes a long, thin ellipse. This **squeezing** establishes strong correlations between the field amplitude and its momentum, with a single growing mode becoming dominant. This is central to understanding how primordial fluctuations come to admit a description as a classical stochastic field.
+The temperature anisotropies of the CMB and the large-scale distribution of galaxies grew from small primordial fluctuations in the early universe. Inflationary theory traces these fluctuations to quantum fields in an accelerating spacetime.
 
-We begin with a time-dependent harmonic oscillator, then examine Bogoliubov transformations of creation and annihilation operators and the deformation of the Wigner function. Finally, we consider how superhorizon growing-mode dominance connects to the temporal phase coherence seen in the CMB acoustic peaks.
+This article follows the **two-point correlation of the field**. In a quantum state, field values at different positions are generally correlated even when the mean field vanishes. Starting with the quantum field in real space, we follow how cosmic expansion determines this correlation and how it survives into the later universe.
+
+Squeezing appears along the way. On a homogeneous background, Fourier decomposition organizes the field into pairs of opposite wavevectors $\mathbf k$ and $-\mathbf k$ that evolve together. Traveling waves reveal **two-mode squeezing**; expressing the same two degrees of freedom as cosine and sine standing waves reveals two independent instances of **single-mode squeezing**. We establish their relation through Hamiltonian symmetries, number-state representations, and phase space.
 
 <figure style="margin-inline: auto; text-align: center;">
-  <img src="app/teaser.svg" alt="Wigner contours at three times on common quadrature axes" width="720" height="250" style="display: block; max-width: 100%; height: auto; margin-inline: auto;">
+  <img src="app/teaser.svg" alt="Wigner contours of one standing-wave quantum state at three times on the same canonical axes" width="720" height="250" style="display: block; max-width: 100%; height: auto; margin-inline: auto;">
 </figure>
 
-The figure shows Wigner-function contours for one real standing-wave mode at three times in the same phase space. The horizontal and vertical axes are quadratures defined from the field amplitude and canonical momentum. Below, we follow the emergence of stretching and contracting directions through the equations.
+The figure shows the quantum state of one standing-wave mode at three times in the same phase space, using the exact solution in §8. The horizontal and vertical axes are dimensionless coordinates built from the field amplitude and momentum. The nearly circular subhorizon distribution becomes an elongated ellipse in the superhorizon regime while preserving its area.
 
-The [main animation](#main-animation) shows this deformation continuously.
+The article proceeds as follows.
 
-## 2. Preliminaries: a time-dependent harmonic oscillator
+1. Describe the quantum theory in real space and choose canonical variables (§1–2).
+2. Decompose into wavevector pairs and derive the relation between two-mode and single-mode squeezing (§3–6).
+3. Represent squeezing as a phase-space ellipse and connect it to spatial correlations (§7).
+4. Calculate the development of squeezing in an exactly solvable model (§8).
+5. Follow field freezing to a classical description of primordial fluctuations and acoustic peaks, then look beyond linear theory (§9–10).
 
-Consider a time-dependent harmonic oscillator of unit mass,
+## 1. Quantum fields in real space and equal-time correlations
 
-$$
-H(t)=\frac12\left[p^2+\Omega^2(t)q^2\right]
-$$
-
-where $\Omega^2(t)$ is the time-dependent effective squared frequency and need not be positive. Throughout, we use $\hbar=1$ and $[q,p]=i$.
-
-### Schrödinger picture: an evolving state on fixed axes
+### Background and the degree of freedom to quantize
 
-We first work in the Schrödinger picture. The operators $q,p$ are time independent, while the quantum state $|\psi(t)\rangle$ evolves.
+Consider inflation driven by one scalar field with a standard kinetic term, the inflaton, in general relativity. The background is a spatially flat, homogeneous, isotropic universe,
 
-Choose a fixed positive reference frequency $\omega_0$ and define
-
 $$
-b=
-\frac{1}{\sqrt2}
-\left(
-\sqrt{\omega_0}q
-+\frac{ip}{\sqrt{\omega_0}}
-\right)
+ds_0^2=-dt^2+a^2(t)\,d\mathbf x^2=a^2(\eta)\left(-d\eta^2+d\mathbf x^2\right)\tag{1}\label{eq:inflation-1}
 $$
-
-with the corresponding dimensionless quadratures
 
-$$
-Q=\frac{b+b^\dagger}{\sqrt2}
-=\sqrt{\omega_0}q,
-\qquad
-P=\frac{b-b^\dagger}{i\sqrt2}
-=\frac{p}{\sqrt{\omega_0}}
-$$
+where $\mathbf x$ denotes comoving coordinates, $a$ the scale factor, and $\eta$ conformal time. We write $H=\dot a/a$ and $\mathcal H=a'/a=aH$; dots denote derivatives with respect to cosmic time $t$, and primes derivatives with respect to $\eta$. We use $c=\hbar=1$.
 
-Since $\omega_0$ is fixed, $Q,P$ define phase-space axes that do not move with time.
+The scale factor $a$ and background inflaton $\phi_0$ are prescribed functions of time obeying the classical background equations. We quantize the **perturbations** on this background.
 
-In these coordinates, the Hamiltonian is
+For linear perturbations of a single field, solving the gravitational constraints leaves one propagating scalar degree of freedom. We describe it by the comoving curvature perturbation $\hat\zeta$. On time slices where the inflaton is homogeneous, we adopt the sign convention
 
 $$
-H(t)
-=
-\frac{\omega_0}{2}P^2
-+
-\frac{\Omega^2(t)}{2\omega_0}Q^2
+\hat g_{ij}=a^2(1-2\hat\zeta)\,\delta_{ij}\tag{2}\label{eq:inflation-2}
 $$
 
-In terms of $b,b^\dagger$, the same Hamiltonian becomes
+for the spatial metric at linear order. Our $\zeta$ has the opposite sign to the convention $g_{ij}=a^2e^{2\zeta}\delta_{ij}$, but the two-point function is the same. In terms of the inflaton fluctuation $\delta\hat\phi_{\mathrm{flat}}$ on spatially flat slices, the linear gauge transformation expresses the same degree of freedom as
 
 $$
-H(t)=
-\frac{\omega_0^2+\Omega^2(t)}{2\omega_0}
-\left(b^\dagger b+\frac12\right)
-+
-\frac{\Omega^2(t)-\omega_0^2}{4\omega_0}
-\left(b^2+b^{\dagger2}\right)
+\hat\zeta=\frac{H}{\dot\phi_0}\,\delta\hat\phi_{\mathrm{flat}}\qquad(\dot\phi_0\neq0)\tag{3}\label{eq:inflation-3}
 $$
 
-For $\Omega^2(t)=\omega_0^2$, we have
+This is the same scalar perturbation in a different slicing.
 
-$$
-H=\frac{\omega_0}{2}(Q^2+P^2)=\omega_0\left(b^\dagger b+\frac12\right)
-$$
+After solving the constraints, the quadratic action is
 
-A number state then evolves as
-
 $$
-|n\rangle
-\longrightarrow
-e^{-i(n+1/2)\omega_0t}|n\rangle
+S_2[\zeta]=\frac12\int d\eta\,d^3x\;z^2\left[(\zeta')^2-(\nabla\zeta)^2\right],\qquad z=\frac{a\dot\phi_0}{H}\tag{4}\label{eq:inflation-4}
 $$
-
-so, apart from a common phase, the relative phase of each component advances as $e^{-in\omega_0t}$.
 
-For example, a coherent state
+Here $z$ depends only on the background and incorporates both cosmic expansion and the motion of the background inflaton. A derivation is given in [Baumann’s lectures](https://arxiv.org/abs/0907.5424). Through §9 we use the linear quantum theory defined by this quadratic action. Cubic and higher interactions enter in §10.
 
-$$
-|\alpha\rangle
-=
-e^{-|\alpha|^2/2}
-\sum_{n=0}^\infty
-\frac{\alpha^n}{\sqrt{n!}}|n\rangle
-$$
+### Canonical quantization (Heisenberg picture)
 
-evolves, up to an overall phase, as
+With conjugate momentum density $\hat\Pi_\zeta=z^2\hat\zeta'$, the equal-time canonical commutator is
 
 $$
-|\alpha\rangle
-\longrightarrow
-|\alpha e^{-i\omega_0t}\rangle
+[\hat\zeta(\eta,\mathbf x),\hat\Pi_\zeta(\eta,\mathbf y)]=i\,\delta^{(3)}(\mathbf x-\mathbf y)\tag{5}\label{eq:inflation-5}
 $$
 
-Thus,
+while fields commute with fields and momenta with momenta. The Hamiltonian generating conformal-time evolution is
 
 $$
-\alpha(t)=e^{-i\omega_0t}\alpha(0)
+\hat H_\zeta(\eta)=\frac12\int d^3x\left[\frac{\hat\Pi_\zeta^{\,2}}{z^2}+z^2(\nabla\hat\zeta)^2\right]\tag{6}\label{eq:inflation-6}
 $$
 
-For the center of a coherent state,
+Its time dependence enters through the background coefficient $z(\eta)$. The Heisenberg equation $\hat O'=i[\hat H_\zeta,\hat O]$ gives the local field equation
 
 $$
-\alpha
-=
-\frac{\langle Q\rangle+i\langle P\rangle}{\sqrt2}
+\bigl(z^2\hat\zeta'\bigr)'-z^2\nabla^2\hat\zeta=0\tag{7}\label{eq:inflation-7}
 $$
-
-This corresponds to rotation at a constant radius in the fixed $Q,P$ plane. More generally, when $\Omega^2=\omega_0^2$, the entire Wigner function of any state rotates without changing shape.
-
-When $\Omega^2(t)\neq\omega_0^2$, however, the coefficients of $Q^2$ and $P^2$ differ. The two phase-space directions are affected differently, deforming the distribution in addition to rotating it.
 
-In terms of $b,b^\dagger$, this effect is carried by the term
+The fluctuation amplitude is determined by specifying the **quantum state** in which products of these operators are averaged.
 
-$$
-b^2+b^{\dagger2}
-$$
+### Wave functional (Schrödinger picture)
 
-Indeed,
+In the Schrödinger picture, the operators $\hat\zeta_{\mathrm S}(\mathbf x)$ and $\hat\Pi_{\zeta,\mathrm S}(\mathbf x)$ are fixed, and the state evolves according to $i\partial_\eta|\Psi(\eta)\rangle=\hat H_\zeta(\eta)|\Psi(\eta)\rangle$. The **wave functional** $\Psi_\eta[\zeta]=\langle\zeta|\Psi(\eta)\rangle$, expressed in simultaneous eigenstates $|\zeta\rangle$ of $\hat\zeta_{\mathrm S}(\mathbf x)$, assigns an amplitude to each field configuration $\zeta(\mathbf x)$ across space. Representing $\hat\Pi_{\zeta,\mathrm S}$ by $-i\,\delta/\delta\zeta(\mathbf x)$ gives
 
 $$
-b^2|n\rangle\propto|n-2\rangle,
-\qquad
-b^{\dagger2}|n\rangle\propto|n+2\rangle
+i\partial_\eta\Psi_\eta[\zeta]=\frac12\int d^3x\left[-\frac1{z^2}\frac{\delta^2}{\delta\zeta(\mathbf x)^2}+z^2(\nabla\zeta)^2\right]\Psi_\eta[\zeta]\tag{8}\label{eq:inflation-8}
 $$
 
-so different number states mix. The identity
-
-$$
-b^2+b^{\dagger2}=Q^2-P^2
-$$
+This is a formal expression for a continuum of infinitely many degrees of freedom; a precise treatment includes finite-volume or short-distance regularization.
 
-also shows that this term treats the $Q$ and $P$ directions asymmetrically.
-In phase space, the evolution is described by the Hamiltonian flow
+Because the Hamiltonian is quadratic, a zero-mean Gaussian state remains Gaussian. Using a complex kernel $\mathcal K_\eta$, such a state can be written as
 
 $$
-\dot Q=\omega_0P,
-\qquad
-\dot P=-\frac{\Omega^2(t)}{\omega_0}Q
+\Psi_\eta[\zeta]=\mathcal N_\eta\exp\left[-\frac12\int d^3x\,d^3y\;\zeta(\mathbf x)\,\mathcal K_\eta(\mathbf x,\mathbf y)\,\zeta(\mathbf y)\right]\tag{9}\label{eq:inflation-9}
 $$
-
-Here, $Q,P$ are phase-space coordinates. Because the Hamiltonian is quadratic, the Wigner function evolves exactly along this classical flow. For $\Omega^2=\omega_0^2$, the flow is circular rotation; unequal coefficients introduce stretching and contraction.
 
-As a result, the initially circular Wigner function of a Gaussian state generally deforms into a rotating ellipse. In particular, starting from an isotropic minimum-uncertainty state such as the vacuum or a coherent state produces squeezing: fluctuations in one quadrature become smaller than the vacuum fluctuations, while those in the conjugate direction grow.
+The real part of the kernel determines the width in configuration space; its imaginary part determines the wave-functional phase, and hence field–momentum correlations. If the background and state are homogeneous and isotropic, the kernel depends only on the distance $|\mathbf x-\mathbf y|$. This **translation-invariant quadratic form** is our starting point for understanding squeezing from §3 onward.
 
-<details markdown="1">
-<summary>Definition and interpretation of the Wigner function</summary>
+### Goal: equal-time spatial correlations
 
-The Wigner function maps a quantum state described by a density operator $\hat\rho$ to a real function on phase space. With the convention $[\hat Q,\hat P]=i$, it is defined as
+Our goal is to calculate the field’s two-point correlation at time $\eta$,
 
 $$
-\begin{aligned}
-W(Q,P)&=\frac1{2\pi}\int_{-\infty}^{\infty}d\xi\,e^{-iP\xi}\left\langle Q+\frac\xi2\right|\hat\rho\left|Q-\frac\xi2\right\rangle
-\end{aligned}
+G_\zeta(\eta;\mathbf x,\mathbf y)=\langle\Psi(\eta)|\hat\zeta_{\mathrm S}(\mathbf x)\hat\zeta_{\mathrm S}(\mathbf y)|\Psi(\eta)\rangle=\langle\Psi_0|\hat\zeta_{\mathrm H}(\eta,\mathbf x)\hat\zeta_{\mathrm H}(\eta,\mathbf y)|\Psi_0\rangle\tag{10}\label{eq:inflation-10}
 $$
 
-Here, $|Q\rangle$ is an eigenstate of $\hat Q$, and $Q,P$ are real phase-space coordinates. Time dependence is contained in $\hat\rho$ and suppressed in the notation. For a pure state, the density-matrix element in the integrand becomes $\psi(Q+\xi/2)\psi^*(Q-\xi/2)$.
+The middle expression uses the Schrödinger picture, and the right-hand expression the Heisenberg picture. With $U(\eta,\eta_0)$ the evolution operator generated by $\hat H_\zeta$, we have $|\Psi(\eta)\rangle=U|\Psi_0\rangle$ and $\hat\zeta_{\mathrm H}=U^\dagger\hat\zeta_{\mathrm S}U$. Since the mean vanishes, this is also the connected two-point function.
 
-The total integral is $1$. Integrating over either coordinate gives the measurement probability density of the other quadrature:
+In wave-functional language, $G_\zeta$ is the average of $\zeta(\mathbf x)\zeta(\mathbf y)$ with configuration probability density $|\Psi_\eta[\zeta]|^2$, determined by the real part of $\mathcal K_\eta$. **Both field evolution and the initial state determine spatial correlations.**
 
-$$
-\int dQ\,dP\,W(Q,P)=1,
-$$
+### Picture, canonical variables, and mode basis
 
-$$
-\begin{aligned}
-\int dP\,W(Q,P)&=\langle Q|\hat\rho|Q\rangle,\\
-\int dQ\,W(Q,P)&=\langle P|\hat\rho|P\rangle
-\end{aligned}
-$$
+The calculation involves three independent choices.
 
-Phase-space moments also correspond to expectation values of symmetrically ordered (Weyl-ordered) operators. For example,
+| Choice | What it determines | Use in this article |
+| --- | --- | --- |
+| Picture | Whether states (Schrödinger) or operators (Heisenberg) carry time evolution | Heisenberg for operator evolution and expectation values; Schrödinger for the state and Wigner distribution |
+| Canonical variables | Configuration variable and conjugate momentum used to describe the state | From $\zeta$ to the canonically normalized $v=z\zeta$ (§2) |
+| Mode basis | How field degrees of freedom are divided | Traveling or standing waves for one wavevector pair (§3) |
 
-$$
-\int dQ\,dP\,QP\,W(Q,P)
-=\frac12\langle\hat Q\hat P+\hat P\hat Q\rangle
-$$
+Expectation values are independent of the picture. Canonical variables and mode basis affect **how the state appears**, including the shape of its squeezing ellipse and whether subsystems are entangled, but physical quantities such as $G_\zeta$ are common to all descriptions. Section headings or opening paragraphs specify the choices below.
 
-This property lets us examine the fluctuations and correlations of both quadratures in a single phase space.
+## 2. The canonical variable $v=z\zeta$
 
-For general quantum states, $W$ can be negative, so it is called a **quasiprobability distribution** to distinguish it from an ordinary probability density. Gaussian states have $W\geq0$, allowing symmetrically ordered correlators to be calculated as averages over a classical probability distribution. Even the vacuum, whose Wigner function is positive, remains a quantum state subject to commutation and uncertainty relations. [O’Connell](https://arxiv.org/abs/1009.4431) also reviews the definition and basic properties.
+### The Mukhanov–Sasaki variable
 
-For example, the vacuum of $b=(Q+iP)/\sqrt2$ has the circularly symmetric distribution
+For mode calculations, it is convenient to use the **Mukhanov–Sasaki variable**, whose kinetic term has unit coefficient,
 
 $$
-W_0(Q,P)=\frac1\pi e^{-(Q^2+P^2)}
+v=z\zeta=a\,\delta\phi_{\mathrm{flat}}\tag{11}\label{eq:inflation-11}
 $$
 
-Each quadrature has variance $1/2$, showing that amplitude and momentum fluctuations persist even in the vacuum.
+The variables $\zeta$, $\delta\phi_{\mathrm{flat}}$, and $v$ describe the same degree of freedom with different background normalizations.
 
-</details>
+Setting $s(\eta)=z'/z$ and rewriting the action without dropping a boundary term gives
 
-### Heisenberg picture: operator evolution and Bogoliubov mixing
-
-Now consider the same fixed basis in the Heisenberg picture. The state is held fixed, and we define
-
 $$
-b_{\rm H}(t)=U^\dagger(t)bU(t)
+S_2[v]=\frac12\int d\eta\,d^3x\left[(v'-sv)^2-(\nabla v)^2\right]\tag{12}\label{eq:inflation-12}
 $$
 
-Since $b$ itself has no explicit time dependence, the Heisenberg equation gives
+The conjugate momentum and Hamiltonian are
 
 $$
-\dot b_{\rm H}(t)
-=
--i
-\frac{\omega_0^2+\Omega^2(t)}{2\omega_0}
-b_{\rm H}(t)
--i
-\frac{\Omega^2(t)-\omega_0^2}{2\omega_0}
-b_{\rm H}^\dagger(t)
+\pi=v'-sv=z\zeta'=\frac{\Pi_\zeta}{z},\tag{13}\label{eq:inflation-13}
 $$
 
-Thus, $b_{\rm H}(t)$ generally evolves through a Bogoliubov transformation,
-
 $$
-b_{\rm H}(t)
-=
-\alpha(t)b+\beta(t)b^\dagger
+\hat H_v(\eta)=\frac12\int d^3x\left[\hat\pi^2+(\nabla\hat v)^2+s\,(\hat v\hat\pi+\hat\pi\hat v)\right]\tag{14}\label{eq:inflation-14}
 $$
 
-Preserving the commutation relation requires
+The cross term is symmetrized to make it Hermitian. We have $[\hat v(\eta,\mathbf x),\hat\pi(\eta,\mathbf y)]=i\,\delta^{(3)}(\mathbf x-\mathbf y)$; eliminating momentum from the Heisenberg equations gives the Mukhanov–Sasaki equation,
 
 $$
-|\alpha(t)|^2-|\beta(t)|^2=1
+\hat v''-\nabla^2\hat v-\frac{z''}{z}\hat v=0\tag{15}\label{eq:inflation-15}
 $$
-
-The deformation of the state by the $b^2+b^{\dagger2}$ term in the Schrödinger picture appears in the Heisenberg picture as mixing of $b_{\rm H}^\dagger$ into the evolution of $b_{\rm H}$.
 
-In the Schrödinger picture, the state deforms on fixed $Q,P$ axes. In the Heisenberg picture, the operators undergo Bogoliubov mixing while the state remains fixed. These descriptions give the same expectation values and covariances.
+This is the equation governing the canonical field.
 
-### Instantaneous basis: diagonalizing the Hamiltonian at each time
+### Time-dependent changes of variables and pictures
 
-So far, we have described evolution using $b,b^\dagger$ defined by a fixed reference frequency $\omega_0$. Wherever $\Omega^2(t)>0$, we can also introduce an instantaneous basis that diagonalizes the Hamiltonian at that time.
+The transformation $\hat v=z\hat\zeta$ has a time-dependent coefficient and is independent of a change of picture. Constructing the operator corresponding to $v$ while retaining the Schrödinger picture of §1 gives the explicitly time-dependent operator $z(\eta)\hat\zeta_{\mathrm S}(\mathbf x)$. The time derivative of a Heisenberg operator $\hat O_{\mathrm H}=U^\dagger\hat O_{\mathrm S}(\eta)U$ is
 
 $$
-\omega(t)=\sqrt{\Omega^2(t)}>0
+\frac{d\hat O_{\mathrm H}}{d\eta}=i[\hat H_{\mathrm H},\hat O_{\mathrm H}]+U^\dagger\left(\partial_\eta\hat O_{\mathrm S}\right)U\tag{16}\label{eq:inflation-16}
 $$
 
-Defining
+Thus the $z'$ term in $\hat v'=z'\hat\zeta+z\hat\zeta'$ comes from explicit time dependence.
 
-$$
-b_{\rm inst}(t)
-=
-\frac{1}{\sqrt2}
-\left(
-\sqrt{\omega(t)}q
-+
-\frac{ip}{\sqrt{\omega(t)}}
-\right)
-$$
-
-gives
-
-$$
-H(t)
-=
-\omega(t)
-\left(
-b_{\rm inst}^\dagger(t)b_{\rm inst}(t)
-+\frac12
-\right)
-$$
+To use a Schrödinger picture with $v$ as a time-independent configuration variable, we reformulate the quantum theory in terms of $v$. Its Hamiltonian is $\hat H_v$ above, with the time-dependent canonical transformation encoded in the cross term $s(\hat v\hat\pi+\hat\pi\hat v)$. The state changes representation at the same time: $\Psi^{(v)}_\eta[v]\propto\Psi_\eta[v/z(\eta)]$, with the proportionality factor chosen to preserve normalization.
 
-Diagonalizing the Hamiltonian at each time does not, however, ensure that the state remains in an instantaneous eigenstate. In the expansion
-
-$$
-|\psi(t)\rangle
-=
-\sum_n c_n(t)|n;t\rangle
-$$
+**Below, “fixed axes” and “the Schrödinger-picture state” refer to this $v$ representation.** The Wigner plots show a state evolving under $\hat H_v$ on coordinate axes built from fixed $v,\pi$.
 
-the number states $|n;t\rangle$ defined by $b_{\rm inst}(t)$ themselves vary with time, producing mixing between instantaneous eigenstates. For a harmonic oscillator, $n$ mixes with $n\pm2$. The evolution seen as squeezing in the fixed basis appears here as mixing between instantaneous number states.
+There is also freedom in the momentum choice. Adding a total time derivative to the action allows the conjugate momentum $\tilde\pi=v'=\pi+sv$. The equation of motion stays the same, while phase-space plots change by a shear. Throughout this article we use $\pi=v'-sv$. In the example of §8, this $\pi$ is proportional to the original field’s velocity, making freezing easier to interpret.
 
-If $\omega(t)$ varies slowly enough that
+## 3. Wavevector pairs and two mode bases (Schrödinger picture)
 
-$$
-\frac{|\dot\omega|}{\omega^2}\ll1
-$$
+In this section we construct a basis of time-independent operators from the Schrödinger operators $\hat v,\hat\pi$ in the $v$ representation of §2. We omit the subscript $\mathrm S$.
 
-this mixing is small. In the adiabatic limit, a state initially in the instantaneous vacuum approximately follows the instantaneous vacuum at later times.
+### Fourier expansion and box regularization
 
-As $\omega\to0$, the adiabatic condition generally fails, and at $\Omega^2=0$ the definition of $b_{\rm inst}$ becomes singular. For $\Omega^2(t)<0$, the Hamiltonian is
+To discuss the quantum state of an individual mode, introduce a box of comoving volume $V$ with periodic boundary conditions as a regulator. At the end we take $V\to\infty$ and retain only quantities independent of $V$.
 
 $$
-H(t)
-=
-\frac12
-\left[
-p^2-|\Omega^2(t)|q^2
-\right]
+\hat v(\mathbf x)=\frac1{\sqrt V}\sum_{\mathbf k}\hat v_{\mathbf k}\,e^{i\mathbf k\cdot\mathbf x},\qquad\hat v_{\mathbf k}=\frac1{\sqrt V}\int_V d^3x\,e^{-i\mathbf k\cdot\mathbf x}\,\hat v(\mathbf x)\tag{17}\label{eq:inflation-17}
 $$
-
-and the system is an inverted harmonic oscillator. There is no ground state or discrete set of number states of the ordinary harmonic-oscillator kind, so an instantaneous particle description in terms of a vacuum or particle number at that time is no longer available.
-
-The phase-space description using fixed $Q,P$ remains valid regardless of the sign of $\Omega^2$. For $\Omega^2<0$, oscillatory rotation gives way to hyperbolic flow that stretches in one direction and contracts in another, developing squeezing.
-
-As we will see, the effective squared frequency of a Mukhanov–Sasaki mode during inflation changes from positive to negative. On subhorizon scales, it behaves as an ordinary oscillator, with a natural positive-frequency mode and particle and vacuum concepts. On superhorizon scales, an oscillatory particle picture is no longer appropriate; growing and decaying modes and squeezing provide a more natural description.
-
-Below, we mainly calculate evolution in the Heisenberg picture, obtaining covariances from Bogoliubov coefficients or mode functions. We then use those covariances to draw the state's Wigner function in the Schrödinger picture on fixed $Q,P$ axes. “Fixed axes” means that we do not redefine the coordinates to follow the instantaneous basis; it does not mean that the calculation is performed in the Schrödinger picture. Calculating operator evolution and displaying the result as a deformation of the state's distribution lets us follow the evolution consistently from the oscillatory regime to superhorizon scales.
-
-## 3. Modes and degrees of freedom of a real scalar field
 
-### Fourier expansion and the reality condition
+Expand the momentum $\hat\pi$ in the same way. The coefficient $\hat v_{\mathbf k}$ is one component extracted from the entire field; Fourier expansion changes the basis of the full quantum field. We exclude the homogeneous component $\mathbf k=\mathbf 0$, which can be absorbed into the background, and consider $k=|\mathbf k|>0$. Hermiticity and the canonical commutator imply
 
-Expand a real scalar field $v(\eta,\mathbf x)$ in Fourier modes in a volume $V$ with periodic boundary conditions:
-
 $$
-v(\eta,\mathbf x)
-=
-\frac1{\sqrt V}
-\sum_{\mathbf k}
-v_{\mathbf k}(\eta)e^{i\mathbf k\cdot\mathbf x}
+\hat v_{-\mathbf k}=\hat v_{\mathbf k}^\dagger,\qquad\hat\pi_{-\mathbf k}=\hat\pi_{\mathbf k}^\dagger,\qquad[\hat v_{\mathbf k},\hat\pi_{\mathbf k'}]=i\,\delta_{\mathbf k,-\mathbf k'}\tag{18}\label{eq:inflation-18}
 $$
 
-Reality of the field implies
+The background coefficients are position independent, and plane waves are eigenfunctions of $-\nabla^2$, so the Hamiltonian becomes
 
 $$
-v_{-\mathbf k}=v_{\mathbf k}^*
+\hat H_v=\sum_{\mathbf k}\frac12\left[\hat\pi_{\mathbf k}\hat\pi_{-\mathbf k}+k^2\hat v_{\mathbf k}\hat v_{-\mathbf k}+s\left(\hat v_{\mathbf k}\hat\pi_{-\mathbf k}+\hat\pi_{-\mathbf k}\hat v_{\mathbf k}\right)\right]\tag{19}\label{eq:inflation-19}
 $$
-
-Thus, the Fourier coefficients at $\mathbf k$ and $-\mathbf k$ are not independent. For one nonzero wavevector pair $(\mathbf k,-\mathbf k)$, the complex number $v_{\mathbf k}$ is specified by two independent real numbers. **Each wavevector pair therefore has two real degrees of freedom.**
 
-We now quantize these two degrees of freedom and describe them in traveling-wave and standing-wave bases.
+Each term connects $\mathbf k$ to $-\mathbf k$: **opposite wavevectors appear in pairs**. Different pairs evolve independently, allowing us to factor the Hilbert space by wavevector pair.
 
-### Canonical quantization and traveling-wave modes
+### Standing waves: real cosine and sine amplitudes
 
-Quantize in the Schrödinger picture. Hermiticity of the field and its canonical momentum imposes the following conditions on their Fourier coefficients $\hat v_{\mathbf k}$ and $\hat\pi_{\mathbf k}$:
+Take one nonzero pair $(\mathbf k,-\mathbf k)$. Although $\hat v_{\mathbf k}$ is not Hermitian, $\hat v_{-\mathbf k}=\hat v_{\mathbf k}^\dagger$ allows the two Fourier coefficients to be recombined into two Hermitian configuration operators. Let $\mathcal K_+$ contain one member of each pair. For $\mathbf k\in\mathcal K_+$ define
 
 $$
-\hat v_{-\mathbf k}=\hat v_{\mathbf k}^\dagger,
-\qquad
-\hat\pi_{-\mathbf k}=\hat\pi_{\mathbf k}^\dagger
+\hat q_{c,\mathbf k}=\frac{\hat v_{\mathbf k}+\hat v_{-\mathbf k}}{\sqrt2},\qquad\hat q_{s,\mathbf k}=\frac{i(\hat v_{\mathbf k}-\hat v_{-\mathbf k})}{\sqrt2}\tag{20}\label{eq:inflation-20}
 $$
 
-The canonical commutation relations are
+Applying the same transformation to $\hat\pi$ gives $\hat p_{c,\mathbf k},\hat p_{s,\mathbf k}$. For $A,B\in\{c,s\}$,
 
 $$
-[\hat v_{\mathbf k},\hat\pi_{\mathbf k'}]
-=
-i\delta_{\mathbf k,-\mathbf k'},
-\qquad
-[\hat v_{\mathbf k},\hat v_{\mathbf k'}]
-=
-[\hat\pi_{\mathbf k},\hat\pi_{\mathbf k'}]
-=0
+[\hat q_{A,\mathbf k},\hat p_{B,\mathbf k'}]=i\,\delta_{AB}\,\delta_{\mathbf k,\mathbf k'}\tag{21}\label{eq:inflation-21}
 $$
 
-As for the oscillator in §2, define creation and annihilation operators using a fixed reference frequency. For each wavevector, take $k=|\mathbf k|>0$ and set
+with all other pairs commuting. The field becomes
 
 $$
-a_{\mathbf k}
-=
-\frac1{\sqrt2}
-\left(
-\sqrt{k}\,\hat v_{\mathbf k}
-+
-\frac{i\hat\pi_{\mathbf k}}{\sqrt{k}}
-\right)
+\hat v(\mathbf x)=\sqrt{\frac2V}\sum_{\mathbf k\in\mathcal K_+}\left[\hat q_{c,\mathbf k}\cos(\mathbf k\cdot\mathbf x)+\hat q_{s,\mathbf k}\sin(\mathbf k\cdot\mathbf x)\right]\tag{22}\label{eq:inflation-22}
 $$
 
-Then,
+a superposition of cosine and sine **standing waves** extending throughout space. Thus **one wavevector pair contains two independent quantum oscillators, with a four-dimensional canonical phase space**.
 
-$$
-[a_{\mathbf k},a_{\mathbf k'}^\dagger]
-=
-\delta_{\mathbf k,\mathbf k'},
-\qquad
-[a_{\mathbf k},a_{\mathbf k'}]=0
-$$
+### Decomposing the Gaussian state
 
-Conversely, the Fourier coefficients are
+Insert this decomposition into the Gaussian wave functional $\eqref{eq:inflation-9}$. Let $K_k(\eta)$ be the Fourier transform of the kernel $\mathcal K_\eta(\mathbf x-\mathbf y)$ in the $v$ representation. Then
 
 $$
-\begin{aligned}
-\hat v_{\mathbf k}
-&=
-\frac{a_{\mathbf k}+a_{-\mathbf k}^\dagger}{\sqrt{2k}},\\
-\hat\pi_{\mathbf k}
-&=
--i\sqrt{\frac{k}{2}}
-\left(
-a_{\mathbf k}-a_{-\mathbf k}^\dagger
-\right)
-\end{aligned}
+\int d^3x\,d^3y\;v(\mathbf x)\,\mathcal K_\eta(\mathbf x-\mathbf y)\,v(\mathbf y)=\sum_{\mathbf k}K_k\,v_{\mathbf k}v_{-\mathbf k}=\sum_{\mathbf k\in\mathcal K_+}K_k\left(q_{c,\mathbf k}^2+q_{s,\mathbf k}^2\right)\tag{23}\label{eq:inflation-23}
 $$
 
-Although the reality condition gives $\hat v_{-\mathbf k}=\hat v_{\mathbf k}^\dagger$, the operators $a_{\mathbf k}$ and $a_{-\mathbf k}$ are independent annihilation operators.
+Consequently,
 
-In terms of creation and annihilation operators, the full field, excluding the zero mode, is
-
 $$
-\hat v(\mathbf x)
-=
-\frac1{\sqrt V}
-\sum_{\mathbf k\ne\mathbf 0}
-\frac1{\sqrt{2k}}
-\left(
-a_{\mathbf k}e^{i\mathbf k\cdot\mathbf x}
-+
-a_{\mathbf k}^\dagger e^{-i\mathbf k\cdot\mathbf x}
-\right)
+\Psi^{(v)}_\eta[v]\propto\prod_{\mathbf k\in\mathcal K_+}\exp\left[-\frac{K_k(\eta)}2q_{c,\mathbf k}^2\right]\exp\left[-\frac{K_k(\eta)}2q_{s,\mathbf k}^2\right].\tag{24}\label{eq:inflation-24}
 $$
 
-The operator $a_{\mathbf k}$ corresponds to a mode with spatial dependence $e^{i\mathbf k\cdot\mathbf x}$. We call these modes, labeled by the wavevector $\mathbf k$, **traveling-wave modes**. The reference frequency $k$ defines the operators; it need not be the instantaneous frequency under the time-dependent Hamiltonian.
+Written in complex traveling-wave amplitudes, the quadratic form $K_k\,v_{\mathbf k}v_{-\mathbf k}$ connects $\mathbf k$ and $-\mathbf k$. In real standing-wave amplitudes it is diagonal, and the state factors into **identical one-variable Gaussians**. These are the prototypes of the two-mode and single-mode squeezing descriptions: both express the same structure of a translation-invariant Gaussian state of a real field.
 
-### Description in standing-wave modes
+The standing-wave split depends on the choice of coordinate origin. Shifting the origin by $\mathbf d$ sends $v_{\mathbf k}\to e^{i\mathbf k\cdot\mathbf d}v_{\mathbf k}$ and rotates $(q_c,q_s)$. The two Gaussians have the same width and phase, so their product is invariant under this rotation.
 
-Now express the same field in a real cosine and sine basis.
+### Traveling waves: creation and annihilation operators
 
-Let $\mathcal K_+$ contain one representative from each wavevector pair $(\mathbf k,-\mathbf k)$. For one pair, write
+To use number states, define **traveling-wave annihilation operators** with a fixed positive reference frequency $k$.
 
 $$
-\hat v_{\mathbf k}
-=
-\frac{\hat q_{c,\mathbf k}-i\hat q_{s,\mathbf k}}{\sqrt2},
-\qquad
-\hat v_{-\mathbf k}
-=
-\frac{\hat q_{c,\mathbf k}+i\hat q_{s,\mathbf k}}{\sqrt2}
+\hat a_{\mathbf k}=\frac1{\sqrt2}\left(\sqrt k\,\hat v_{\mathbf k}+\frac{i\hat\pi_{\mathbf k}}{\sqrt k}\right),\qquad[\hat a_{\mathbf k},\hat a_{\mathbf k'}^\dagger]=\delta_{\mathbf k,\mathbf k'}\tag{25}\label{eq:inflation-25}
 $$
 
-The field operator then becomes
+Inverting these definitions gives
 
 $$
-\hat v(\mathbf x)
-=
-\sqrt{\frac2V}
-\sum_{\mathbf k\in\mathcal K_+}
-\left[
-\hat q_{c,\mathbf k}\cos(\mathbf k\cdot\mathbf x)
-+
-\hat q_{s,\mathbf k}\sin(\mathbf k\cdot\mathbf x)
-\right]
+\hat v_{\mathbf k}=\frac{\hat a_{\mathbf k}+\hat a_{-\mathbf k}^\dagger}{\sqrt{2k}},\qquad\hat\pi_{\mathbf k}=-i\sqrt{\frac k2}\left(\hat a_{\mathbf k}-\hat a_{-\mathbf k}^\dagger\right)\tag{26}\label{eq:inflation-26}
 $$
 
-where the zero mode is again omitted.
+The operators $\hat a_{\mathbf k}$ and $\hat a_{-\mathbf k}$ are independent annihilation operators. In position space, $\hat a_{\mathbf k}$ multiplies the traveling wave $e^{i\mathbf k\cdot\mathbf x}$. The reference frequency $k$ is a fixed number chosen to define these operators.
 
-The Hermitian operators $\hat q_{c,\mathbf k},\hat q_{s,\mathbf k}$ represent the two real configuration degrees of freedom of cosine and sine type.
+### Relation between the two bases
 
-Similarly, decomposing the canonical momentum as
+For each standing wave, define an annihilation operator and dimensionless quadratures using the same reference frequency.
 
 $$
-\hat\pi_{\mathbf k}
-=
-\frac{\hat p_{c,\mathbf k}-i\hat p_{s,\mathbf k}}{\sqrt2}
+\hat b_{A,\mathbf k}=\frac{\hat Q_{A,\mathbf k}+i\hat P_{A,\mathbf k}}{\sqrt2},\qquad\hat Q_{A,\mathbf k}=\sqrt k\,\hat q_{A,\mathbf k},\qquad\hat P_{A,\mathbf k}=\frac{\hat p_{A,\mathbf k}}{\sqrt k}\tag{27}\label{eq:inflation-27}
 $$
 
-gives
+We have $[\hat Q_{A,\mathbf k},\hat P_{A,\mathbf k}]=i$, and $Q,P$ will be the axes of the Wigner plots. Comparing definitions gives
 
 $$
-[\hat q_{A,\mathbf k},\hat p_{B,\mathbf k^{\prime}}]=i\delta_{AB}\delta_{\mathbf k,\mathbf k^{\prime}},
+\hat a_{\pm\mathbf k}=\frac{\hat b_{c,\mathbf k}\mp i\,\hat b_{s,\mathbf k}}{\sqrt2},\qquad\hat b_{c,\mathbf k}=\frac{\hat a_{\mathbf k}+\hat a_{-\mathbf k}}{\sqrt2},\qquad\hat b_{s,\mathbf k}=\frac{i(\hat a_{\mathbf k}-\hat a_{-\mathbf k})}{\sqrt2}\tag{28}\label{eq:inflation-28}
 $$
+
+This unitary transformation mixes only annihilation operators, so the vacuum $|0_{\mathrm{ref}}\rangle$ for reference frequency $k$ is common to both bases.
 
 $$
-[\hat q_{A,\mathbf k},\hat q_{B,\mathbf k^{\prime}}]=[\hat p_{A,\mathbf k},\hat p_{B,\mathbf k^{\prime}}]=0
+\hat a_{\mathbf k}|0_{\mathrm{ref}}\rangle=\hat a_{-\mathbf k}|0_{\mathrm{ref}}\rangle=0\iff\hat b_{c,\mathbf k}|0_{\mathrm{ref}}\rangle=\hat b_{s,\mathbf k}|0_{\mathrm{ref}}\rangle=0\tag{29}\label{eq:inflation-29}
 $$
 
-Here, $A,B=c,s$ and $\mathbf k,\mathbf k^{\prime}\in\mathcal K_+$. Each wavevector pair can therefore be treated as two independent real harmonic oscillators.
+We choose the actual initial state in §5. The two traveling-wave modes and the two standing-wave modes are two bases for the same two degrees of freedom.
 
-For each oscillator, use the same reference frequency $k$ as in the traveling-wave basis and define
-
-$$
-b_{A,\mathbf k}
-=
-\frac1{\sqrt2}
-\left(
-\sqrt{k}\,\hat q_{A,\mathbf k}
-+
-\frac{i\hat p_{A,\mathbf k}}{\sqrt{k}}
-\right),
-\qquad A=c,s
-$$
+## 4. The wavevector-pair Hamiltonian: two-mode and single-mode squeezing
 
-The operators $b_{c,\mathbf k},b_{s,\mathbf k}$ annihilate the cosine and sine **standing-wave modes**, respectively.
+### Traveling-wave representation (Schrödinger picture)
 
-Their relation to the traveling-wave annihilation operators is
+Combine the $\mathbf k$ and $-\mathbf k$ terms of the Hamiltonian $\eqref{eq:inflation-19}$ into $\hat H_{\mathbf k}$, and express $\hat v_{\pm\mathbf k},\hat\pi_{\pm\mathbf k}$ in terms of $\hat a_{\pm\mathbf k}$:
 
 $$
-\begin{aligned}
-a_{\mathbf k}
-&=
-\frac{b_{c,\mathbf k}-ib_{s,\mathbf k}}{\sqrt2},\\
-a_{-\mathbf k}
-&=
-\frac{b_{c,\mathbf k}+ib_{s,\mathbf k}}{\sqrt2}
-\end{aligned}
+\hat H_v=\sum_{\mathbf k\in\mathcal K_+}\hat H_{\mathbf k},\tag{30}\label{eq:inflation-30}
 $$
-
-Thus, **the traveling-wave and standing-wave bases describe the same two quantum oscillators in different bases**.
 
-Since this transformation mixes only annihilation operators with one another, the vacuum is shared by both bases:
-
 $$
-a_{\mathbf k}|0\rangle
-=
-a_{-\mathbf k}|0\rangle
-=0
-\quad\Longleftrightarrow\quad
-b_{c,\mathbf k}|0\rangle
-=
-b_{s,\mathbf k}|0\rangle
-=0
+\hat H_{\mathbf k}=k\left(\hat a_{\mathbf k}^\dagger\hat a_{\mathbf k}+\hat a_{-\mathbf k}^\dagger\hat a_{-\mathbf k}+1\right)+i\,s(\eta)\left(\hat a_{\mathbf k}^\dagger\hat a_{-\mathbf k}^\dagger-\hat a_{\mathbf k}\hat a_{-\mathbf k}\right)\tag{31}\label{eq:inflation-31}
 $$
-
-The traveling-wave basis uses the two modes at $\mathbf k$ and $-\mathbf k$, while the standing-wave basis uses the cosine and sine modes.
 
-This correspondence also matters for squeezing during time evolution. As we will see, two-mode squeezing of $\mathbf k$ and $-\mathbf k$ in the traveling-wave basis can be described as single-mode squeezing of each of the two oscillators in the standing-wave basis.
+This separates the reference oscillators from the pair interaction.
 
-## 4. Inflationary mode equations and squeezing
+The first term describes two oscillators of reference frequency $k$. In the second term, $\hat a_{\mathbf k}^\dagger\hat a_{-\mathbf k}^\dagger$ **creates one excitation at each of the opposite wavevectors**, and $\hat a_{\mathbf k}\hat a_{-\mathbf k}$ reverses that process.
 
-### The Mukhanov–Sasaki equation
-
-Consider inflation driven by a single scalar field, the inflaton, with a canonical kinetic term. Introducing the Mukhanov–Sasaki variable
-
 $$
-v=z\zeta,
-\qquad
-z=\frac{a\dot\phi_0}{H}
+\hat a_{\mathbf k}^\dagger\hat a_{-\mathbf k}^\dagger|n_{\mathbf k},n_{-\mathbf k}\rangle=\sqrt{(n_{\mathbf k}+1)(n_{-\mathbf k}+1)}\;|n_{\mathbf k}+1,n_{-\mathbf k}+1\rangle\tag{32}\label{eq:inflation-32}
 $$
 
-gives the quadratic action
-
-$$
-S
-=
-\frac12\int d\eta\,d^3x\,
-\left[
-(v')^2-(\nabla v)^2+\frac{z''}{z}v^2
-\right]
-$$
+The coefficient $s=z'/z$ measures the rate of background evolution and sources excitation pairs. The transformation generated by this Hamiltonian is called **two-mode squeezing**.
 
-Here, $\zeta$ is the comoving curvature perturbation, $\eta$ is conformal time, and primes denote derivatives with respect to $\eta$.
+### The general form from symmetry
 
-The Fourier-mode equation of motion is
+This structure follows generally from three conditions.
 
-$$
-v_{\mathbf k}''
-+
-\left(
-k^2-\frac{z''}{z}
-\right)v_{\mathbf k}
-=0
-$$
+1. **Quadratic Hamiltonian:** a free-field Hamiltonian is quadratic in creation and annihilation operators.
+2. **Spatial translation symmetry:** the total field momentum is $\hat{\mathbf P}=\sum_{\mathbf k}\mathbf k\,\hat a_{\mathbf k}^\dagger\hat a_{\mathbf k}$ independently of the reference frequency, and $[\hat{\mathbf P},\hat H_v]=0$ on a homogeneous background. Momentum-conserving quadratic terms are restricted to terms of the form $\hat a_{\mathbf k}^\dagger\hat a_{\mathbf k}$ and pair terms $\hat a_{\mathbf k}^\dagger\hat a_{-\mathbf k}^\dagger$, $\hat a_{\mathbf k}\hat a_{-\mathbf k}$.
+3. **Time-dependent background:** for a stable, time-independent Hamiltonian, one fixed choice of basis can eliminate the pair terms. When the background changes, the diagonalizing basis also changes, so pair terms remain in a fixed basis.
 
-Thus, each real Fourier component introduced in §3 behaves as a time-dependent harmonic oscillator with effective squared frequency
+Thus, for a free field on a homogeneous, isotropic, time-dependent background, the Hamiltonian of one wavevector pair takes the following form, up to a constant:
 
 $$
-\Omega_k^2(\eta)=k^2-\frac{z''}{z}
+\hat H_{\mathbf k}=\omega_k(\eta)\left(\hat a_{\mathbf k}^\dagger\hat a_{\mathbf k}+\hat a_{-\mathbf k}^\dagger\hat a_{-\mathbf k}\right)+\gamma_k(\eta)\,\hat a_{\mathbf k}^\dagger\hat a_{-\mathbf k}^\dagger+\gamma_k^*(\eta)\,\hat a_{\mathbf k}\hat a_{-\mathbf k}\tag{33}\label{eq:inflation-33}
 $$
 
-### Two-mode squeezing in the traveling-wave basis
+Isotropy makes the coefficients for $\pm\mathbf k$ equal. For inflation, $\omega_k=k$ and $\gamma_k=is$. The same structure appears in particle production in an expanding universe, parametric resonance, and optical parametric amplification.
 
-Set
+Translation symmetry also implies that $\hat H_{\mathbf k}$ commutes with the difference in occupation numbers,
 
 $$
-s(\eta)=\frac{z'}{z}
+\hat N_{\mathbf k}-\hat N_{-\mathbf k},\qquad\hat N_{\pm\mathbf k}=\hat a_{\pm\mathbf k}^\dagger\hat a_{\pm\mathbf k}\tag{34}\label{eq:inflation-34}
 $$
 
-Using $z''/z=s'+s^2$, we can write
+This difference represents the momentum of the pair and is conserved. A state evolving from the vacuum **always has equal occupation numbers at $\mathbf k$ and $-\mathbf k$**. This is the sense in which two-mode squeezing creates “pairs” of zero total momentum.
 
-$$
-(v')^2+\frac{z''}{z}v^2
-=
-(v'-sv)^2+(sv^2)'
-$$
+### Standing-wave representation
 
-The last term is a total time derivative. Dropping this boundary term gives the action
+Keep the same picture and change to the standing-wave basis. Substituting the relations $\eqref{eq:inflation-28}$ gives
 
 $$
-S
-=
-\frac12\int d\eta\,d^3x\,
-\left[
-(v'-sv)^2-(\nabla v)^2
-\right]
+\hat a_{\mathbf k}^\dagger\hat a_{\mathbf k}+\hat a_{-\mathbf k}^\dagger\hat a_{-\mathbf k}=\hat b_{c,\mathbf k}^\dagger\hat b_{c,\mathbf k}+\hat b_{s,\mathbf k}^\dagger\hat b_{s,\mathbf k},\qquad\hat a_{\mathbf k}^\dagger\hat a_{-\mathbf k}^\dagger=\frac12\left(\hat b_{c,\mathbf k}^{\dagger2}+\hat b_{s,\mathbf k}^{\dagger2}\right)\tag{35}\label{eq:inflation-35}
 $$
 
-With this choice, the canonical momentum conjugate to the field $v$ is
+The terms connecting $c$ and $s$ cancel. Therefore,
 
 $$
-\pi=v'-sv
+\hat H_{\mathbf k}=\hat H_{c,\mathbf k}+\hat H_{s,\mathbf k},\qquad\hat H_{A,\mathbf k}=k\left(\hat b_{A,\mathbf k}^\dagger\hat b_{A,\mathbf k}+\frac12\right)+\frac{is}2\left(\hat b_{A,\mathbf k}^{\dagger2}-\hat b_{A,\mathbf k}^2\right)\tag{36}\label{eq:inflation-36}
 $$
 
-The corresponding Hamiltonian is
+Here $\hat b_A^{\dagger2}$ creates **two excitations in one mode** and generates **single-mode squeezing**. The two standing waves have identical Hamiltonians and evolve independently. In canonical variables,
 
 $$
-H_\eta
-=
-\frac12\int d^3x\,
-\left[
-\pi^2+(\nabla v)^2
-+s(v\pi+\pi v)
-\right]
+\hat H_{A,\mathbf k}=\frac12\left(\hat p_{A,\mathbf k}^2+k^2\hat q_{A,\mathbf k}^2\right)+\frac s2\left(\hat q_{A,\mathbf k}\hat p_{A,\mathbf k}+\hat p_{A,\mathbf k}\hat q_{A,\mathbf k}\right)\tag{37}\label{eq:inflation-37}
 $$
 
-We use these canonical variables below.
+The second term stretches one phase-space direction and compresses its conjugate direction.
 
-In the Schrödinger picture, use the traveling-wave annihilation operators from §3, defined with the fixed reference frequency $k$:
+Spatial reflection symmetry explains this separation. Under $\mathbf x\to-\mathbf x$, cosine is even and sine is odd, so every quadratic term connecting $c$ to $s$ changes sign and is excluded from a reflection-symmetric Hamiltonian. Translations rotate $(c,s)$, requiring equal coefficients for the two components. A standing wave is an equal-weight superposition of traveling waves at $\pm\mathbf k$ and has zero mean momentum, so unlike traveling waves these modes can be excited independently.
 
-$$
-a_{\mathbf k}
-=
-\frac1{\sqrt2}
-\left(
-\sqrt{k}\,v_{\mathbf k}
-+\frac{i\pi_{\mathbf k}}{\sqrt{k}}
-\right)
-$$
+### Heisenberg equations for creation and annihilation operators
 
-The Hamiltonian for one wavevector pair $(\mathbf k,-\mathbf k)$ is then
+Writing $\hat a_{\mathbf k}(\eta)=U^\dagger\hat a_{\mathbf k}U$ and similarly for the other operators, $\hat H_{\mathbf k}$ gives
 
 $$
-\begin{aligned}
-H_{\eta,\mathbf k}
-={}&
-k\left(
-a_{\mathbf k}^\dagger a_{\mathbf k}
-+a_{-\mathbf k}^\dagger a_{-\mathbf k}
-+1
-\right)+is\left(
-a_{\mathbf k}^\dagger a_{-\mathbf k}^\dagger
--a_{\mathbf k}a_{-\mathbf k}
-\right)
-\end{aligned}
+\hat a_{\pm\mathbf k}'=-ik\,\hat a_{\pm\mathbf k}+s\,\hat a_{\mp\mathbf k}^\dagger,\qquad\hat b_{A,\mathbf k}'=-ik\,\hat b_{A,\mathbf k}+s\,\hat b_{A,\mathbf k}^\dagger\tag{38}\label{eq:inflation-38}
 $$
-
-The first term describes free oscillators of frequency $k$. The second creates or annihilates one excitation at $\mathbf k$ and one at $-\mathbf k$.
-
-A homogeneous background preserves spatial translation symmetry, so each created pair has zero total momentum. In the traveling-wave basis, this evolution appears as **two-mode squeezing**.
 
-### The Bunch–Davies vacuum and Bogoliubov transformations
+Because creation operators enter the time derivatives of annihilation operators, a later annihilation operator is a linear combination of initial annihilation and creation operators. This is a **Bogoliubov transformation**, whose coefficients we obtain in §5. A traveling-wave annihilation operator mixes with the **creation operator at the opposite wavevector**, whereas a standing-wave annihilation operator mixes with **its own creation operator**. The former also expresses momentum conservation: $[\hat{\mathbf P},\hat a_{\mathbf k}]=-\mathbf k\,\hat a_{\mathbf k}$ and $[\hat{\mathbf P},\hat a_{-\mathbf k}^\dagger]=-\mathbf k\,\hat a_{-\mathbf k}^\dagger$, so the two linear operators carrying the same momentum as $\hat a_{\mathbf k}$ are $\hat a_{\mathbf k}$ and $\hat a_{-\mathbf k}^\dagger$.
 
-Deep inside the Hubble scale, $k^2\gg |z''/z|$, and the squeezing term becomes negligible compared with the free Hamiltonian.
+## 5. The Bunch–Davies vacuum
 
-Choose the ground state of this free Hamiltonian in the distant past as the initial state. This is the **Bunch–Davies vacuum**.
+### Expanding operators in mode functions (Heisenberg picture)
 
-Writing the corresponding initial annihilation operators as $a_{\mathbf k}^{\mathrm{in}}$, the Bunch–Davies vacuum is defined by
+The Heisenberg equations for the canonical variables of each standing-wave component are
 
 $$
-a_{\mathbf k}^{\mathrm{in}}|0_{\mathrm{BD}}\rangle=0
+\hat q_{A,\mathbf k}'=\hat p_{A,\mathbf k}+s\,\hat q_{A,\mathbf k},\qquad\hat q_{A,\mathbf k}''+\left(k^2-\frac{z''}{z}\right)\hat q_{A,\mathbf k}=0\tag{39}\label{eq:inflation-39}
 $$
 
-We now follow the evolution in the Heisenberg picture. The Hamiltonian above gives
+These are linear equations with c-number coefficients. Their solutions superpose two independent solutions multiplied by time-independent operators. Choose a complex solution $f_k(\eta)$ and its complex conjugate as the two solutions, and write
 
 $$
-\frac{da_{\mathbf k}(\eta)}{d\eta}
-=
--ik\,a_{\mathbf k}(\eta)
-+s(\eta)a_{-\mathbf k}^\dagger(\eta)
+\hat q_{A,\mathbf k}(\eta)=f_k(\eta)\,\hat b_{A,\mathbf k}^{\mathrm{in}}+f_k^*(\eta)\,\hat b_{A,\mathbf k}^{\mathrm{in}\dagger},\qquad\hat p_{A,\mathbf k}(\eta)=g_k(\eta)\,\hat b_{A,\mathbf k}^{\mathrm{in}}+g_k^*(\eta)\,\hat b_{A,\mathbf k}^{\mathrm{in}\dagger}\tag{40}\label{eq:inflation-40}
 $$
 
-The evolution can therefore be written as a Bogoliubov transformation,
+Here $g_k=f_k'-sf_k$; Hermiticity of $\hat q$ makes the second operator coefficient $\hat b^{\mathrm{in}\dagger}$. We call $f_k$ the **mode function**.
 
-$$
-a_{\mathbf k}(\eta)
-=
-\alpha_k(\eta)a_{\mathbf k}^{\mathrm{in}}
-+
-\beta_k(\eta)a_{-\mathbf k}^{\mathrm{in}\dagger}
-$$
+Substituting into $[\hat q,\hat p]=i$ gives $(f_kg_k^*-f_k^*g_k)\,[\hat b^{\mathrm{in}},\hat b^{\mathrm{in}\dagger}]=i$. The first factor is the time-independent Wronskian, so normalizing it as
 
-Preserving the canonical commutation relations requires
-
 $$
-|\alpha_k|^2-|\beta_k|^2=1
+f_kg_k^*-f_k^*g_k=i\tag{41}\label{eq:inflation-41}
 $$
 
-The magnitudes of Bogoliubov coefficients satisfying this relation can be parameterized by a nonnegative $r_k$:
+gives $[\hat b_{A,\mathbf k}^{\mathrm{in}},\hat b_{B,\mathbf k'}^{\mathrm{in}\dagger}]=\delta_{AB}\delta_{\mathbf k,\mathbf k'}$, making $\hat b^{\mathrm{in}}$ an annihilation operator. We will also use the inverse expansion,
 
 $$
-|\alpha_k|=\cosh r_k,
-\qquad
-|\beta_k|=\sinh r_k
+\hat b_{A,\mathbf k}^{\mathrm{in}}=i\left[f_k^*(\eta)\,\hat p_{A,\mathbf k}(\eta)-g_k^*(\eta)\,\hat q_{A,\mathbf k}(\eta)\right]\tag{42}\label{eq:inflation-42}
 $$
-
-The **squeezing parameter** $r_k$ measures the strength of squeezing. The initial vacuum has $r_k=0$. As $r_k$ grows during evolution, creation operators mix more strongly into the annihilation operators.
 
-### Single-mode squeezing in the standing-wave basis
+Operator evolution is thus encoded in one c-number function $f_k$. Choosing a mode function is precisely choosing an annihilation operator: different $f_k$ give different $\hat b^{\mathrm{in}}$ related by Bogoliubov transformations, each defining a different “vacuum.”
 
-So far, we have described the evolution as two-mode squeezing of $\mathbf k$ and $-\mathbf k$ in the traveling-wave basis. **The fact that squeezing couples two modes depends on this choice of basis.**
-
-In the standing-wave basis introduced in §3,
-
-$$
-a_{\mathbf k}
-=
-\frac{b_{c,\mathbf k}-ib_{s,\mathbf k}}{\sqrt2},
-\qquad
-a_{-\mathbf k}
-=
-\frac{b_{c,\mathbf k}+ib_{s,\mathbf k}}{\sqrt2}
-$$
+### Initial condition: the short-wavelength ground state
 
-Substituting this transformation into the Hamiltonian gives
+Early in inflation, the wavelengths of interest are much shorter than the Hubble radius, with $k^2\gg|z''/z|$ and $|s|\ll k$. In this regime, $\hat H_{A,\mathbf k}$ of §4 approaches a harmonic oscillator of frequency $k$, whose ground state is the natural state of each mode. We therefore select the positive-frequency solution giving this initial ground state,
 
 $$
-H_{\eta,\mathbf k}
-=
-\sum_{A=c,s}
-\left[
-k\left(b_{A,\mathbf k}^\dagger b_{A,\mathbf k}+\frac12\right)
-+
-\frac{is}{2}
-\left(b_{A,\mathbf k}^{\dagger2}-b_{A,\mathbf k}^2\right)
-\right]
+f_k\longrightarrow\frac{e^{-ik\eta}}{\sqrt{2k}},\qquad g_k\longrightarrow-i\sqrt{\frac k2}\,e^{-ik\eta}\tag{43}\label{eq:inflation-43}
 $$
 
-The term coupling the two traveling-wave modes separates into a squeezing term for each standing-wave mode.
+The inverse relation then gives $\hat b_{A,\mathbf k}^{\mathrm{in}}=e^{ik\eta}\,\hat b_{A,\mathbf k}(\eta)$, so $\hat b^{\mathrm{in}}$ agrees with the initial annihilation operator up to a phase. The state annihilated by all $\hat b^{\mathrm{in}}$,
 
-Indeed, the Heisenberg equation is
-
 $$
-\frac{db_{A,\mathbf k}(\eta)}{d\eta}
-=
--ik\,b_{A,\mathbf k}(\eta)
-+s(\eta)b_{A,\mathbf k}^\dagger(\eta)
+\hat b_{A,\mathbf k}^{\mathrm{in}}|0_{\mathrm{BD}}\rangle=0\qquad(\mathbf k\in\mathcal K_+,\ A=c,s)\tag{44}\label{eq:inflation-44}
 $$
 
-which gives the single-mode Bogoliubov transformation
+is the **Bunch–Davies vacuum**. The traveling-wave operators $\hat a_{\pm\mathbf k}^{\mathrm{in}}=(\hat b_{c,\mathbf k}^{\mathrm{in}}\mp i\hat b_{s,\mathbf k}^{\mathrm{in}})/\sqrt2$ annihilate the same state and therefore define the same initial state. Each mode starts in a harmonic-oscillator ground state, while all subsequent evolution is carried by $f_k$. For inflation of finite duration, we assume that the modes under consideration possess this initial short-wavelength regime.
 
-$$
-b_{A,\mathbf k}(\eta)
-=
-\alpha_k(\eta)b_{A,\mathbf k}^{\mathrm{in}}
-+
-\beta_k(\eta)b_{A,\mathbf k}^{\mathrm{in}\dagger}
-$$
+### Spectrum and spatial correlation
 
-The cosine and sine modes are independent and undergo identical squeezing. Since the initial vacuum is shared by both bases,
+Taking expectation values in the fixed Heisenberg-picture state $|0_{\mathrm{BD}}\rangle$ gives
 
 $$
-a_{\mathbf k}^{\mathrm{in}}|0_{\mathrm{BD}}\rangle
-=
-a_{-\mathbf k}^{\mathrm{in}}|0_{\mathrm{BD}}\rangle
-=0
+\langle\hat q_{A,\mathbf k}^2(\eta)\rangle=|f_k(\eta)|^2,\qquad\langle\hat p_{A,\mathbf k}^2(\eta)\rangle=|g_k(\eta)|^2,\qquad\frac12\langle\{\hat q_{A,\mathbf k}(\eta),\hat p_{A,\mathbf k}(\eta)\}\rangle=\operatorname{Re}(f_k(\eta)g_k^*(\eta))\tag{45}\label{eq:inflation-45}
 $$
 
-is equivalent to
+For the Fourier coefficients, $\langle\hat v_{\mathbf k}\hat v_{\mathbf k'}\rangle=\delta_{\mathbf k,-\mathbf k'}|f_k|^2$, so the correlation function $\eqref{eq:inflation-10}$ becomes
 
 $$
-b_{c,\mathbf k}^{\mathrm{in}}|0_{\mathrm{BD}}\rangle
-=
-b_{s,\mathbf k}^{\mathrm{in}}|0_{\mathrm{BD}}\rangle
-=0
+G_\zeta(\eta;\mathbf x,\mathbf y)=\frac1{z^2V}\sum_{\mathbf k}|f_k|^2e^{i\mathbf k\cdot(\mathbf x-\mathbf y)}\longrightarrow\int\frac{d^3k}{(2\pi)^3}\,P_\zeta(k,\eta)\,e^{i\mathbf k\cdot(\mathbf x-\mathbf y)},\qquad P_\zeta=\frac{|f_k|^2}{z^2}\tag{46}\label{eq:inflation-46}
 $$
-
-<iframe src="app/supporting.html?lang=en&amp;view=basis" title="Fourier half-space and traveling/standing basis conversion" data-auto-height scrolling="no" style="display: block; width: 100%; height: 1200px; min-height: 650px; border: 0; overflow: hidden;" loading="eager"></iframe>
-
-The figure compares the covariance matrix of the same quantum state in the traveling-wave and standing-wave bases. Correlations between the two modes appear in the traveling-wave basis, while the standing-wave basis separates the covariance into two identical, independent blocks.
-
-Thus, **two-mode squeezing and two single-mode squeezings describe the evolution of the same quantum state in different mode bases**.
-
-The traveling-wave basis makes spatial translation symmetry and momentum conservation explicit. The standing-wave basis lets us examine squeezing directly in the phase space of each real degree of freedom.
-
-Below, we use the latter to follow the deformation of the quantum state of one real standing-wave mode.
 
-## 5. Squeezing and mode functions in de Sitter spacetime
+The arrow denotes the limit $V^{-1}\sum_{\mathbf k}\to\int d^3k/(2\pi)^3$; the box volume drops out. **The variance $|f_k|^2$ of a single mode directly supplies the spectral density of spatial correlations.**
 
-### Bogoliubov transformations in a de Sitter background
+### Bogoliubov coefficients and the squeezing parameter
 
-In §4, we saw that each Fourier mode during inflation behaves as a time-dependent harmonic oscillator, and that its quantum evolution can be expressed through a Bogoliubov transformation. We now choose a specific background and obtain the evolution of the Bogoliubov coefficients and squeezing analytically.
+Evolve the annihilation operators defined in §3 in the Heisenberg picture and expand them in the in operators:
 
-As an exactly solvable example, consider a free, massless, minimally coupled scalar field $\phi$ in de Sitter spacetime. This is not the curvature perturbation $\zeta$ of §4, but curvature perturbations during slow-roll inflation follow approximately the same evolution. Appropriately canonically normalized tensor perturbations obey the same mode equation as well.
-
-In a de Sitter background,
-
 $$
-a(\eta)=-\frac1{H\eta},
-\qquad
-\mathcal H=\frac{a'}a=-\frac1\eta
+\hat b_{A,\mathbf k}(\eta)=\alpha_k(\eta)\,\hat b_{A,\mathbf k}^{\mathrm{in}}+\beta_k(\eta)\,\hat b_{A,\mathbf k}^{\mathrm{in}\dagger},\qquad\hat a_{\pm\mathbf k}(\eta)=\alpha_k(\eta)\,\hat a_{\pm\mathbf k}^{\mathrm{in}}+\beta_k(\eta)\,\hat a_{\mp\mathbf k}^{\mathrm{in}\dagger}\tag{47}\label{eq:inflation-47}
 $$
 
-where $H$ is the constant Hubble parameter and $\eta<0$ is conformal time.
+The coefficients are common to both bases. In terms of mode functions,
 
-For each of the two real standing-wave modes $A=c,s$ introduced in §3, define the dimensionless canonical quadratures
-
 $$
-Q_{A,\mathbf k}=\sqrt{k}\,a\phi_{A,\mathbf k},
-\qquad
-P_{A,\mathbf k}=\frac{a\phi_{A,\mathbf k}'}{\sqrt{k}}
+\alpha_k=\frac1{\sqrt2}\left(\sqrt k\,f_k+\frac{ig_k}{\sqrt k}\right),\qquad\beta_k=\frac1{\sqrt2}\left(\sqrt k\,f_k^*+\frac{ig_k^*}{\sqrt k}\right)\tag{48}\label{eq:inflation-48}
 $$
 
-They satisfy $[Q_{A,\mathbf k},P_{A,\mathbf k}]=i$ and are related to the annihilation operators of §4 by
+The Wronskian condition becomes $|\alpha_k|^2-|\beta_k|^2=1$. Write
 
 $$
-b_{A,\mathbf k}=\frac{Q_{A,\mathbf k}+iP_{A,\mathbf k}}{\sqrt2}
+|\alpha_k|=\cosh r_k,\qquad|\beta_k|=\sinh r_k\qquad(r_k\ge0)\tag{49}\label{eq:inflation-49}
 $$
 
-Replacing $s=z'/z$ in §4 with $s=\mathcal H$ gives
+and call $r_k$ the **squeezing parameter**. The name becomes clear from the explicit state in §6 and the Wigner ellipse in §7. Initially $\alpha_k\simeq e^{-ik\eta}$ and $\beta_k\simeq0$, so $r_k\simeq0$.
 
-$$
-P_{A,\mathbf k}
-=\frac{Q_{A,\mathbf k}'-\mathcal H Q_{A,\mathbf k}}{k},
-$$
+## 6. Explicit squeezed states (Schrödinger picture)
 
-$$
-Q_{A,\mathbf k}''
-+
-\left(
-k^2-\frac2{\eta^2}
-\right)Q_{A,\mathbf k}=0
-$$
+Using the Heisenberg calculation in §5, express the state $|\Psi(\eta)\rangle=U|0_{\mathrm{BD}}\rangle$ at time $\eta$ in occupation-number eigenstates of reference frequency $k$.
 
-We use these $Q,P$ for the phase-space discussion below.
+### Traveling waves: the two-mode squeezed vacuum
 
-Introduce
+Inverting the Bogoliubov transformation gives $\hat a_{\mathbf k}^{\mathrm{in}}=\alpha_k^*\hat a_{\mathbf k}(\eta)-\beta_k\hat a_{-\mathbf k}^\dagger(\eta)$. Substituting $\hat a_{\mathbf k}(\eta)=U^\dagger\hat a_{\mathbf k}U$ rewrites the in condition $\hat a_{\mathbf k}^{\mathrm{in}}|0_{\mathrm{BD}}\rangle=0$ in terms of time-independent Schrödinger operators as
 
 $$
-x=-k\eta=\frac{k}{aH},
-\qquad
-N=\ln\frac{a}{a_{\mathrm{cross}}}=-\ln x
+\left(\alpha_k^*\,\hat a_{\mathbf k}-\beta_k\,\hat a_{-\mathbf k}^\dagger\right)|\Psi(\eta)\rangle=0\tag{50}\label{eq:inflation-50}
 $$
-
-Here, $x\gg1$ is the subhorizon regime, $x=1$ is Hubble crossing, and $x\ll1$ is the superhorizon regime.
 
-The Heisenberg equation derived in §4,
+A condition on the fixed Heisenberg-picture state has become a condition on the state at each time. Expand the pair state as $\sum_{m,n}c_{mn}|m\rangle_{\mathbf k}|n\rangle_{-\mathbf k}$ and solve this condition together with the one obtained by interchanging $\mathbf k\leftrightarrow-\mathbf k$. Only $m=n$ components survive, giving, up to an overall phase,
 
 $$
-b_{A,\mathbf k}'(\eta)
-=
--ik\,b_{A,\mathbf k}(\eta)
-+s(\eta)b_{A,\mathbf k}^\dagger(\eta)
+|\Psi_{\mathbf k}(\eta)\rangle=\frac1{\cosh r_k}\sum_{n=0}^\infty\lambda_k^n\,|n\rangle_{\mathbf k}|n\rangle_{-\mathbf k},\qquad\lambda_k=\frac{\beta_k}{\alpha_k^*},\qquad|\lambda_k|=\tanh r_k\tag{51}\label{eq:inflation-51}
 $$
 
-now has
+The full state is the product over all wavevector pairs. This is the **two-mode squeezed vacuum state**; its properties follow directly from the expression.
 
-$$
-s(\eta)=\mathcal H=\frac{k}{x}
-$$
+- **Pair production:** occupation numbers at $\mathbf k$ and $-\mathbf k$ are always equal, and the total momentum is zero, as required by the symmetry in §4.
+- **Geometric distribution:** the probability of $n$ pairs is $\tanh^{2n}r_k/\cosh^2r_k$; each traveling mode has mean occupation $\sinh^2r_k=|\beta_k|^2$.
+- **Entanglement:** tracing out $-\mathbf k$ leaves the $\mathbf k$ traveling mode in a thermal-form mixed state with geometrically distributed occupation numbers. Its entropy,
 
-Substituting the Bogoliubov transformation
+    $$
+    S_{\mathbf k|-\mathbf k}=\cosh^2r_k\ln\cosh^2r_k-\sinh^2r_k\ln\sinh^2r_k\tag{52}\label{eq:inflation-52}
+    $$
 
-$$
-b_{A,\mathbf k}(\eta)
-=
-\alpha_k(\eta)b_{A,\mathbf k}^{\mathrm{in}}
-+
-\beta_k(\eta)b_{A,\mathbf k}^{\mathrm{in}\dagger}
-$$
+    grows with $r_k$, while the complete pair remains pure.
 
-gives
+### Standing waves: two single-mode squeezed vacua
 
+Likewise, $\hat b_{A,\mathbf k}^{\mathrm{in}}=\alpha_k^*\hat b_{A,\mathbf k}(\eta)-\beta_k\hat b_{A,\mathbf k}^\dagger(\eta)$ gives
+
 $$
-\begin{aligned}
-\alpha_k'&=-ik\alpha_k+s\beta_k^*,\\
-\beta_k'&=-ik\beta_k+s\alpha_k^*
-\end{aligned}
+\left(\alpha_k^*\,\hat b_{A,\mathbf k}-\beta_k\,\hat b_{A,\mathbf k}^\dagger\right)|\Psi(\eta)\rangle=0\qquad(A=c,s)\tag{53}\label{eq:inflation-53}
 $$
 
-The Bunch–Davies initial condition requires, as $x\to\infty$,
+These conditions involve $c$ and $s$ separately, so the state is a product of the two standing-wave states,
 
 $$
-\alpha_k\sim e^{ix},
-\qquad
-\beta_k\to0
+|\Psi_{\mathbf k}(\eta)\rangle=|\psi_k(\eta)\rangle_c\otimes|\psi_k(\eta)\rangle_s,\qquad|\psi_k(\eta)\rangle=\frac1{\sqrt{\cosh r_k}}\sum_{m=0}^\infty\lambda_k^m\frac{\sqrt{(2m)!}}{2^m\,m!}\,|2m\rangle\tag{54}\label{eq:inflation-54}
 $$
 
-The exact solution satisfying this condition is
+This is the **single-mode squeezed vacuum**. Both standing waves are in the same pure state, and each contains **only even occupation numbers**, because $\hat b_A^{\dagger2}$ creates two excitations in one mode. The mean occupation is again $\sinh^2r_k$.
 
-$$
-\begin{aligned}
-\alpha_k(\eta)
-&=
-\left(1+\frac{i}{2x}\right)e^{ix},\\
-\beta_k(\eta)
-&=
--\frac{i}{2x}e^{-ix}
-\end{aligned}
-$$
+Since both representations describe the same state, the total occupation must agree: $\hat N_{\mathbf k}+\hat N_{-\mathbf k}=\hat N_c+\hat N_s$. This can be checked explicitly. In traveling waves, the probability of total occupation $2n$ is $\tanh^{2n}r_k/\cosh^2r_k$. In standing waves, convolving the two even-number distributions gives the same result by the identity $\sum_{m=0}^n\binom{2m}{m}\binom{2n-2m}{n-m}=4^n$. In operator language, the two-mode squeezing generator $\hat a_{\mathbf k}^\dagger\hat a_{-\mathbf k}^\dagger=\frac12(\hat b_{c,\mathbf k}^{\dagger2}+\hat b_{s,\mathbf k}^{\dagger2})$ is a sum of two commuting single-mode squeezing generators.
 
-Thus,
+<iframe src="app/supporting.html?lang=en&amp;view=pairs" title="Occupation-number distributions of the same squeezed state in traveling-wave and standing-wave bases" data-auto-height scrolling="no" style="display: block; width: 100%; height: 850px; min-height: 600px; border: 0; overflow: hidden;" loading="eager"></iframe>
 
-$$
-|\beta_k|^2=\frac1{4x^2}
-$$
+Move $r$ and compare the single-mode distributions. Traveling waves have a monotonically decreasing thermal form, while standing waves have only even occupation numbers; both have mean $\sinh^2r$. The total occupation distribution of the pair agrees exactly in both bases.
 
-and the squeezing parameter defined in §4 is
+### Subsystem choice and entanglement
 
-$$
-r_k=\operatorname{arsinh}\frac1{2x}
-$$
+Entanglement depends on both the state and **how subsystems are defined**. The same pure state is entangled when divided into $\mathbf k$ and $-\mathbf k$, but is a product when divided into $c$ and $s$. Two-mode squeezing and two single-mode squeezings are equivalent descriptions related by a basis transformation that preserves the full state.
 
-In the subhorizon limit,
+Dividing space into regions is yet another partition. Even when standing-wave components are independent, different regions of real space have correlations and entanglement. A discussion of quantum properties must specify which subsystems’ correlations are at issue.
 
-$$
-r_k\simeq\frac1{2x}\ll1
-\qquad (x\gg1)
-$$
+### The wavefunction and real-space kernel
 
-so the quantum state remains close to the initial vacuum. In the superhorizon limit,
+Write the same state as a wavefunction of standing-wave amplitude $q$. Substitute $\hat p=-i\,d/dq$ into the Schrödinger-operator version of the in condition, $i\left[f_k^*(\eta)\,\hat p-g_k^*(\eta)\,\hat q\right]|\psi_k(\eta)\rangle=0$, to obtain
 
 $$
-r_k\simeq-\ln x=N
-\qquad (x\ll1)
+\psi_k(q;\eta)\propto\exp\left[-\frac{K_k(\eta)}2q^2\right],\qquad K_k=-i\,\frac{g_k^*}{f_k^*}\tag{55}\label{eq:inflation-55}
 $$
 
-and squeezing develops.
+The Wronskian condition gives $\operatorname{Re}K_k=1/(2|f_k|^2)$, consistent with $\langle\hat q^2\rangle=|f_k|^2$. Initially $K_k=k$, recovering the reference-vacuum wavefunction.
 
-Indeed,
+This $K_k$ is the Fourier transform of the real-space kernel $\mathcal K_\eta(\mathbf x-\mathbf y)$ in $\eqref{eq:inflation-23}$. The Bunch–Davies wave functional is
 
 $$
-\frac{dr_k}{dN}
-=
-\frac1{\sqrt{1+4x^2}}
+\Psi^{(v)}_\eta[v]\propto\exp\left[-\frac12\sum_{\mathbf k}K_k(\eta)\,v_{\mathbf k}v_{-\mathbf k}\right]\tag{56}\label{eq:inflation-56}
 $$
+
+This connects the real-space quantum state to the squeezed state of each mode.
 
-so, well outside the Hubble scale, the squeezing parameter increases by approximately one unit per e-fold of expansion.
+## 7. Wigner ellipses and spatial correlations
 
-### Mode functions and superhorizon solutions
+The Wigner function represents the Schrödinger-picture state in phase space; here we obtain it from the Heisenberg calculation of §5. The expectation values agree in both pictures, for example $\langle\Psi(\eta)|\hat Q_{\mathrm S}^2|\Psi(\eta)\rangle=\langle0_{\mathrm{BD}}|\hat Q_{\mathrm H}^2(\eta)|0_{\mathrm{BD}}\rangle$.
 
-We have described the evolution using Bogoliubov coefficients. The same evolution can also be expressed through the mode functions that multiply the initial annihilation operators in the field expansion.
+### The Wigner function
 
-For a real standing-wave mode $A=c,s$ of the wavevector pair $(\mathbf k,-\mathbf k)$, expand the quadrature $Q_{A,\mathbf k}$ as
+Fix one standing-wave component and omit $A,\mathbf k$. Using eigenstates $|Q\rangle$ of $\hat Q$, the Wigner function of a density operator $\hat\rho$ is defined by
 
 $$
-Q_{A,\mathbf k}(\eta)
-=
-\sqrt{k}\left[
-f_k(\eta)b_{A,\mathbf k}^{\mathrm{in}}
-+
-f_k^*(\eta)b_{A,\mathbf k}^{\mathrm{in}\dagger}
-\right]
+W(Q,P)=\frac1{2\pi}\int_{-\infty}^{\infty}d\xi\,e^{-iP\xi}\left\langle Q+\frac\xi2\right|\hat\rho\left|Q-\frac\xi2\right\rangle\tag{57}\label{eq:inflation-57}
 $$
 
-Comparing with the Bogoliubov transformation gives
+Here $Q,P,\xi$ are real. Integrating over one coordinate gives the measurement probability density of the other quadrature,
 
 $$
-f_k(\eta)
-=
-\frac{\alpha_k+\beta_k^*}{\sqrt{2k}}
-=
-\frac{1+i/x}{\sqrt{2k}}e^{ix}
+\int dP\,W(Q,P)=\langle Q|\hat\rho|Q\rangle,\qquad\int dQ\,W(Q,P)=\langle P|\hat\rho|P\rangle\tag{58}\label{eq:inflation-58}
 $$
 
-Here, $f_k$ is normalized as the mode function of the rescaled field $a\phi_{A,\mathbf k}$. The expansion coefficient of the dimensionless $Q_{A,\mathbf k}$ is $\sqrt{k}f_k$.
+Phase-space averages of products give symmetrically ordered (Weyl-ordered) expectation values; for example, $\int dQ\,dP\,QP\,W=\frac12\langle\hat Q\hat P+\hat P\hat Q\rangle$. For general states, $W$ is a quasiprobability distribution that can be negative; for Gaussian states, $W\ge0$. Definitions and properties are reviewed by [O’Connell](https://arxiv.org/abs/1009.4431).
 
-The mode function of the original field $\phi_{A,\mathbf k}=Q_{A,\mathbf k}/(\sqrt{k}a)$ is
+### Covariance matrix and ellipse
 
+For $\hat{\mathbf Z}=(\hat Q,\hat P)^T$, the covariance matrix $\Sigma_{ij}=\frac12\langle\{\hat Z_i,\hat Z_j\}\rangle$ follows from §5:
+
 $$
-\frac{f_k}{a}
-=
-\frac{H}{\sqrt{2k^3}}(x+i)e^{ix}
+\Sigma=\begin{pmatrix}k|f_k|^2&\operatorname{Re}(f_kg_k^*)\\\operatorname{Re}(f_kg_k^*)&|g_k|^2/k\end{pmatrix},\qquad\det\Sigma=\frac14\tag{59}\label{eq:inflation-59}
 $$
 
-Expanding in the superhorizon limit $x\ll1$ gives
+The determinant follows from the Wronskian condition and expresses the preservation of minimum uncertainty in a pure Gaussian state. A zero-mean Gaussian state has Wigner function
 
 $$
-\frac{f_k}{a}
-=
-\frac{H}{\sqrt{2k^3}}
-\left[
-i\left(1+\frac{x^2}{2}+O(x^4)\right)
--\frac{x^3}{3}+O(x^5)
-\right]
+W(\mathbf Z)=\frac1{2\pi\sqrt{\det\Sigma}}\exp\left[-\frac12\mathbf Z^T\Sigma^{-1}\mathbf Z\right]\tag{60}\label{eq:inflation-60}
 $$
 
-The imaginary part approaches a constant, while the real part decays as $x^3\propto a^{-3}$.
+whose contours are ellipses.
 
-These two behaviors correspond to independent solutions of the mode equation. The function $f_k$ satisfies
+The eigenvalues of $\Sigma$, the variances along the major and minor axes, are
 
 $$
-f_k''
-+
-\left(k^2-\frac{a''}{a}\right)f_k
-=0
+\sigma_\pm^2=\frac12e^{\pm2r_k}\tag{61}\label{eq:inflation-61}
 $$
 
-Rewriting this as an equation for $f_k/a$ gives
+Starting from the reference-vacuum circle $\Sigma=I/2$, one direction stretches while its perpendicular direction contracts, preserving area. This is the geometry of squeezing. The angle $\varphi_k$ of the major axis from the positive $Q$ axis is
 
 $$
-\left[a^2\left(\frac{f_k}{a}\right)'\right]'
-+
-k^2a^2\frac{f_k}{a}
-=0
+\varphi_k=\frac12\arg(\alpha_k\beta_k)\tag{62}\label{eq:inflation-62}
 $$
-
-Neglecting the gradient term on superhorizon scales, the general solution is
 
-$$
-\frac{f_k(\eta)}{a(\eta)}
-\simeq
-C_1+
-C_2\int^\eta\frac{d\tilde\eta}{a^2(\tilde\eta)}
-$$
+The pair amplitude of §6 is then $\lambda_k=\tanh r_k\,e^{2i\varphi_k}$. Both the number-state amplitude $\lambda_k$ and the phase-space ellipse are specified by the same two numbers $r_k,\varphi_k$.
 
-In de Sitter spacetime, the second term is proportional to $a^{-3}$. The imaginary and real parts of the exact solution therefore correspond to the conserved (growing) mode and the decaying mode, respectively. The $O(x^2)$ term in the imaginary part is a finite-wavenumber correction to the conserved mode.
+### Projection onto spatial correlations
 
-The conserved mode dominates on superhorizon scales. Indeed, the field variance in the Bunch–Davies vacuum is
+Using $\Sigma_{QQ}=k|f_k|^2$, the relation $P_\zeta=|f_k|^2/z^2$ in $\eqref{eq:inflation-46}$ becomes
 
 $$
-\begin{aligned}
-\langle\phi_{A,\mathbf k}^2\rangle
-&=
-\left|\frac{f_k}{a}\right|^2\\
-&=
-\frac{H^2}{2k^3}(1+x^2)
-\end{aligned}
+P_\zeta(k,\eta)=\frac{\Sigma_{QQ}}{k\,z^2},\qquad\Sigma_{QQ}=\frac12\left[e^{2r_k}\cos^2\varphi_k+e^{-2r_k}\sin^2\varphi_k\right]\tag{63}\label{eq:inflation-63}
 $$
 
-so
+Here $\Sigma_{QQ}$ gives the width of the ellipse projected onto the $Q$ axis. For an isotropic state, angular integration expresses the correlation as a function of comoving distance $R=|\mathbf x-\mathbf y|$:
 
 $$
-\langle\phi_{A,\mathbf k}^2\rangle
-\longrightarrow
-\frac{H^2}{2k^3}
-\qquad(x\to0)
+G_\zeta(\eta;R)=\int_0^\infty\frac{dk}k\,\mathcal P_\zeta(k,\eta)\,\frac{\sin kR}{kR},\qquad\mathcal P_\zeta=\frac{k^3}{2\pi^2}P_\zeta\tag{64}\label{eq:inflation-64}
 $$
 
-While the fluctuations of the original field approach a constant, the quantum state in $Q_{A,\mathbf k},P_{A,\mathbf k}$ continues to become strongly squeezed. Conserved-mode dominance and the growth of squeezing are two aspects of the same quantum evolution.
+Inserting the squeezing variables directly gives
 
-The next figure shows the real part, imaginary part, and magnitude of $f_k/a$ and $f_k$, in units of $H/\sqrt{2k^3}$ and $1/\sqrt{2k}$, respectively. In the “Superhorizon components” view, $|\operatorname{Im}(f_k/a)|$ and $|\operatorname{Re}(f_k/a)|$ approach $1$ and $x^3/3$. The assignment of real and imaginary parts depends on the phase convention of the mode function, but conserved-mode dominance is independent of that convention.
+$$
+G_\zeta(\eta;R)=\frac1{4\pi^2z^2}\int_0^\infty dk\,k\left[e^{2r_k}\cos^2\varphi_k+e^{-2r_k}\sin^2\varphi_k\right]\frac{\sin kR}{kR}\tag{65}\label{eq:inflation-65}
+$$
 
-<iframe src="app/supporting.html?lang=en&amp;view=background" title="Background terms and exact de Sitter mode functions" data-auto-height scrolling="no" style="display: block; width: 100%; height: 900px; min-height: 650px; border: 0; overflow: hidden;" loading="eager"></iframe>
+**Both elongation and orientation** of the ellipse determine the spectrum, whose superposition determines the distance dependence. Together with the factor $z^{-2}$ returning to the original field, this is key to understanding “freezing” in §9.
 
-## 6. Wigner-function evolution: Bogoliubov transformations and Hamiltonian flow
+The function $G_\zeta$ probes the ellipse’s projection along $Q$. Representing the entire ellipse in real space also requires the field–momentum correlation $\frac12\langle\{\hat\zeta(\mathbf x),\hat\Pi_\zeta(\mathbf y)\}\rangle$ and the momentum–momentum correlation. Their Fourier coefficients are $\Sigma_{QP}$ and $kz^2\Sigma_{PP}$, respectively. Observational statements about the degree of squeezing or a quantum origin require this information beyond the field two-point function.
 
-Let us view this evolution in the phase space of one real standing-wave mode. Fix a wavevector pair and one of $A=c,s$, and abbreviate $Q=Q_{A,\mathbf k}$, $P=P_{A,\mathbf k}$, and $\phi=\phi_{A,\mathbf k}$.
+## 8. An exactly solvable example: a massless scalar on de Sitter space
 
-The dimensionless quadratures defined in §5 are
+### Model and correspondence
 
-$$
-Q=\sqrt{k}\,a\phi,
-$$
+The following figures use exact de Sitter spacetime,
 
 $$
-P=\frac{a\phi'}{\sqrt{k}}
+a(\eta)=-\frac1{H\eta},\qquad\eta<0,\qquad\mathcal H=-\frac1\eta\qquad(H\text{ constant})\tag{66}\label{eq:inflation-66}
 $$
 
-These are canonical variables satisfying
+with a free, massless, minimally coupled scalar field $\hat\phi$. The background is prescribed, and the backreaction of $\hat\phi$ is neglected. Its action,
 
 $$
-[\hat Q,\hat P]=i
+S_\phi=\frac12\int d\eta\,d^3x\;a^2\left[(\phi')^2-(\nabla\phi)^2\right]\tag{67}\label{eq:inflation-67}
 $$
 
-We calculate evolution using Heisenberg-picture operators, but display the result in the Schrödinger picture: **the state's Wigner function deforms on fixed $Q,P$ axes**. The orientation, scale, and range of the axes remain fixed in every frame.
+is the curvature-perturbation action of §1 with $z$ replaced by $a$. The arguments of §2–7 apply directly with the following correspondence.
 
-### Covariance matrix and Wigner ellipse
+| | Curvature perturbation | Scalar field in the figures |
+| --- | --- | --- |
+| Original field | $\zeta$ | $\phi$ |
+| Action coefficient | $z^2$ | $a^2$ |
+| Canonical variable | $v=z\zeta$ | $u=a\phi$ |
+| Conjugate momentum | $\pi=v'-(z'/z)v$ | $\pi_u=u'-\mathcal Hu=a\phi'$ |
+| Squeezing coefficient $s$ | $z'/z$ | $\mathcal H$ |
 
-Define the phase-space coordinates and covariance matrix as
-
-$$
-\mathbf Z=
-\begin{pmatrix}
-Q\\
-P
-\end{pmatrix},
-\qquad
-\Sigma_{ij}
-=
-\frac12
-\left\langle
-\{\hat Z_i,\hat Z_j\}
-\right\rangle
-$$
+We retain the notation $f_k,g_k$ for solutions of the mode equations with $z$ replaced by $a$. Each appropriately normalized tensor polarization obeys an equation of the same form. The relation to curvature perturbations is discussed in §9.
 
-The Bunch–Davies vacuum is a Gaussian state with zero mean, so its evolution is characterized by the covariance matrix.
+### Mode functions and squeezing parameter
 
-The Bogoliubov transformation of §5 gives
+Instead of time, use
 
 $$
-\begin{aligned}
-\langle Q^2\rangle
-&=
-\frac12|\alpha_k+\beta_k^*|^2,\\
-\langle P^2\rangle
-&=
-\frac12|\alpha_k-\beta_k^*|^2,\\
-\frac12\langle QP+PQ\rangle
-&=
-\operatorname{Im}(\alpha_k\beta_k)
-\end{aligned}
+x=-k\eta=\frac{k}{aH},\qquad N=-\ln x\tag{68}\label{eq:inflation-68}
 $$
+
+Here $x$ is the ratio of physical wavenumber $k/a$ to $H$: $x\gg1$ corresponds to wavelengths shorter than the Hubble radius, and $x\ll1$ to longer wavelengths. The variable $N$ counts e-folds from $x=1$, conventionally called Hubble crossing.
 
-Substituting the exact de Sitter solution yields
+Solving for the mode functions with past positive-frequency behavior and Wronskian normalization gives
 
 $$
-\Sigma(x)
-=
-\frac12
-\begin{pmatrix}
-1+x^{-2}&-x^{-1}\\
--x^{-1}&1
-\end{pmatrix}
+f_k=\frac{1+i/x}{\sqrt{2k}}\,e^{ix},\qquad g_k=f_k'-\mathcal Hf_k=-i\sqrt{\frac k2}\,e^{ix}\tag{69}\label{eq:inflation-69}
 $$
 
-From the definition in §2, the Wigner function of this zero-mean Gaussian state is
+Substitution into $\eqref{eq:inflation-48}$ gives
 
 $$
-W(\mathbf Z;x)
-=
-\frac1{2\pi\sqrt{\det\Sigma}}
-\exp\left[
--\frac12\mathbf Z^T\Sigma^{-1}\mathbf Z
-\right]
+\alpha_k=\left(1+\frac i{2x}\right)e^{ix},\qquad\beta_k=-\frac i{2x}\,e^{-ix},\tag{70}\label{eq:inflation-70}
 $$
 
-The figures draw the contour
-
 $$
-\mathbf Z^T\Sigma^{-1}\mathbf Z=1
+r_k=\operatorname{arsinh}\frac1{2x},\qquad\varphi_k=-\frac12\arctan(2x),\qquad\lambda_k=\frac{1-2ix}{1+4x^2}\tag{71}\label{eq:inflation-71}
 $$
-
-You can follow this contour's evolution in the third panel of the [animation below](#main-animation).
 
-The eigenvalues of the covariance matrix are
+At short wavelengths, $r_k\simeq1/(2x)$ and the state is nearly vacuum; at long wavelengths, $r_k\simeq-\ln x=N$.
 
 $$
-\sigma_\pm^2
-=
-\frac12e^{\pm2r_k}
+\frac{dr_k}{dN}=\frac1{\sqrt{1+4x^2}}\tag{72}\label{eq:inflation-72}
 $$
 
-As $r_k$ from §5 increases, the Wigner distribution therefore becomes a long, thin ellipse.
+Well after Hubble crossing, $r_k$ therefore increases by approximately one per e-fold.
 
-Meanwhile,
+For $Q=\sqrt k\,q$, the kernel $K_k$ in $\eqref{eq:inflation-55}$ gives the wavefunction
 
 $$
-\det\Sigma=\frac14
+\psi(Q;x)\propto\exp\left[-\frac{x(x+i)}{2(1+x^2)}\,Q^2\right]\tag{73}\label{eq:inflation-73}
 $$
 
-remains constant in time. Squeezing preserves phase-space area while reducing fluctuations in one direction and increasing them in the conjugate direction.
+As $x\to0$, the real part of the exponent decreases as $x^2$, broadening the distribution along $Q$. The imaginary part $\simeq x$ supplies a phase $e^{-ixQ^2/2}$ encoding the correlation $P\simeq-xQ$ between $Q$ and $P$.
 
-### Hamiltonian flow: rotation and squeezing
+### Conserved and decaying components
 
-We now examine the Hamiltonian flow that produces this deformation of the Wigner distribution.
+The original field’s real amplitude is $\hat\phi_{A,\mathbf k}=\hat q_{A,\mathbf k}/a$, so its mode function is
 
-Writing the Hamiltonian of §4 in fixed quadratures and changing the time variable from conformal time $\eta$ to $N$ gives
-
 $$
-K_N
-=
-\frac{x}{2}(Q^2+P^2)
-+
-\frac12(QP+PQ)
+\frac{f_k}a=\frac H{\sqrt{2k^3}}(x+i)\,e^{ix}=\frac H{\sqrt{2k^3}}\left[i\left(1+\frac{x^2}2+O(x^4)\right)-\frac{x^3}3+O(x^5)\right]\tag{74}\label{eq:inflation-74}
 $$
+
+The last expression expands at $x\ll1$. The imaginary part is the **conserved component**, approaching a constant; the real part is the **decaying component**, decreasing as $x^3\propto a^{-3}$. These correspond to the two terms of the general long-wavelength solution $\phi\simeq C_1+C_2\int^\eta d\tilde\eta/a^2$ of $(a^2\phi')'=0$ with gradients neglected. The imaginary $x^2/2$ term is a correction to the conserved component.
 
-The corresponding Hamilton equations are
+The Bunch–Davies spectrum is
 
 $$
-\frac{d\mathbf Z}{dN}
-=
-A(N)\mathbf Z,
-\qquad
-A(N)=
-\begin{pmatrix}
-1&x\\
--x&-1
-\end{pmatrix}
+P_\phi(k,\eta)=\left|\frac{f_k}a\right|^2=\frac{H^2}{2k^3}(1+x^2),\qquad\mathcal P_\phi=\frac{H^2}{4\pi^2}(1+x^2)\longrightarrow\left(\frac H{2\pi}\right)^2\tag{75}\label{eq:inflation-75}
 $$
 
-This matrix decomposes as
+The canonical variance $|f_k|^2$ continues to grow as $a^2$, while the original field’s power approaches the constant $(H/2\pi)^2$ after Hubble crossing.
 
-$$
-A(N)
-=
-x
-\begin{pmatrix}
-0&1\\
--1&0
-\end{pmatrix}
-+
-\begin{pmatrix}
-1&0\\
-0&-1
-\end{pmatrix}
-$$
+<iframe src="app/supporting.html?lang=en&amp;view=background" title="Evolution of the canonical-variable and original-field mode functions" data-auto-height scrolling="no" style="display: block; width: 100%; height: 900px; min-height: 650px; border: 0; overflow: hidden;" loading="eager"></iframe>
 
-The first term generates rotation in phase space. The second generates squeezing through stretching along $Q$ and contraction along $P$.
+Compare the canonical mode $f_k$ with the original-field mode $f_k/a$. Switching views also shows the conserved and decaying components and the relative sizes of the gradient and background terms in the mode equation.
 
-Rotation dominates for $x\gg1$. As expansion reduces $x$, squeezing becomes relatively more important. At $x=1$, the two contributions are comparable and the instantaneous flow is a shear. For $x\ll1$, stretching and contraction dominate.
+### Phase-space flow
 
-Because the Hamiltonian is quadratic, the Wigner function evolves exactly along this classical Hamiltonian flow. The covariance matrix obeys
+Using e-fold number $N$ as time and multiplying $\hat H_{A,\mathbf k}$ of §4 by $d\eta/dN=x/k$, the Hamiltonian for one standing wave becomes
 
 $$
-\frac{d\Sigma}{dN}
-=
-A\Sigma+\Sigma A^T
+\hat K_N=\frac x2\left(\hat Q^2+\hat P^2\right)+\frac12\left(\hat Q\hat P+\hat P\hat Q\right)\tag{76}\label{eq:inflation-76}
 $$
 
-Also,
+The Heisenberg equations are
 
 $$
-\operatorname{tr}A=0
+\frac{d\hat{\mathbf Z}}{dN}=A\,\hat{\mathbf Z},\qquad A=x\begin{pmatrix}0&1\\-1&0\end{pmatrix}+\begin{pmatrix}1&0\\0&-1\end{pmatrix}\tag{77}\label{eq:inflation-77}
 $$
+
+The first term generates phase-space rotation; the second stretches $Q$ and contracts $P$. Because the Hamiltonian is quadratic, the Schrödinger-picture Wigner function is exactly transported by the linear flow $d\mathbf Z/dN=A\mathbf Z$ of numerical coordinates $\mathbf Z$. The covariance obeys $d\Sigma/dN=A\Sigma+\Sigma A^T$, and $\operatorname{tr}A=0$ preserves area.
 
-so phase-space area is conserved, consistent with the constant $\det\Sigma=1/4$ found above.
+For $x\gg1$, rotation dominates and the distribution remains nearly circular. As $x$ decreases, stretching and contraction become relatively stronger, reaching the same order as rotation at $x=1$. For $x<1$, $A$ has real eigenvalues $\pm\sqrt{1-x^2}$ and the flow is hyperbolic.
 
 <span id="main-animation"></span>
 
-### Animating the Wigner ellipse and Hamiltonian flow
+<iframe src="app/index.html?lang=en" title="Wigner ellipse on fixed canonical axes with rotation and squeezing flows" data-auto-height scrolling="no" style="display: block; width: 100%; height: 1800px; min-height: 900px; border: 0; overflow: hidden;" loading="eager"></iframe>
 
-The animation follows the evolution from $x=12$ to $x=0.2$, using $N=-\ln x$ as time. The first two panels show the rotation and squeezing vector fields separately; the third shows their combined flow and the Wigner contour.
+Compare three stages in the animation.
 
-<iframe src="app/index.html?lang=en" title="Inflationary squeezing: rotation, squeeze, and total Hamiltonian flow" data-auto-height scrolling="no" style="display: block; width: 100%; height: 1800px; min-height: 900px; border: 0; overflow: hidden;" loading="eager"></iframe>
+1. **$x\gg1$:** rotation dominates, and the Wigner distribution is nearly circular. Its slight initial ellipticity comes from starting at $x=12$.
+2. **$x\approx1$:** rotation and stretching become comparable, and the ellipse’s deformation becomes noticeable.
+3. **$x\ll1$:** the major axis lengthens, the minor axis narrows, and the major axis approaches the $Q$ axis.
 
-Follow these changes in the animation:
+The contour $\mathbf Z^T\Sigma^{-1}\mathbf Z=1$ encloses probability $1-e^{-1/2}\simeq39\%$. Arrow lengths include a common display scale and $1/\sqrt{1+x^2}$; the ellipse is computed with the original flow. Switch the direction display to compare instantaneous flow eigendirections, ellipse principal axes, and conserved/decaying solution directions. The principal axes and their projection onto $Q$ determine the field variance.
 
-1. **Subhorizon ($x\gg1$):** Rotation dominates and the Wigner distribution is nearly circular. The slight ellipticity at the start comes from beginning at $x=12$ rather than $x=\infty$.
-2. **Hubble crossing ($x=1$):** Rotation and squeezing become comparable, and the deformation of the ellipse becomes clear.
-3. **Superhorizon ($x\ll1$):** The long axis stretches and the short axis narrows. Correlations between $Q$ and $P$ strengthen, concentrating the distribution along the direction associated with the growing solution.
+<iframe src="app/supporting.html?lang=en&amp;view=squeezing" title="Squeezing magnitude and major-axis angle as functions of e-fold time" data-auto-height scrolling="no" style="display: block; width: 100%; height: 900px; min-height: 650px; border: 0; overflow: hidden;" loading="eager"></iframe>
 
-For readability, arrow lengths are multiplied by $1/\sqrt{1+x^2}$ and a common drawing scale. The Wigner function itself is calculated using the original Hamiltonian flow.
+These plots follow $r_k$ and $\varphi_k$ to four e-folds after Hubble crossing. At late times, $r_k\simeq N$ and the angle approaches zero.
 
-Toggle the direction overlays to compare the eigendirections of the instantaneous flow, the principal axes of the ellipse, and the directions of the growing and decaying solutions. At finite $x$, these directions differ, and their relationships change during the evolution.
+### Four-dimensional covariance in the traveling-wave basis
 
-### Squeezing strength and ellipse orientation
-
-We can quantify the stretching and rotation seen above using the squeezing parameter and the angle of the long axis.
-
-Let $\varphi_k$ be the angle of the ellipse's long axis relative to the positive $Q$ axis. Then,
+Return from the ellipse of one standing wave to the four-dimensional phase space of the pair. In standing-wave coordinates $\hat{\mathbf Z}_{\mathrm{st}}=(\hat Q_c,\hat P_c,\hat Q_s,\hat P_s)^T$, the two components have the same state, so
 
 $$
-\varphi_k
-=
-\frac12\arg(\alpha_k\beta_k)
-=
--\frac12\arctan(2x)
+\Sigma_{\mathrm{st}}=\begin{pmatrix}\Sigma&0\\0&\Sigma\end{pmatrix}\tag{78}\label{eq:inflation-78}
 $$
 
-The Bogoliubov coefficients determine both the strength of squeezing and the orientation of the ellipse. The initially almost circular distribution becomes progressively more elongated, with its long axis approaching the $Q$ axis.
-
-The figure below extends beyond the animation to four e-folds after Hubble crossing.
-
-<iframe src="app/supporting.html?lang=en&amp;view=squeezing" title="Squeezing magnitude and broad-axis angle versus e-fold time" data-auto-height scrolling="no" style="display: block; width: 100%; height: 900px; min-height: 650px; border: 0; overflow: hidden;" loading="eager"></iframe>
-
-### Field-velocity fluctuations and freeze-out
-
-How does the ellipse's deformation relate to the “freeze-out” of the original field at an almost constant amplitude? The plotted $P$ is a rescaled derivative, $P=a\phi'/\sqrt{k}$. The covariance matrix gives a constant
+The traveling-wave quadratures $\hat Q_\pm=(\hat a_{\pm\mathbf k}+\hat a_{\pm\mathbf k}^\dagger)/\sqrt2$ and $\hat P_\pm=(\hat a_{\pm\mathbf k}-\hat a_{\pm\mathbf k}^\dagger)/(i\sqrt2)$ obey $\hat Q_\pm=(\hat Q_c\pm\hat P_s)/\sqrt2$ and $\hat P_\pm=(\hat P_c\mp\hat Q_s)/\sqrt2$ by §3. The covariance of $\hat{\mathbf Z}_{\mathrm{tr}}=(\hat Q_+,\hat P_+,\hat Q_-,\hat P_-)^T$ is
 
 $$
-\operatorname{Var}(P)=\frac12
+\Sigma_{\mathrm{tr}}=\frac12\begin{pmatrix}\cosh2r_k\,I&\sinh2r_k\,R_k\\\sinh2r_k\,R_k&\cosh2r_k\,I\end{pmatrix},\qquad R_k=\begin{pmatrix}\cos2\varphi_k&\sin2\varphi_k\\\sin2\varphi_k&-\cos2\varphi_k\end{pmatrix}\tag{79}\label{eq:inflation-79}
 $$
 
-Even as the short axis approaches the $P$ axis, the width of the distribution projected onto $P$ does not vanish. What shrinks is the remaining width at a given $Q$. For the positive Gaussian Wigner density,
+Here $I$ is the $2\times2$ identity matrix. The block for one traveling mode is isotropic, with variance $\frac12\cosh2r_k=|\beta_k|^2+\frac12$: the thermal state discussed in §6. The off-diagonal blocks encode strong correlations between $\mathbf k$ and $-\mathbf k$, namely two-mode squeezing.
+
+<iframe src="app/supporting.html?lang=en&amp;view=basis" title="Four-dimensional covariance of the same pure state in traveling-wave and standing-wave bases" data-auto-height scrolling="no" style="display: block; width: 100%; height: 1200px; min-height: 650px; border: 0; overflow: hidden;" loading="eager"></iframe>
+
+Choose a late time and check how the two identical standing-wave covariance blocks become correlations between traveling modes. Both matrices describe the same pure state of the pair.
+
+## 9. Freezing, classical random fields, and acoustic peaks
+
+We now follow the consequences of squeezing in §8 through to observed fluctuations. Field fluctuations freeze, and their amplitudes pass into primordial fluctuations as conserved curvature perturbations. Frozen modes can be treated as initial conditions for a classical random field. Those initial conditions being dominated by the growing mode then manifests as the CMB acoustic peaks.
+
+### Conditional width
+
+The model in §8 has covariance
 
 $$
-\mathbb E[P\mid Q]=-\frac{x}{1+x^2}Q,
-\qquad
-\operatorname{Var}(P\mid Q)=\frac{x^2}{2(1+x^2)}
+\Sigma(x)=\frac12\begin{pmatrix}1+x^{-2}&-x^{-1}\\-x^{-1}&1\end{pmatrix}\tag{80}\label{eq:inflation-80}
 $$
 
-so the superhorizon distribution concentrates near $P\simeq-xQ$.
-
-The velocity fluctuations of the original field can instead be obtained directly by differentiating the mode function. Using the exact solution of §5 and $dx/d\eta=-k$ gives
+The variance $\Sigma_{PP}=1/2$ is constant: narrowing occurs along the tilted minor axis. In the positive Gaussian Wigner density, the conditional statistics of $P$ given $Q$ are
 
 $$
-\left(\frac{f_k}{a}\right)'
-=-\frac{i}{a}\sqrt{\frac{k}{2}}\,e^{ix}
+\mathbb E_W[P\mid Q]=-\frac x{1+x^2}\,Q,\qquad\operatorname{Var}_W(P\mid Q)=\frac{x^2}{2(1+x^2)}\tag{81}\label{eq:inflation-81}
 $$
 
-In the Bunch–Davies vacuum, $\langle\phi\rangle=\langle\phi'\rangle=0$, so the mean squared velocity equals its variance:
+For $x\ll1$, the distribution concentrates near $P\simeq-xQ$. Amplitude and momentum become strongly correlated, and the remaining momentum width at a given amplitude becomes small. The subscript $W$ denotes statistics of the Wigner density.
+
+### Field velocity
+
+The expansion coefficient for the cosmic-time field velocity $\dot\phi=\phi'/a$ is $g_k/a^2$. Its spectrum and its ratio to the field amplitude are
 
 $$
-\left\langle(\phi')^2\right\rangle
-=\left|\left(\frac{f_k}{a}\right)'\right|^2
-=\frac{k}{2a^2}
+P_{\dot\phi}(k,\eta)=\frac{k}{2a^4},\qquad\frac{\sqrt{P_{\dot\phi}}}{H\sqrt{P_\phi}}=\frac{x^2}{\sqrt{1+x^2}}\simeq x^2\quad(x\ll1)\tag{82}\label{eq:inflation-82}
 $$
 
-For the velocity in cosmic time, $\dot\phi=\phi'/a$,
+The change in the field over a Hubble time is suppressed by order $x^2$ relative to its amplitude—about 1% at $x=0.1$. Thus **a superposition with finite amplitude width remains, while its time variation becomes small**. This is freezing. Since $[\hat\phi_{A,\mathbf k},\dot{\hat\phi}_{A,\mathbf k}]=i/a^3$, the narrowing velocity distribution is compatible with $[\hat Q,\hat P]=i$ and $\det\Sigma=1/4$.
+
+Squeezing and freezing are different views of the same aspect of quantum evolution during inflation. The canonical $Q$ distribution broadens along the major axis in proportion to $e^{r_k}$. The original field amplitude is $Q$ divided by $\sqrt k\,a$, and that ratio approaches a constant. At the same time, the decaying component is suppressed, leaving effectively one random amplitude per mode as input for subsequent linear evolution.
+
+### Application to curvature perturbations
+
+Applying this result to curvature perturbations requires the relation between $z$ and $a$. Writing the Planck mass as $M_{\mathrm{Pl}}$, the background Einstein equations give
 
 $$
-\left\langle\dot\phi^{\,2}\right\rangle
-=\frac{k}{2a^4}
-\longrightarrow0
+\epsilon_1=-\frac{\dot H}{H^2}=\frac{\dot\phi_0^2}{2M_{\mathrm{Pl}}^2H^2},\qquad z^2=2a^2\epsilon_1M_{\mathrm{Pl}}^2\tag{83}\label{eq:inflation-83}
 $$
 
-Meanwhile, as derived in §5, the field amplitude retains a finite variance:
+Using $\epsilon_2=d\ln\epsilon_1/d\ln a$, to first order in slow-roll parameters,
 
 $$
-\langle\phi^2\rangle
-=\frac{H^2}{2k^3}(1+x^2)
-\longrightarrow\frac{H^2}{2k^3}
+\frac{z''}{z}=\mathcal H^2\left[2-\epsilon_1+\frac32\epsilon_2+O(\epsilon^2)\right],\qquad\frac{a''}{a}=\mathcal H^2(2-\epsilon_1)\tag{84}\label{eq:inflation-84}
 $$
 
-The smallness of the change per Hubble time is measured by the dimensionless ratio
+At leading order, both approach $2/\eta^2$, so the canonical curvature mode function is approximated by $f_k$ of §8 and develops squeezing in the same way. Returning to the curvature amplitude requires division by $z$. Exact de Sitter has $\dot\phi_0=0$ and $z=0$, so the §8 model serves as the leading slow-roll approximation for curvature perturbations.
+
+The long-wavelength curvature operator is
 
 $$
-\frac{\sqrt{\langle\dot\phi^{\,2}\rangle}}
-{H\sqrt{\langle\phi^2\rangle}}
-=\frac{x^2}{\sqrt{1+x^2}}
-\simeq x^2
-\qquad(x\ll1)
+\hat\zeta_{\mathbf k}(\eta)\simeq\hat C_{1,\mathbf k}+\hat C_{2,\mathbf k}\int^\eta\frac{d\tilde\eta}{z^2(\tilde\eta)}\tag{85}\label{eq:inflation-85}
 $$
 
-For example, at $x=0.1$ this ratio is approximately $0.01$. **The amplitude retains a superposition with a finite spread while the time variation of the original field becomes small.** This is the concrete meaning of freeze-out in this model. Meanwhile, the amplitude spread of $Q=\sqrt{k}a\phi$ continues to grow.
-
-Here, $\phi$ and $\dot\phi$ are not a canonically conjugate pair: $[\hat\phi,\hat{\dot\phi}]=i/a^3$. The shrinking velocity spread is consistent with $[\hat Q,\hat P]=i$ and $\det\Sigma=1/4$ for the fixed canonical quadratures.
-
-As the decaying solution becomes suppressed, the independent random inputs needed for subsequent linear evolution effectively reduce to a single amplitude. This structure connects the classical statistical description below to the temporal phase of acoustic oscillations after re-entry.
-
-## 7. Why perturbations appear classical
-
-A quantum state can have zero mean and nonzero variance.
-
-From the same exact mode function, the test scalar field's power per logarithmic wavenumber interval is
+On an ordinary attractor background the second term decays and $\hat\zeta$ is conserved. On a non-attractor background it may grow, requiring a fresh assessment from $z(\eta)$. For single-field slow roll with Bunch–Davies initial conditions, the conserved curvature power at leading order is
 
 $$
-\mathcal P_\phi(k)
-=
-\frac{k^3}{2\pi^2}
-\left|
-\frac{f_k}{a}
-\right|^2
+\mathcal P_\zeta(k)\simeq\left.\frac{\mathcal P_\phi}{2\epsilon_1M_{\mathrm{Pl}}^2}\right|_{k=aH}=\left.\frac{H^2}{8\pi^2\epsilon_1M_{\mathrm{Pl}}^2}\right|_{k=aH}\tag{86}\label{eq:inflation-86}
 $$
 
-giving
+Here $\mathcal P_\phi$ is the frozen value $(H/2\pi)^2$ from §8, and the background quantities on the right are evaluated at each mode’s Hubble crossing.
+
+### Description by a classical random field
+
+In this linear Gaussian theory, equal-time fields commute. Sampling field configurations from $|\Psi_\eta[\zeta]|^2$ therefore reproduces field correlations at that time. Symmetrically ordered correlations involving fields and momenta can likewise be reproduced by the positive Gaussian Wigner density. These properties already hold for the initial vacuum.
+
+As squeezing develops, momentum becomes almost fixed by the amplitude. Initial conditions for subsequent linear evolution can then be specified effectively by one random amplitude per mode. This is why the statistics of later cosmic fluctuations can be calculated from classical random-field initial conditions.
+
+The quantum state itself remains a pure squeezed state, with $[\hat Q,\hat P]=i$ preserved. A classical Gaussian random field and a pure squeezed state having the same two-point function cannot be distinguished by that field two-point function alone. The distinction between reproducing classical statistics and a quantum state becoming classical is discussed in detail by [Martin & Vennin](https://arxiv.org/abs/1510.04038). Entanglement with an environment—decoherence—turns the subsystem state into a mixed state, as discussed in §10.
+
+### Temporal phase coherence and acoustic peaks
+
+Let $\hat\zeta_{\mathbf k}^{\mathrm{prim}}$ denote the conserved primordial curvature operator. In linear evolution dominated by the adiabatic growing mode, an acoustic variable $\hat X$ of the later photon–baryon fluid is expressed through a transfer function $T_k$, determined by the background evolution and wavenumber, as
 
 $$
-\mathcal P_\phi(k)
-=
-\frac{H^2}{4\pi^2}
-(1+x^2)
+\hat X_{\mathbf k}(\eta)\simeq T_k(\eta)\,\hat\zeta_{\mathbf k}^{\mathrm{prim}},\qquad\hat X_{\mathbf k}'(\eta)\simeq T_k'(\eta)\,\hat\zeta_{\mathbf k}^{\mathrm{prim}}\tag{87}\label{eq:inflation-87}
 $$
 
-In the superhorizon limit $x\to0$,
+The later spatial correlation follows from the same initial state:
 
 $$
-\mathcal P_\phi(k)
-\longrightarrow
-\left(
-\frac{H}{2\pi}
-\right)^2.
+\langle\hat X(\eta,\mathbf x)\hat X(\eta,\mathbf y)\rangle\simeq\int\frac{d^3k}{(2\pi)^3}\,|T_k(\eta)|^2\,P_\zeta^{\mathrm{prim}}(k)\,e^{i\mathbf k\cdot(\mathbf x-\mathbf y)}\tag{88}\label{eq:inflation-88}
 $$
 
-Thus, substantial growth of the variance of the quadrature $Q=\sqrt{k}a\phi$ is consistent with freeze-out of the original field $\phi$ at a finite variance.
+This approximation retains only the growing mode; reconstructing the exact canonical commutators also requires the decaying mode.
 
-For curvature perturbations, $z$ replaces $a$, and its slow-roll evolution determines the amplitude and spectral tilt.
+The displacement $\hat X$ and velocity $\hat X'$ multiply the same primordial amplitude by $T_k$ and $T_k'$. Consequently, even when primordial amplitudes differ between realizations, acoustic oscillations of the same wavenumber share the times of their zero crossings and extrema. This **temporal phase coherence** follows from the suppression of the decaying component during freezing. Spatial Fourier phases remain random, while oscillations at each wavenumber share a common time evolution.
 
-Why, then, can this quantum state be treated as a classical random field in the later universe?
-
-First, the freely evolving Bunch–Davies vacuum remains Gaussian, with a positive Wigner function. Treating this positive distribution as a probability density reproduces equal-time, symmetrically ordered (Weyl-ordered) correlators through a classical Gaussian ensemble. This property already holds for the initial vacuum.
-
-As squeezing develops, a stronger structure emerges. The growing mode dominates, and the field and momentum become correlated. The Wigner distribution becomes a thin ellipse, so the initial conditions needed for subsequent linear evolution can effectively be specified by a single random amplitude. The statistics of observed fluctuations can then be calculated using a classical stochastic field.
-
-The quantum state itself has not become classical, however. The commutation relation
+To see the effect, consider an oscillator with constant sound speed $c_s$, omitting gravitational driving and other effects,
 
 $$
-[\hat Q,\hat P]=i
+X_k=A_k\cos(kr_s)+B_k\sin(kr_s),\qquad r_s=c_s(\eta-\eta_i)\tag{89}\label{eq:inflation-89}
 $$
 
-remains. The wavefunction does not spontaneously collapse, nor does a pure state become mixed through this evolution alone.
+Here $r_s$ is the sound-travel distance since $\eta_i$, $A_k=X_k(\eta_i)$ is the initial displacement, and $B_k=X_k'(\eta_i)/(kc_s)$ corresponds to the initial velocity. In the adiabatic growing mode, density is already perturbed at long wavelengths, while the gradients driving the fluid are small. The oscillator therefore starts nearly at rest: $|B_k|\ll|A_k|$.
 
-Environmental decoherence is a separate physical process from squeezing.
-
-The distinction between reproducing statistics classically and the quantum state itself becoming classical matters when discussing the quantum origin of primordial fluctuations. [Martin & Vennin](https://arxiv.org/abs/1510.04038) discuss this distinction in detail.
-
-<iframe src="app/supporting.html?lang=en&amp;view=samples" title="Wigner samples before and after symplectic evolution" data-auto-height scrolling="no" style="display: block; width: 100%; height: 900px; min-height: 650px; border: 0; overflow: hidden;" loading="eager"></iframe>
-
-Move the time slider from the beginning to the end.
-
-Evolution does not eliminate randomness. The range of amplitudes along the long axis grows, while the spread away from the orange conditional-mean line in the $P$ direction shrinks.
-
-The left and right panels use the same coordinate ranges. The plotted Wigner contour encloses approximately 39% of the probability weight, so it is natural for many sample points to lie outside the ellipse.
-
-## 8. Temporal phase coherence and the CMB acoustic peaks
-
-As we saw in §6–7, squeezing progresses on superhorizon scales, stretching the Wigner distribution into a thin ellipse. For the scalar field in §6, the distribution points almost along the amplitude direction, and the velocity becomes nearly zero. The field changes by only a fraction of order $x^2\ll1$ of its amplitude over one Hubble time. The small remaining velocity is also strongly correlated with the amplitude, and the contribution of an independent initial velocity is strongly suppressed.
-
-This property leads to aligned temporal phases in CMB acoustic oscillations. In standard single-field attractor inflation, the superhorizon curvature perturbation $\zeta$ is approximately conserved, and the adiabatic growing mode becomes dominant. In linear theory, the photon–baryon fluid's acoustic variable $X$ evolving from these initial conditions can be written, for each real standing-wave component $a=c,s$, as
+Compare two ensembles with the same initial total variance $\sigma^2$. In a coherent ensemble where all oscillations start as cosines ($\langle A_k^2\rangle=\sigma^2$, $B_k=0$),
 
 $$
-X_{a,\mathbf k}(\eta)\simeq T_k(\eta)\zeta_{a,\mathbf k}^{\mathrm{prim}},
-\qquad
-X_{a,\mathbf k}'(\eta)\simeq T_k'(\eta)\zeta_{a,\mathbf k}^{\mathrm{prim}}
+\langle X_k^2\rangle=\sigma^2\cos^2(kr_s)\tag{90}\label{eq:inflation-90}
 $$
 
-Here, $T_k$ is the transfer function determined by the background evolution and wavenumber.
-
-Displacement $X$ and velocity $X'$ are proportional to the same primordial amplitude $\zeta_{a,\mathbf k}^{\mathrm{prim}}$. Thus, even though the primordial amplitude varies between realizations, acoustic oscillations at the same wavenumber reach their zeros and extrema at the same times. This is **temporal phase coherence**.
-
-The spatial Fourier phase $\arg\zeta_{\mathbf k}$, meanwhile, remains random. In other words, the spatial pattern of perturbations is random, while oscillations at each wavenumber share a common time evolution.
-
-Consider this property in a simple oscillator with constant sound speed $c_s$. Neglect gravitational driving and select one real standing-wave component. For the temperature or density displacement $X_k$ from equilibrium, we can write
+Oscillations survive in the mean power despite random amplitudes. For an ensemble with independent cosine and sine components of equal variance ($\langle A_k^2\rangle=\langle B_k^2\rangle=\sigma^2/2$, $\langle A_kB_k\rangle=0$),
 
 $$
-\begin{aligned}
-X_k(\eta)&=A_k\cos(kr_s)+B_k\sin(kr_s),\\
-r_s&=c_s(\eta-\eta_i)
-\end{aligned}
+\langle X_k^2\rangle=\frac{\sigma^2}2\tag{91}\label{eq:inflation-91}
 $$
 
-Here, $\eta_i$ is the initial time and $r_s$ is the acoustic distance measured from it. The relation to the initial conditions is
+The power oscillations disappear on averaging.
+
+<iframe src="app/supporting.html?lang=en&amp;view=acoustic" title="Statistical acoustic-oscillator model with and without shared temporal phase" data-auto-height scrolling="no" style="display: block; width: 100%; height: 1400px; min-height: 650px; border: 0; overflow: hidden;" loading="eager"></iframe>
+
+In the coherent ensemble, zero crossings align and oscillations remain in the mean power. Fixing the sound-travel distance $r_s$ at recombination and varying $k$ turns these oscillations into a periodic sequence of peaks in wavenumber space.
+
+A full CMB calculation includes gravitational driving, baryon inertia, neutrinos, diffusion damping, recombination, and projection onto the sky. Still, the common time evolution at each wavenumber inherited from the adiabatic growing mode is the origin of acoustic peaks in the angular power spectrum $C_\ell$. Acoustic peaks indicate coherent temporal phases of primordial fluctuations; identifying a quantum origin requires additional information. See [Hu & White](https://arxiv.org/abs/astro-ph/9602019).
+
+## 10. Beyond linear theory: interactions, non-Gaussianity, and coarse graining
+
+### Mode coupling and non-Gaussianity
+
+So far we have used only the quadratic action. Including nonlinearities in gravity and the inflaton adds cubic and higher terms $S_3,S_4,\dots$ in $\zeta$. In single-field slow roll, cubic-action coefficients are suppressed by slow-roll parameters ([Maldacena](https://arxiv.org/abs/astro-ph/0210603)).
+
+These terms couple different wavevectors while keeping their total momentum zero. For example, a cubic term connects three modes with $\mathbf k_1+\mathbf k_2+\mathbf k_3=0$ and generates the continuum three-point correlation
 
 $$
-A_k=X_k(\eta_i),
-\qquad
-B_k=\frac{X_k'(\eta_i)}{kc_s}
+\langle\hat\zeta_{\mathbf k_1}\hat\zeta_{\mathbf k_2}\hat\zeta_{\mathbf k_3}\rangle=(2\pi)^3\delta^{(3)}(\mathbf k_1+\mathbf k_2+\mathbf k_3)\,B_\zeta(k_1,k_2,k_3)\tag{92}\label{eq:inflation-92}
 $$
 
-so the cosine component corresponds to initial displacement, and the sine component to initial velocity. The linear relation above corresponds to a coefficient ratio $B_k/A_k$ shared across realizations.
+The three-point function of a zero-mean Gaussian state vanishes, so $B_\zeta$ directly measures non-Gaussianity. $B_\zeta$ depends on the shape of the triangle formed by the three wavevectors, reflecting the type of interaction. In single-field slow roll, the limit of $B_\zeta$ where one wavenumber is much smaller than the other two is determined by the power-spectrum tilt $n_s-1$.
 
-For the adiabatic growing mode, density and temperature perturbations already exist at the superhorizon stage before acoustic oscillations begin. Spatial gradients of pressure and gravitational potential accelerate the fluid, but these gradients are small in this long-wavelength regime, so the resulting fluid velocity is also small. In this simplified model, this corresponds to an oscillator starting almost at rest with a random initial displacement.
+For the quantum state, mode coupling breaks the product-over-pairs structure of §6 and generates correlations and entanglement between different wavevectors. For a selected long-wavelength mode, other short-wavelength modes act as an environment; tracing over them leaves a mixed long-wavelength state. This is one mechanism of decoherence during inflation and arises even from gravitational nonlinearities alone ([Nelson](https://arxiv.org/abs/1601.03734)). Squeezing occurs during linear evolution, while decoherence arises from interactions: they are distinct stages.
 
-Thus, if the initial velocity is sufficiently small compared with $kc_s$ times the initial displacement, then $|B_k|\ll|A_k|$, and we can approximate
+### The in-in (Schwinger–Keldysh) formalism
 
-$$
-X_k(\eta)\simeq A_k\cos(kr_s)
-$$
-
-The temporal phase is common even though the amplitude's magnitude and sign are random. [Hu & White](https://arxiv.org/abs/astro-ph/9602019) discuss the connection between these initial conditions and the CMB acoustic peaks in detail.
-
-Compare the effect of aligned temporal phases in two ensembles with the same total initial amplitude variance $\sigma^2$.
-
-First, in a coherent ensemble where every oscillation starts as a cosine,
+With interactions, the target remains the finite-time expectation value specified by an initial state, as in §1. Include quadratic-Hamiltonian evolution in the interaction-picture operators $\hat\zeta_I$ and denote the remainder by $\hat H_{\mathrm{int},I}$. Then
 
 $$
-\langle A_k^2\rangle=\sigma^2,
-\qquad B_k=0
+U_I(\eta,\eta_0)=T\exp\left[-i\int_{\eta_0}^{\eta}d\eta'\,\hat H_{\mathrm{int},I}(\eta')\right],\qquad\langle\hat O(\eta)\rangle=\langle\Psi_0|U_I^\dagger\,\hat O_I(\eta)\,U_I|\Psi_0\rangle\tag{93}\label{eq:inflation-93}
 $$
 
-so
+Here $T$ denotes time ordering and $\hat O$ a product of fields at time $\eta$. At first order in $\hat H_{\mathrm{int}}$,
 
 $$
-\langle X_k^2\rangle=\sigma^2\cos^2(kr_s)
+\langle\hat O(\eta)\rangle=i\int_{\eta_0}^{\eta}d\eta'\,\langle\Psi_0|\left[\hat H_{\mathrm{int},I}(\eta'),\hat O_I(\eta)\right]|\Psi_0\rangle\tag{94}\label{eq:inflation-94}
 $$
 
-The mean power retains clear oscillations despite the random amplitudes.
+Taking $\hat O$ to be a product of three fields gives the leading three-point function. The expectation value on the right is computed using the mode functions $f_k$ and Bunch–Davies vacuum of §5. Organizing this expansion along two time branches, evolving the state forward to the observation time and back, is the **in-in formalism**, or **Schwinger–Keldysh formalism**. The same method applies to loop corrections and unequal-time correlations ([Weinberg](https://arxiv.org/abs/hep-th/0506236)). The linear mode functions and initial vacuum directly provide the starting point for perturbation theory.
 
-In an ensemble whose cosine and sine components are independent with equal variances, setting
+### Stochastic inflation: a long-wavelength effective theory
 
-$$
-\langle A_k^2\rangle=\langle B_k^2\rangle
-=\frac{\sigma^2}{2},
-\qquad
-\langle A_kB_k\rangle=0
-$$
+When interactions affect long-wavelength fluctuations—for example, when potential nonlinearities accumulate over long times—an alternative to perturbative expansion can be useful. **Stochastic inflation** is an effective theory retaining only long-wavelength fields as dynamical variables and treating the effects of short-wavelength degrees of freedom as a random force.
 
-gives
+For the field in §8, introduce a moving boundary $k_c(\eta)=\varepsilon aH$ with $0<\varepsilon\ll1$ and define the long-wavelength part
 
 $$
-\langle X_k^2\rangle=\frac{\sigma^2}{2}
+\hat\phi_<(\eta,\mathbf x)=\int\frac{d^3k}{(2\pi)^3}\,\Theta\bigl(k_c(\eta)-k\bigr)\,\hat\phi_{\mathbf k}(\eta)\,e^{i\mathbf k\cdot\mathbf x}\tag{95}\label{eq:inflation-95}
 $$
 
-Averaging oscillations with random temporal phases removes the oscillatory power pattern.
+Modes crossing into the long-wavelength sector over time are strongly squeezed and can be treated as classical random variables, as in §9. Their contributions to the long-wavelength field act as random noise. For a light field with potential $V(\phi)$ on a quasi-de Sitter background, the coarse-grained field obeys a Langevin equation in e-fold number $N$,
 
-<iframe src="app/supporting.html?lang=en&amp;view=acoustic" title="Random acoustic realizations and coherent versus incoherent mean power" data-auto-height scrolling="no" style="display: block; width: 100%; height: 1400px; min-height: 650px; border: 0; overflow: hidden;" loading="eager"></iframe>
+$$
+\frac{d\phi_<}{dN}=-\frac{V'(\phi_<)}{3H^2}+\xi(N),\qquad\langle\xi(N)\xi(N')\rangle=\left(\frac H{2\pi}\right)^2\delta(N-N')\tag{96}\label{eq:inflation-96}
+$$
 
-The figure shows how zero crossings align in the coherent ensemble and how oscillations survive in its mean power. Holding the acoustic distance $r_s$ at recombination fixed and varying the wavenumber $k$ produces a periodic sequence of peaks in wavenumber space.
+For the massless field of §8 ($V=0$), the frozen spectrum makes the coarse-grained variance increase by $(H/2\pi)^2$ per e-fold: the continually increasing number of modes counted as long wavelength produces variance growth.
 
-In the actual CMB, gravitational driving, baryon inertia, neutrinos, diffusion damping, and recombination alter amplitudes and phases. Nevertheless, perturbations originating in an adiabatic growing mode share a common time evolution at each wavenumber and, after projection onto the sky, form acoustic peaks in the angular power spectrum $C_\ell$.
+Solving the corresponding Fokker–Planck equation gives the long-wavelength probability distribution without a perturbative expansion and can describe non-Gaussian features such as distribution tails. Noise amplitude and temporal correlations depend on the window, background, and mass; white noise is an approximation. Spatial correlations also require the noise’s spatial correlations. For derivation by integrating out short-wavelength degrees of freedom in quantum field theory and the conditions of the approximation, see [Andersen, Eriksson & Tranberg](https://arxiv.org/abs/2111.14503).
 
-**The CMB acoustic peaks reflect primordial perturbations whose amplitudes were random but whose temporal phases were aligned.** This is an important trace of superhorizon growing-mode selection.
+## Conventions, limitations, and references
 
-## Further notes and references
+The explicit calculations through §9 use the quadratic quantum theory of perturbations on a classical homogeneous background. The initial state is the Bunch–Davies vacuum, and the figures use the exact massless, minimally coupled scalar solution on de Sitter space. Slow-roll and attractor conditions were stated separately for curvature perturbations. The finite-volume box is only a regulator, with results expressed in the $V\to\infty$ limit. Section 10 surveys interactions and coarse graining. The main animation stops at $x=0.2$ so the minor-axis width remains visible; afterward the ellipse keeps narrowing while preserving area.
 
-The figures and animations describe a free, linear Gaussian field on a de Sitter background. The main animation stops at $x=0.2$ so that the short-axis width remains visible. Further expansion strengthens squeezing and narrows the ellipse while preserving its phase-space area.
-
-Conservation of the curvature perturbation assumes standard attractor inflation. In non-attractor models, $\zeta$ can evolve even on superhorizon scales, with its behavior determined by the corresponding $z(\eta)$. Decoherence and non-Gaussianity are further questions beyond the free-field squeezing considered here.
-
-- [Polarski & Starobinsky, *Semiclassicality and Decoherence of Cosmological Perturbations*](https://arxiv.org/abs/gr-qc/9504030): canonical variables, growing and decaying solutions, and their relation to semiclassicality.
-- [Martin & Vennin, *Quantum Discord of Cosmic Inflation*](https://arxiv.org/abs/1510.04038): the distinction between classical correlation functions and quantum states.
-- [Hu & White, *Acoustic Signatures in the Cosmic Microwave Background*](https://arxiv.org/abs/astro-ph/9602019): primordial initial conditions and the phase structure of the CMB acoustic peaks.
+- [Baumann, *TASI Lectures on Inflation*](https://arxiv.org/abs/0907.5424): perturbation action, canonical quantization, and primordial power spectrum.
+- [Polarski & Starobinsky, *Semiclassicality and Decoherence of Cosmological Perturbations*](https://arxiv.org/abs/gr-qc/9504030): canonical variables, conserved and decaying solutions, and the semiclassical description.
+- [Martin & Vennin, *Quantum Discord of Cosmic Inflation*](https://arxiv.org/abs/1510.04038): reproducing classical correlations versus distinguishing quantum states.
+- [Hu & White, *Acoustic Signatures in the Cosmic Microwave Background*](https://arxiv.org/abs/astro-ph/9602019): primordial initial conditions and acoustic peaks.
+- [Maldacena, *Non-Gaussian features of primordial fluctuations in single field inflationary models*](https://arxiv.org/abs/astro-ph/0210603): cubic action and the single-field three-point function.
+- [Weinberg, *Quantum Contributions to Cosmological Correlations*](https://arxiv.org/abs/hep-th/0506236): quantum corrections to cosmological correlations using the in-in formalism.
+- [Nelson, *Quantum Decoherence During Inflation from Gravitational Nonlinearities*](https://arxiv.org/abs/1601.03734): decoherence from gravitational nonlinearities.
+- [Andersen, Eriksson & Tranberg, *Stochastic inflation from quantum field theory and the parametric dependence of the effective noise amplitude*](https://arxiv.org/abs/2111.14503): deriving the stochastic effective theory by coarse graining and the conditions of its approximations.

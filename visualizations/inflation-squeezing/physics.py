@@ -38,6 +38,39 @@ def bogoliubov(x: float) -> tuple[complex, complex]:
     return (1 + 1j / (2 * x)) * np.exp(1j * x), -1j / (2 * x) * np.exp(-1j * x)
 
 
+def pair_amplitude(x: float) -> complex:
+    """lambda=beta/alpha^*; the pair state is sum_n lambda^n |n,n> up to normalization."""
+    alpha, beta = bogoliubov(x)
+    return beta / alpha.conjugate()
+
+
+def schrodinger_kernel(x: float) -> complex:
+    """K in psi(Q) ∝ exp(-K Q^2/2) for the Bunch–Davies state in fixed quadratures."""
+    return x * (x + 1j) / (1 + x * x)
+
+
+def two_mode_number_distribution(r: float, n_max: int) -> np.ndarray:
+    """P(n_k = n_-k = n) of a two-mode squeezed vacuum; unequal pairs have zero probability."""
+    t2 = np.tanh(r) ** 2
+    return (1 - t2) * t2 ** np.arange(n_max + 1)
+
+
+def single_mode_number_distribution(r: float, n_max: int) -> np.ndarray:
+    """P(n) of one single-mode squeezed vacuum: (2m)!/(4^m m!^2) tanh^(2m) r / cosh r."""
+    t2 = np.tanh(r) ** 2
+    probabilities = np.zeros(n_max + 1)
+    probabilities[0] = 1 / np.cosh(r)
+    for n in range(2, n_max + 1, 2):
+        probabilities[n] = probabilities[n - 2] * t2 * (n - 1) / n
+    return probabilities
+
+
+def pair_entanglement_entropy(r: float) -> float:
+    """Von Neumann entropy (nats) of one traveling mode; the standing modes are unentangled."""
+    c2, s2 = np.cosh(r) ** 2, np.sinh(r) ** 2
+    return float(c2 * np.log(c2) - (s2 * np.log(s2) if s2 > 0 else 0.0))
+
+
 def squeeze_parameters(x: float) -> tuple[float, float]:
     """Magnitude r and major-axis angle phi in radians, -pi/4 < phi < 0."""
     return float(np.arcsinh(1 / (2 * x))), float(-0.5 * np.arctan(2 * x))

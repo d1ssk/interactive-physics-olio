@@ -1,5 +1,5 @@
 [data-view] section[data-view] { display: none; }
-html[data-view="background"] section[data-view="background"], html[data-view="squeezing"] section[data-view="squeezing"], html[data-view="basis"] section[data-view="basis"], html[data-view="samples"] section[data-view="samples"], html[data-view="acoustic"] section[data-view="acoustic"] { display: block; }
+html[data-view="background"] section[data-view="background"], html[data-view="squeezing"] section[data-view="squeezing"], html[data-view="basis"] section[data-view="basis"], html[data-view="pairs"] section[data-view="pairs"], html[data-view="samples"] section[data-view="samples"], html[data-view="acoustic"] section[data-view="acoustic"] { display: block; }
 .chart { width: 100%; height: 340px; min-width: 0; }
 #background-plots .chart { height: 380px; }
 .chart-pair, .basis-cards, .matrix-pair { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
