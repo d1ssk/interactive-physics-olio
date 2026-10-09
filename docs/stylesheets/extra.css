@@ -340,6 +340,19 @@ html[lang="en"] .md-nav--primary {
   font-family: "Atlas Source Serif 4", Georgia, serif;
 }
 
+/* Keep choice labels on one line when the article has enough room. */
+.md-typeset .inflation-choices {
+  container-type: inline-size;
+}
+
+@container (min-width: 36rem) {
+  .md-typeset .inflation-choices :is(th, td):first-child {
+    width: 20%;
+    min-width: 9em;
+    white-space: nowrap;
+  }
+}
+
 /* Use the site link color instead of MathJax's default blue for equation references. */
 .md-typeset .arithmatex mjx-container[jax="SVG"] a[href*="inflation-"] {
   color: var(--md-typeset-a-color);
