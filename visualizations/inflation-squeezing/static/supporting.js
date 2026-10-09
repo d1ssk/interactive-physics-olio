@@ -6,6 +6,10 @@
       backgroundTitle:'From oscillating modes to a frozen field',backgroundIntro:'A massless, minimally coupled test scalar in exact de Sitter. Compare the physical field and its canonical rescaling. Time runs to the right in e-folds from Hubble crossing.',
       squeezingTitle:'Squeezing grows while its direction settles', squeezingIntro:'The same canonical quadratures as the main animation, extended to four e-folds after Hubble crossing.',
       basisTitle:'One Gaussian state, two choices of modes', basisIntro:'First count the real field degrees of freedom; then change the oscillator basis. The matrices below describe the full same state, without discarding a mode.',
+      pairsTitle:'One squeezed pair in two mode bases', pairsIntro:'The same pure Gaussian state of one wavevector pair, counted in the fixed reference number states of the traveling and standing bases. Move the squeezing magnitude to compare them.',
+      pairStrength:String.raw`Squeezing magnitude \(r\)`,pairDeSitter:'de Sitter example:',
+      pairMarginal:'One mode on its own',pairTotal:'Total excitation number of the pair',
+      pairNote:String.raw`First panel: the probability of finding \(n\) excitations in one mode alone. A traveling mode has a thermal-like distribution over all \(n\), with entanglement entropy \(S\) with its partner \(-\mathbf k\); a standing mode is a pure state with even \(n\) only. Both have mean \(\sinh^2 r\). Second panel: the total excitation number of the pair. It is identical in both bases, and only even totals occur because excitations are created in pairs. Axes stop at 24 excitations. Occupation numbers refer to the fixed reference frequency \(k\). The readout \(x=1/(2\sinh r)\) is when the de Sitter example of the article reaches this \(r\).`,
       samplesTitle:'From vacuum fluctuations to a correlated random amplitude', samplesIntro:'The same 256 Gaussian samples are transported by the exact Hamiltonian flow. Move the slider to compare the initial and evolved clouds on identical, fixed axes.',
       acousticTitle:'Random amplitudes, different temporal phases', acousticIntro:'Eight sample histories in each ensemble, and the mean squared amplitude of 4096 realizations. Play the cursor or move it by hand to compare the samples at the same acoustic time.',
       display:'Display',frequency:'Gradient versus background',mode:'Field and canonical variable',
@@ -33,9 +37,13 @@
       error:'This figure could not load. Reload the page to try again.',
     },
     ja: {
-      backgroundTitle:'振動するモードから凍結する場へ',backgroundIntro:'厳密 de Sitter 時空の質量ゼロ・最小結合テストスカラー場です。同じモードを、元の場と正準変数に分けて比較します。横軸は Hubble crossing からの e-fold 数で、時間は右向きに進みます。',
+      backgroundTitle:'振動するモードから凍結する場へ',backgroundIntro:'厳密 de Sitter 時空の質量ゼロ・最小結合スカラー場です。同じモードを、元の場と正準変数に分けて比較します。横軸は Hubble crossing からの e-fold 数で、時間は右向きに進みます。',
       squeezingTitle:'スクイージングの増大と方向の収束',squeezingIntro:'主アニメーションと同じ正準quadratureを使い、Hubble crossing後4 e-foldまで表示します。',
       basisTitle:'同じGaussian状態を二つの基底で見る',basisIntro:'まず実場の自由度を数え、次に振動子の基底を変えます。下の行列はモードを捨てずに、同じ状態全体を記述しています。',
+      pairsTitle:'同じ squeezed 状態を二つの基底で数える',pairsIntro:'一つの波数対の同じ純粋Gaussian状態を、進行波と定在波それぞれの基準の数状態で数えます。squeezingの大きさを動かして比べてください。',
+      pairStrength:String.raw`squeezingの大きさ \(r\)`,pairDeSitter:'de Sitter の例：',
+      pairMarginal:'一つのモードだけを見た分布',pairTotal:'波数対の全励起数',
+      pairNote:String.raw`一つ目の図は、一つのモードだけに \(n\) 個の励起を見出す確率です。進行波はすべての \(n\) にわたる熱的な形の分布で、相手の \(-\mathbf k\) とのもつれのエントロピー \(S\) を持ちます。定在波は純粋状態で、偶数の \(n\) だけが現れます。平均はどちらも \(\sinh^2 r\) です。二つ目の図は波数対の全励起数の分布で、両基底で一致します。励起は対で作られるので、全励起数は偶数だけです。軸は励起数24までです。励起数は固定した基準周波数 \(k\) に対するものです。表示の \(x=1/(2\sinh r)\) は、本文の de Sitter の例がこの \(r\) に達する時刻です。`,
       samplesTitle:'真空のゆらぎから相関したランダム振幅へ',samplesIntro:'同じ256個のGaussianサンプルを、厳密なHamilton流で運びます。スライダーを動かし、共通の固定軸で初期分布と発展後の分布を比較してください。',
       acousticTitle:'ランダムな振幅と時間位相の違い',acousticIntro:'各集団から8本の実現例を示し、4096個の実現値から振幅の二乗平均を求めています。カーソルを再生するか手で動かし、同じ音響時刻で比較してください。',
       display:'表示',frequency:'勾配項と背景項',mode:'元の場と正準変数',
@@ -157,6 +165,24 @@
     }
     await typeset([$('traveling-matrix'),$('standing-matrix')]);
   }
+  // The shared Plotly bundle provides scatter traces only, so bars are drawn as stems.
+  function stems(values,name,color,offset,symbol='circle') {
+    const x=[],y=[];
+    values.forEach((value,n)=>{x.push(n+offset,n+offset,null);y.push(0,value,null);});
+    return [{type:'scatter',mode:'lines',x,y,name,legendgroup:name,showlegend:false,line:{color,width:2},hoverinfo:'skip'},
+      {type:'scatter',mode:'markers',x:values.map((_,n)=>n+offset),y:values,name,legendgroup:name,marker:{color,size:6,symbol},
+        hovertemplate:'n = %{x:.0f}: %{y:.3g}<extra>%{fullData.name}</extra>'}];
+  }
+  async function pairs() {
+    const f=data.pairs.frames[Number($('pair-r').value)];
+    $('pair-r-value').value=f.r.toFixed(2);$('pair-mean').value=f.mean.toFixed(3);$('pair-entropy').value=f.entropy.toFixed(3);
+    $('pair-x').value=f.x===null?'∞':f.x.toFixed(3);
+    $('pair-r').setAttribute('aria-valuetext',`r = ${f.r.toFixed(2)}`);
+    const stemLayout=()=>layout('Number of excitations','Probability',{yaxis:{range:[0,1],title:{text:'Probability'},gridcolor:'#ded6cc'},xaxis:{range:[-0.8,data.pairs.nMax+0.8],title:{text:'Number of excitations'},gridcolor:'#ded6cc',zeroline:false},legend:{orientation:'h',y:1.02,yanchor:'bottom',font:{size:10}},margin:{l:52,r:15,t:40,b:50}});
+    await plot('marginal-number',[...stems(f.traveling,'One traveling mode',blue,-0.15),...stems(f.standing,'One standing mode',orange,0.15)],stemLayout());
+    await plot('total-number',[...stems(f.travelingTotal,'Traveling pair',blue,0),
+      {type:'scatter',mode:'markers',x:f.standingTotal.map((_,n)=>n),y:f.standingTotal,name:'Standing pair',marker:{color:orange,size:9,symbol:'diamond-open',line:{width:2}},hovertemplate:'n = %{x}: %{y:.3g}<extra>%{fullData.name}</extra>'}],stemLayout());
+  }
   function cloudTraces(frame) {
     return [
       {type:'scatter',mode:'markers',x:frame.points[0],y:frame.points[1],name:'Wigner samples',marker:{size:4,color:blue,opacity:.5},hoverinfo:'skip'},
@@ -209,6 +235,8 @@
   // Only the background equations and covariance tables change mathematical text.
   $('background-choice').addEventListener('change',()=>background().catch(fail));
   $('basis-time').addEventListener('change',()=>basis().catch(fail));
+  let pairBusy=false,pairPending=false;
+  $('pair-r').addEventListener('input',async()=>{pairPending=true;if(pairBusy)return;pairBusy=true;try{while(pairPending){pairPending=false;await pairs();}}catch(e){fail(e);}finally{pairBusy=false;}});
   let sampleBusy=false,samplePending=false;
   $('sample-time').addEventListener('input',async()=>{samplePending=true;if(sampleBusy)return;sampleBusy=true;try{while(samplePending){samplePending=false;await samples();}}catch(e){fail(e);}finally{sampleBusy=false;}});
   $('acoustic-time').addEventListener('input',()=>{acousticStop();acousticIndex=Number($('acoustic-time').value);cursor().catch(fail);});
@@ -223,6 +251,7 @@
     if(!data)return;
     await Promise.all(plots.filter(id=>$(id).getClientRects().length).map(id=>Plotly.Plots.resize($(id))));
     if(view==='background')await background();
+    if(view==='pairs')await pairs();
     if(view==='acoustic')await Plotly.relayout($('power-plot'),{'margin.t':window.innerWidth<650?110:65});
   },100);});
   function fail(){acousticStop();$('support-error').hidden=false;$('support-error').textContent=t.error;}
@@ -230,6 +259,7 @@
     data=payload;
     await typeset([document.querySelector(`section[data-view="${view}"]`)]);
     if(view==='background')await background();if(view==='squeezing')await squeezing();if(view==='basis')await basis();
+    if(view==='pairs'){await pairs();$('pair-r').disabled=false;}
     if(view==='samples'){await samples(true);$('sample-time').disabled=false;}if(view==='acoustic')await acoustic();
     document.documentElement.dataset.ready='true';
     window.dispatchEvent(new Event('physics-atlas:plot-rendered'));

@@ -55,6 +55,41 @@ def test_mode_normalization_bogoliubov_and_covariance_agree(inflation):
         )
 
 
+def test_in_annihilator_reconstructs_the_field_and_is_time_independent(inflation):
+    """The article's inverse mode expansion defines one fixed, normalized operator."""
+    k = 3.7
+    times = np.linspace(-np.log(12), -np.log(0.2), 37)
+    result = solve_ivp(
+        lambda n, matrix: (inflation.generator(np.exp(-n)) @ matrix.reshape(2, 2)).ravel(),
+        (times[0], times[-1]),
+        np.eye(2).ravel(),
+        t_eval=times,
+        method="DOP853",
+        rtol=1e-11,
+        atol=1e-13,
+    )
+    assert result.success
+    initial_annihilator = None
+    for n, values in zip(times, result.y.T, strict=True):
+        # Rows give the evolved q,p coefficients in the initial canonical Q,P basis.
+        flow = values.reshape(2, 2)
+        q, momentum = flow[0] / np.sqrt(k), flow[1] * np.sqrt(k)
+        f, g = inflation.mode_functions(np.exp(-n), k)
+        annihilator = 1j * (f.conjugate() * momentum - g.conjugate() * q)
+        if initial_annihilator is None:
+            initial_annihilator = annihilator.copy()
+        np.testing.assert_allclose(annihilator, initial_annihilator, atol=3e-10)
+        np.testing.assert_allclose(
+            f * annihilator + f.conjugate() * annihilator.conjugate(), q, atol=2e-14
+        )
+        np.testing.assert_allclose(
+            g * annihilator + g.conjugate() * annihilator.conjugate(), momentum, atol=2e-14
+        )
+        c_q, c_p = annihilator
+        commutator = 1j * (c_q * c_p.conjugate() - c_p * c_q.conjugate())
+        np.testing.assert_allclose(commutator, 1, atol=3e-10)
+
+
 def test_contour_is_material_and_has_the_stated_wigner_level(inflation):
     p = inflation
     angles = np.linspace(0, 2 * np.pi, 31)
@@ -107,7 +142,9 @@ def test_bilingual_article_equation_parity():
     equations = [
         re.findall(
             r"\$\$\s*(.*?)\s*\$\$",
-            (root / docs / "cosmology/inflation-squeezing/index.md").read_text(),
+            (root / docs / "cosmology/inflation-squeezing/index.md")
+            .read_text()
+            .replace(r"\text{ は一定}", r"\text{ constant}"),
             re.S,
         )
         for docs in ["docs", "docs_ja"]
@@ -234,18 +271,18 @@ def test_random_acoustic_realizations_share_zeros_only_when_coherent(inflation):
 
 def test_article_section_order_and_figure_placement(builder, tmp_path):
     root = Path(__file__).resolve().parents[3]
-    placements = {"background": 5, "squeezing": 6, "basis": 4, "samples": 7, "acoustic": 8}
+    placements = {"pairs": 6, "background": 8, "squeezing": 8, "basis": 8, "acoustic": 9}
     for docs in ["docs", "docs_ja"]:
         source = (root / docs / "cosmology/inflation-squeezing/index.md").read_text()
         sections = re.split(r"^## ", source, flags=re.M)[1:]
-        section_count = 8
+        section_count = 10
         assert [int(s.split(".", 1)[0]) for s in sections[:section_count]] == list(
             range(1, section_count + 1)
         )
         for view, section in placements.items():
             assert f"&amp;view={view}" in sections[section - 1]
-        assert "app/index.html?lang=" in sections[5]
-        assert "app/teaser.svg" in sections[0]
+        assert "app/index.html?lang=" in sections[7]
+        assert "app/teaser.svg" in source.split("## ", 1)[0]
     builder.build(tmp_path)
     assert 'width="720" height="250"' in (tmp_path / "teaser.svg").read_text()
     assert "__PLOTLY_ASSET__" not in (tmp_path / "supporting.html").read_text()
@@ -254,3 +291,99 @@ def test_article_section_order_and_figure_placement(builder, tmp_path):
         assert f"{locale}: {{" in (tmp_path / "supporting.js").read_text()
     assert len(payload["samples"]) == 61
     assert len(payload["acoustic"]["coherent"]["curves"]) == 8
+
+
+def test_pair_amplitude_kernel_and_number_distributions(inflation):
+    p = inflation
+    for x in [12.0, 1.0, 0.5, 0.2]:
+        r, angle = p.squeeze_parameters(x)
+        pair = p.pair_amplitude(x)
+        np.testing.assert_allclose(abs(pair), np.tanh(r), atol=1e-14)
+        np.testing.assert_allclose(np.angle(pair), 2 * angle, atol=1e-14)
+        # The in condition i(f* p - g* q)|psi>=0 gives psi(Q) ∝ exp(-K Q^2/2).
+        k = 2.9
+        f, g = p.mode_functions(x, k)
+        kernel = p.schrodinger_kernel(x)
+        np.testing.assert_allclose(kernel, -1j * g.conjugate() / (k * f.conjugate()), atol=1e-14)
+        variance = 1 / (2 * kernel.real)
+        np.testing.assert_allclose(
+            np.array(
+                [
+                    [variance, -kernel.imag * variance],
+                    [-kernel.imag * variance, abs(kernel) ** 2 * variance],
+                ]
+            ),
+            p.covariance(x),
+            atol=1e-13,
+        )
+        traveling = p.two_mode_number_distribution(r, 600)
+        standing = p.single_mode_number_distribution(r, 1200)
+        np.testing.assert_allclose([traveling.sum(), standing.sum()], 1, atol=1e-12)
+        np.testing.assert_allclose(standing[1::2], 0)
+        n = np.arange(standing.size)
+        np.testing.assert_allclose(n[:601] @ traveling, np.sinh(r) ** 2, rtol=1e-12)
+        np.testing.assert_allclose(n @ standing, np.sinh(r) ** 2, rtol=1e-12)
+        # n_c + n_s has the distribution of n_k + n_-k = 2n.
+        total = np.convolve(standing, standing)[:200]
+        np.testing.assert_allclose(total[::2], traveling[:100], atol=1e-15)
+        np.testing.assert_allclose(total[1::2], 0, atol=1e-15)
+        # A traveling mode alone is Gaussian with symplectic eigenvalue |beta|^2 + 1/2.
+        nu = p.pair_covariances(x)[0][0, 0]
+        entropy = (nu + 0.5) * np.log(nu + 0.5) - (nu - 0.5) * np.log(nu - 0.5)
+        np.testing.assert_allclose(p.pair_entanglement_entropy(r), entropy, rtol=1e-12)
+    assert p.pair_entanglement_entropy(0) == 0
+
+
+def test_two_standing_squeezes_are_the_traveling_pair_state(inflation):
+    """Truncated Fock-space check, independent of the closed-form distributions."""
+    from math import factorial
+
+    from scipy import sparse
+
+    x, size = 0.6, 90
+    r, _ = inflation.squeeze_parameters(x)
+    pair = inflation.pair_amplitude(x)
+    single = np.zeros(size, complex)
+    for m in range(size // 2):
+        single[2 * m] = pair**m * np.sqrt(float(factorial(2 * m))) / (2**m * factorial(m))
+    single /= np.sqrt(np.cosh(r))
+    np.testing.assert_allclose(np.linalg.norm(single), 1, atol=1e-10)
+    lower = sparse.diags(np.sqrt(np.arange(1, size)), 1, format="csr")
+    # The fixed-basis in condition, (alpha* b - beta b^dagger)|psi> = 0, for one standing mode.
+    residual = lower @ single - pair * (lower.T @ single)
+    np.testing.assert_allclose(residual[: size - 10], 0, atol=1e-9)
+    identity = sparse.identity(size, format="csr")
+    b_c, b_s = sparse.kron(lower, identity), sparse.kron(identity, lower)
+    plus, minus = (b_c - 1j * b_s) / np.sqrt(2), (b_c + 1j * b_s) / np.sqrt(2)
+    state = np.kron(single, single)
+    low = np.add.outer(np.arange(size), np.arange(size)).ravel() < size - 10
+    np.testing.assert_allclose((plus @ state - pair * (minus.conj().T @ state))[low], 0, atol=1e-9)
+    n_plus, n_minus = plus.conj().T @ plus, minus.conj().T @ minus
+    difference = (n_plus - n_minus) @ state
+    np.testing.assert_allclose(np.vdot(difference, difference).real, 0, atol=1e-9)
+    np.testing.assert_allclose(np.vdot(state, n_plus @ state).real, np.sinh(r) ** 2, rtol=1e-8)
+
+
+def test_pair_payload_shows_identical_total_number(builder):
+    pairs = builder.pair_number_payload()
+    assert pairs["nMax"] == 24 and len(pairs["frames"]) == 81
+    assert pairs["frames"][0]["x"] is None
+    for frame in pairs["frames"]:
+        np.testing.assert_allclose(frame["standingTotal"], frame["travelingTotal"], rtol=2e-4)
+        if frame["x"] is not None:
+            np.testing.assert_allclose(np.arcsinh(1 / (2 * frame["x"])), frame["r"], atol=1e-12)
+
+
+def test_traveling_covariance_has_two_mode_squeezed_form(inflation):
+    for x in [12.0, 1.0, 0.2]:
+        r, angle = inflation.squeeze_parameters(x)
+        reflection = np.array(
+            [[np.cos(2 * angle), np.sin(2 * angle)], [np.sin(2 * angle), -np.cos(2 * angle)]]
+        )
+        expected = 0.5 * np.block(
+            [
+                [np.cosh(2 * r) * np.eye(2), np.sinh(2 * r) * reflection],
+                [np.sinh(2 * r) * reflection, np.cosh(2 * r) * np.eye(2)],
+            ]
+        )
+        np.testing.assert_allclose(inflation.pair_covariances(x)[0], expected, atol=1e-13)

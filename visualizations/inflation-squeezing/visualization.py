@@ -26,6 +26,11 @@ def _rounded(values: np.ndarray) -> list:
     return np.round(values, 7).tolist()
 
 
+def _significant(values: np.ndarray) -> list:
+    # Probabilities span many decades; keep relative rather than absolute precision.
+    return [float(f"{value:.5g}") for value in values]
+
+
 def _directions(vectors: np.ndarray | None) -> list:
     if vectors is None:
         return []
@@ -89,7 +94,7 @@ def build(output_dir: Path) -> None:
 
 
 def supporting_payload() -> dict:
-    """Shared figures for the background, basis, squeezing, stochastic, and acoustic views."""
+    """Shared figures for the background, basis, pair, squeezing, stochastic, and acoustic views."""
     times = np.linspace(-np.log(12), 4, 321)
     history = physics.mode_history(times)
     evolution = {
@@ -134,7 +139,41 @@ def supporting_payload() -> dict:
             "power": _rounded(np.mean(values**2, axis=0)),
             "exact": _rounded(exact[i]),
         }
-    return {"evolution": evolution, "basis": basis, "samples": sample_frames, "acoustic": acoustic}
+    return {
+        "evolution": evolution,
+        "basis": basis,
+        "pairs": pair_number_payload(),
+        "samples": sample_frames,
+        "acoustic": acoustic,
+    }
+
+
+PAIR_N_MAX = 24
+
+
+def pair_number_payload() -> dict:
+    """One squeezed pair in the fixed reference number basis, as a function of r alone."""
+    frames = []
+    for r in np.linspace(0, 1.6, 81):
+        traveling = physics.two_mode_number_distribution(r, PAIR_N_MAX)
+        standing = physics.single_mode_number_distribution(r, PAIR_N_MAX)
+        traveling_total = np.zeros(PAIR_N_MAX + 1)
+        traveling_total[::2] = traveling[: PAIR_N_MAX // 2 + 1]
+        frames.append(
+            {
+                "r": float(r),
+                # The de Sitter test field reaches this r at x = 1/(2 sinh r).
+                "x": None if r == 0 else float(1 / (2 * np.sinh(r))),
+                "mean": float(np.sinh(r) ** 2),
+                "entropy": physics.pair_entanglement_entropy(r),
+                "traveling": _significant(traveling),
+                "standing": _significant(standing),
+                "travelingTotal": _significant(traveling_total),
+                # Computed independently as the distribution of n_c + n_s.
+                "standingTotal": _significant(np.convolve(standing, standing)[: PAIR_N_MAX + 1]),
+            }
+        )
+    return {"nMax": PAIR_N_MAX, "frames": frames}
 
 
 def teaser_svg() -> str:

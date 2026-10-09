@@ -7,7 +7,7 @@
   <script src="visualization-theme.js"></script>
   <script>
     window.inflationView = new URLSearchParams(location.search).get('view');
-    if (!['background','squeezing','basis','samples','acoustic'].includes(window.inflationView)) window.inflationView='background';
+    if (!['background','squeezing','basis','pairs','samples','acoustic'].includes(window.inflationView)) window.inflationView='background';
     document.documentElement.dataset.view=window.inflationView;
     window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},startup:{ready(){
       MathJax.startup.defaultReady(); MathJax.startup.promise.then(()=>window.dispatchEvent(new Event('physics-atlas:mathjax-ready')));
@@ -58,6 +58,12 @@
     <div class="matrix-pair"><div><h3 data-i18n="travelingCov"></h3><p class="formula"><span>\(\mathbf Z_{\rm tr}=(Q_+,P_+,Q_-,P_-)^T\)</span></p><div id="traveling-matrix"></div></div><div><h3 data-i18n="standingCov"></h3><p class="formula"><span>\(\mathbf Z_{\rm st}=(Q_c,P_c,Q_s,P_s)^T\)</span></p><div id="standing-matrix"></div></div></div>
     <p data-i18n="matrixCoordinates" class="note"></p>
     <p data-i18n="matrixNote" class="note"></p>
+  </section>
+  <section data-view="pairs">
+    <label class="timeline"><span data-i18n="pairStrength"></span><input type="range" id="pair-r" min="0" max="80" value="40" disabled></label>
+    <p class="readouts">\(r\): <output id="pair-r-value"></output>　\(\sinh^2 r\): <output id="pair-mean"></output>　\(S_{\mathbf k|-\mathbf k}\): <output id="pair-entropy"></output>　<span data-i18n="pairDeSitter"></span> \(x\): <output id="pair-x"></output></p>
+    <div class="chart-pair"><div><h3 data-i18n="pairMarginal"></h3><div id="marginal-number" class="chart" role="img"></div></div><div><h3 data-i18n="pairTotal"></h3><div id="total-number" class="chart" role="img"></div></div></div>
+    <p class="formula"><span>\(\lvert\psi\rangle=\frac{1}{\cosh r}\sum_{n}\lambda^n\lvert n\rangle_{\mathbf k}\lvert n\rangle_{-\mathbf k}\)</span><span>\(=\lvert\psi_1\rangle_c\otimes\lvert\psi_1\rangle_s\)</span><span>\(\lvert\lambda\rvert=\tanh r\)</span></p><p data-i18n="pairNote" class="note"></p>
   </section>
   <section data-view="samples">
     <label class="timeline"><span data-i18n="sampleTime"></span><input type="range" id="sample-time" min="0" max="60" value="60" disabled></label>
