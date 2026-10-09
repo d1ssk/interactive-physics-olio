@@ -1,0 +1,13 @@
+[data-view] section[data-view] { display: none; }
+html[data-view="background"] section[data-view="background"], html[data-view="frequencies"] section[data-view="frequencies"],
+html[data-view="modes"] section[data-view="modes"], html[data-view="spectrum"] section[data-view="spectrum"] { display: block; }
+.chart { width: 100%; height: 360px; min-width: 0; }
+.chart.wide { height: 400px; }
+.chart-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.chart-pair > div { min-width: 0; background: var(--atlas-viz-panel); border: 1px solid var(--atlas-viz-border); border-radius: 8px; padding: 0 4px; }
+.chart-pair h3 select { font-size: 14px; font-weight: 600; min-height: 36px; }
+section[data-view] > h3 { margin-top: 12px; }
+#spectrum-readouts { margin: 6px 0 10px; }
+#spectrum-readouts > span[hidden] { display: none; }
+#support-error { color: var(--error); }
+@media (max-width: 650px) { .chart-pair { grid-template-columns: 1fr; } .chart { height: 330px; } }

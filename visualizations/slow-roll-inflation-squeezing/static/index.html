@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Three modes squeezing in slow-roll inflation</title>
+  <link rel="stylesheet" href="visualization-theme.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="visualization-theme.js"></script>
+  <script>
+    window.MathJax = {
+      tex: {inlineMath: [["\\(", "\\)"]], displayMath: [["\\[", "\\]"]]},
+      startup: {ready() {
+        MathJax.startup.defaultReady();
+        MathJax.startup.promise.then(() => window.dispatchEvent(new Event("physics-atlas:mathjax-ready")));
+      }}
+    };
+  </script>
+  <script defer src="mathjax-tex-svg.js"></script>
+</head>
+<body>
+<main>
+  <h2 data-i18n="title">Three wavenumbers squeezing in turn</h2>
+  <p data-i18n="intro"></p>
+  <div id="model-choice" class="choice-row"></div>
+  <div id="parameter-choice" class="choice-row"></div>
+  <div class="readouts" id="pivot-readouts">
+    <span>\(\epsilon_1(k_*)\) = <output id="eps1">—</output></span>
+    <span>\(\epsilon_2(k_*)\) = <output id="eps2">—</output></span>
+    <span>\(\sigma=1+\epsilon_2/2\) = <output id="sigma">—</output></span>
+    <span>\(\nu\simeq\tfrac32+\epsilon_1+\tfrac{\epsilon_2}{2}\) = <output id="nu">—</output></span>
+  </div>
+  <div class="controls">
+    <button id="play" disabled data-i18n="play">Play</button>
+    <button id="reset" disabled data-i18n="reset">Reset</button>
+    <label><span data-i18n="speed">Speed</span> <select id="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label>
+    <label class="check"><input type="checkbox" id="compare" checked> <span data-i18n="compare">Overlay the de Sitter test field at the same x</span></label>
+  </div>
+  <label class="timeline"><span data-i18n="time">Time</span><input type="range" id="time" min="0" max="160" value="0" disabled></label>
+  <div class="readouts">
+    <span>\(N-N_{\mathrm{cross},*}\) = <output id="n">—</output></span>
+    <span id="status" role="status"></span>
+  </div>
+  <div class="panels">
+    <section class="mode-0"><h3>\(k_1\) · <span data-i18n="first">crosses first</span></h3><p class="mode-readout">\(x\) = <output id="x0">—</output> · \(r_k\) = <output id="r0">—</output><span class="ds"> · dS <output id="d0">—</output></span></p><div class="plot"><svg id="panel-0" viewBox="0 0 400 400" role="img"></svg><span class="x-label">\(Q\)</span><span class="y-label">\(P\)</span></div></section>
+    <section class="mode-1"><h3>\(k_2=k_*\) · <span data-i18n="pivot">pivot</span></h3><p class="mode-readout">\(x\) = <output id="x1">—</output> · \(r_k\) = <output id="r1">—</output><span class="ds"> · dS <output id="d1">—</output></span></p><div class="plot"><svg id="panel-1" viewBox="0 0 400 400" role="img"></svg><span class="x-label">\(Q\)</span><span class="y-label">\(P\)</span></div></section>
+    <section class="mode-2"><h3>\(k_3\) · <span data-i18n="last">crosses last</span></h3><p class="mode-readout">\(x\) = <output id="x2">—</output> · \(r_k\) = <output id="r2">—</output><span class="ds"> · dS <output id="d2">—</output></span></p><div class="plot"><svg id="panel-2" viewBox="0 0 400 400" role="img"></svg><span class="x-label">\(Q\)</span><span class="y-label">\(P\)</span></div></section>
+  </div>
+  <section class="strip">
+    <h3 data-i18n="pumpTitle">Gradient term versus background term</h3>
+    <ul class="legend">
+      <li><i class="swatch mode-0"></i>\(x_1^2\)</li><li><i class="swatch mode-1"></i>\(x_2^2\)</li><li><i class="swatch mode-2"></i>\(x_3^2\)</li>
+      <li><i class="swatch pump"></i>\(z''/(z\mathcal H^2)\)</li><li><i class="swatch tensor dashed"></i>\(a''/(a\mathcal H^2)\)</li>
+    </ul>
+    <svg id="pump-strip" viewBox="0 0 800 200" role="img"></svg>
+    <p class="axis-caption">\(N-N_{\mathrm{cross},*}\)</p>
+  </section>
+  <section class="strip">
+    <h3 data-i18n="rTitle">Squeezing magnitude</h3>
+    <ul class="legend">
+      <li><i class="swatch mode-0"></i><i class="swatch mode-1"></i><i class="swatch mode-2"></i>\(r_{k_j}\)</li>
+      <li class="ds"><i class="swatch mode-0 dashed"></i><i class="swatch mode-1 dashed"></i><i class="swatch mode-2 dashed"></i><span data-i18n="dsLegend">de Sitter test field</span> \(\operatorname{arsinh}(1/2x_j)\)</li>
+    </ul>
+    <svg id="r-strip" viewBox="0 0 800 200" role="img"></svg>
+    <p class="axis-caption">\(N-N_{\mathrm{cross},*}\)</p>
+  </section>
+  <p class="note" data-i18n="axes"></p>
+  <p class="note" data-i18n="stripNote"></p>
+  <p id="error" role="alert" hidden></p>
+  <noscript>This animation requires JavaScript. このアニメーションにはJavaScriptが必要です。</noscript>
+</main>
+<script src="frame.js"></script>
+<script src="common.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

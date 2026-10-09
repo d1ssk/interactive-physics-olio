@@ -5,7 +5,7 @@
 ## 時空と地平線
 
 - **[宇宙の因果構造](cosmic-causal-structure/)**<br>
-  4通りの座標で比較する光円錐と宇宙論的地平線、およびinflationの効果
+  4通りの座標で比較する光円錐と宇宙論的地平線、および inflation の効果
 
 ## 長さのスケール
 
@@ -20,4 +20,7 @@
 ## 原始量子揺らぎ
 
 - **[インフレーションの量子揺らぎと squeezing](inflation-squeezing/)**<br>
-  Bogoliubov 変換と Wigner 関数のアニメーションでたどる、真空揺らぎから superhorizon での凍結、CMB 音響振動の位相コヒーレンスまで
+  真空揺らぎから superhorizon での凍結と Wigner 関数での可視化から、CMB 音響振動の位相コヒーレンスまで
+
+- **[単一場 slow-roll インフレーションの量子揺らぎ](slow-roll-inflation-squeezing/)**<br>
+  Starobinsky・単項式・べき乗則の背景で解く曲率摂動とテンソル摂動

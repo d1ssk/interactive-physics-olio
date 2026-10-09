@@ -606,6 +606,8 @@ $G_\zeta$ が見ているのは楕円の $Q$ 方向の射影です。楕円全�
 
 ## 8. 厳密に解ける例：de Sitter 背景上の質量ゼロスカラー場
 
+この節では、厳密に解ける de Sitter 背景のスカラー場で squeezing を具体的に計算します。インフラトンのポテンシャルから決まる背景で曲率摂動とテンソル摂動を計算する場合は、続編「[単一場 slow-roll インフレーションの量子揺らぎ](../slow-roll-inflation-squeezing/)」で扱います。
+
 ### 模型と対応関係
 
 ここからの図では、厳密な de Sitter 時空
@@ -790,13 +792,13 @@ $$
 \epsilon_1=-\frac{\dot H}{H^2}=\frac{\dot\phi_0^2}{2M_{\mathrm{Pl}}^2H^2},\qquad z^2=2a^2\epsilon_1M_{\mathrm{Pl}}^2\tag{83}\label{eq:inflation-83}
 $$
 
-で、$\epsilon_2=d\ln\epsilon_1/d\ln a$ を使うと、スローロールパラメータの一次までで
+で、$\epsilon_2=d\ln\epsilon_1/d\ln a$ を使うと、slow-roll パラメータの一次までで
 
 $$
 \frac{z''}{z}=\mathcal H^2\left[2-\epsilon_1+\frac32\epsilon_2+O(\epsilon^2)\right],\qquad\frac{a''}{a}=\mathcal H^2(2-\epsilon_1)\tag{84}\label{eq:inflation-84}
 $$
 
-です。最低次ではどちらも $2/\eta^2$ に近づくので、曲率摂動の正準モード関数は §8 の $f_k$ で近似でき、squeezing の発達も同じように進みます。曲率の振幅へ戻すときは $z$ で割ります。厳密な de Sitter では $\dot\phi_0=0$、$z=0$ なので、§8 の模型は曲率摂動のスローロール近似の最低次として使えます。
+です。最低次ではどちらも $2/\eta^2$ に近づくので、曲率摂動の正準モード関数は §8 の $f_k$ で近似でき、squeezing の発達も同じように進みます。曲率の振幅へ戻すときは $z$ で割ります。厳密な de Sitter では $\dot\phi_0=0$、$z=0$ なので、§8 の模型は曲率摂動の slow-roll 近似の最低次として使えます。
 
 長波長の曲率摂動の演算子は
 
@@ -804,7 +806,7 @@ $$
 \hat\zeta_{\mathbf k}(\eta)\simeq\hat C_{1,\mathbf k}+\hat C_{2,\mathbf k}\int^\eta\frac{d\tilde\eta}{z^2(\tilde\eta)}\tag{85}\label{eq:inflation-85}
 $$
 
-となり、第二項が減衰する通常のアトラクター背景では $\hat\zeta$ が保存されます。非アトラクター背景では第二項が成長しうるので、$z(\eta)$ から改めて判断します。単一場スローロールと Bunch–Davies 初期条件のもとでは、保存された曲率パワーは最低次で
+となり、第二項が減衰する通常のアトラクター背景では $\hat\zeta$ が保存されます。非アトラクター背景では第二項が成長しうるので、$z(\eta)$ から改めて判断します。単一場 slow-roll と Bunch–Davies 初期条件のもとでは、保存された曲率パワーは最低次で
 
 $$
 \mathcal P_\zeta(k)\simeq\left.\frac{\mathcal P_\phi}{2\epsilon_1M_{\mathrm{Pl}}^2}\right|_{k=aH}=\left.\frac{H^2}{8\pi^2\epsilon_1M_{\mathrm{Pl}}^2}\right|_{k=aH}\tag{86}\label{eq:inflation-86}
@@ -870,7 +872,7 @@ $$
 
 ### モード間の結合と非 Gaussian 性
 
-ここまでは二次作用だけを使ってきました。重力とインフラトンの非線形性を含めると、作用には $\zeta$ の三次以上の項 $S_3,S_4,\dots$ が加わります。単一場スローロールでは、三次の作用の係数はスローロールパラメータの程度に小さくなります（[Maldacena](https://arxiv.org/abs/astro-ph/0210603)）。
+ここまでは二次作用だけを使ってきました。重力とインフラトンの非線形性を含めると、作用には $\zeta$ の三次以上の項 $S_3,S_4,\dots$ が加わります。単一場 slow-roll では、三次の作用の係数は slow-roll パラメータの程度に小さくなります（[Maldacena](https://arxiv.org/abs/astro-ph/0210603)）。
 
 これらの項は、運動量の和をゼロに保ちながら異なる波数のモードを結合します。例えば三次の項は $\mathbf k_1+\mathbf k_2+\mathbf k_3=0$ を満たす三つのモードを結び、連続極限で
 
@@ -878,7 +880,7 @@ $$
 \langle\hat\zeta_{\mathbf k_1}\hat\zeta_{\mathbf k_2}\hat\zeta_{\mathbf k_3}\rangle=(2\pi)^3\delta^{(3)}(\mathbf k_1+\mathbf k_2+\mathbf k_3)\,B_\zeta(k_1,k_2,k_3)\tag{92}\label{eq:inflation-92}
 $$
 
-という三点相関を生成します。平均ゼロの Gaussian 状態では三点関数はゼロなので、$B_\zeta$ は状態の非 Gaussian 性を直接表します。$B_\zeta$ は三つの波数ベクトルが作る三角形の形に依存し、その形が相互作用の種類を反映します。単一場スローロールでは、一つの波数が他の二つより十分小さい極限での $B_\zeta$ が、パワースペクトルの傾き $n_s-1$ で決まります。
+という三点相関を生成します。平均ゼロの Gaussian 状態では三点関数はゼロなので、$B_\zeta$ は状態の非 Gaussian 性を直接表します。$B_\zeta$ は三つの波数ベクトルが作る三角形の形に依存し、その形が相互作用の種類を反映します。単一場 slow-roll では、一つの波数が他の二つより十分小さい極限での $B_\zeta$ が、パワースペクトルの傾き $n_s-1$ で決まります。
 
 量子状態の側から見ると、モード間の結合は §6 の「波数対ごとの積」という構造を崩し、異なる波数の間に相関ともつれを作ります。ある長波長のモードに注目すると、他の短波長のモードは環境として働き、それらについて平均した長波長モードの状態は混合状態になります。これがインフレーション中のデコヒーレンスの一つの機構で、重力の非線形性だけからも生じます（[Nelson](https://arxiv.org/abs/1601.03734)）。squeezing は線形の発展で起こり、デコヒーレンスは相互作用によって起こる、別の段階の現象です。
 
@@ -920,7 +922,7 @@ $$
 
 ## 補足と参考文献
 
-§9 までの具体的な計算は、古典的な一様背景の上の摂動の二次量子論です。初期状態は Bunch–Davies 真空、図の厳密解は de Sitter 上の質量ゼロ・最小結合のスカラー場です。曲率摂動への応用では、スローロールとアトラクターの条件を別に指定しました。有限体積の箱は正則化としてだけ使い、結果は $V\to\infty$ の極限で表しています。§10 は相互作用と粗視化の方法の概観です。メインのアニメーションは短軸の幅が見えるよう $x=0.2$ で止めてあり、その後も楕円は面積を保ったまま細くなり続けます。
+§9 までの具体的な計算は、古典的な一様背景の上の摂動の二次量子論です。初期状態は Bunch–Davies 真空、図の厳密解は de Sitter 上の質量ゼロ・最小結合のスカラー場です。曲率摂動への応用では、slow-roll とアトラクターの条件を別に指定しました。有限体積の箱は正則化としてだけ使い、結果は $V\to\infty$ の極限で表しています。§10 は相互作用と粗視化の方法の概観です。メインのアニメーションは短軸の幅が見えるよう $x=0.2$ で止めてあり、その後も楕円は面積を保ったまま細くなり続けます。
 
 - [Baumann, *TASI Lectures on Inflation*](https://arxiv.org/abs/0907.5424)：摂動の作用、正準量子化、原始パワースペクトル。
 - [Polarski & Starobinsky, *Semiclassicality and Decoherence of Cosmological Perturbations*](https://arxiv.org/abs/gr-qc/9504030)：正準変数、保存解と減衰解、準古典的な記述。

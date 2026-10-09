@@ -3,6 +3,10 @@
 Newly published and revised articles are listed by update date, newest first. Entries sharing a
 date follow the field order on the home page and then their order within each field.
 
+## October 10, 2026
+
+- [Quantum Fluctuations in Single-Field Slow-Roll Inflation](../cosmology/slow-roll-inflation-squeezing/) — Cosmology
+
 ## October 8, 2026
 
 - [Inflationary Quantum Fluctuations and Squeezing](../cosmology/inflation-squeezing/) — Cosmology

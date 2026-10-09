@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Slow-roll squeezing: supporting figures</title>
+  <link rel="stylesheet" href="visualization-theme.css"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="supporting.css">
+  <script src="visualization-theme.js"></script>
+  <script>
+    window.slowRollView = new URLSearchParams(location.search).get('view');
+    if (!['background','frequencies','modes','spectrum'].includes(window.slowRollView)) window.slowRollView='background';
+    document.documentElement.dataset.view=window.slowRollView;
+    window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},startup:{ready(){
+      MathJax.startup.defaultReady(); MathJax.startup.promise.then(()=>window.dispatchEvent(new Event('physics-atlas:mathjax-ready')));
+    }}};
+    window.plotReady=new Promise((resolve,reject)=>{
+      const locale=new URLSearchParams(location.search).get('lang')==='ja'?'ja':'en';
+      const script=document.createElement('script');
+      script.src=new URL((locale==='ja'?'../../../../':'../../../')+'javascripts/__PLOTLY_ASSET__',location.href);
+      script.onload=resolve; script.onerror=reject; document.head.append(script);
+    });
+  </script>
+  <script defer src="mathjax-tex-svg.js"></script>
+</head>
+<body>
+<main>
+  <h2 id="figure-title"></h2><p id="figure-intro"></p>
+  <div id="model-choice" class="choice-row"></div>
+  <div id="parameter-choice" class="choice-row"></div>
+  <section data-view="background">
+    <div class="chart-pair">
+      <div><h3 data-i18n="potentialHeading"></h3><div id="potential-plot" class="chart" role="img"></div></div>
+      <div><h3 data-i18n="flowHeading"></h3><div id="flow-plot" class="chart" role="img"></div></div>
+    </div>
+    <p class="note" data-i18n="backgroundNote"></p>
+  </section>
+  <section data-view="frequencies">
+    <div class="chart-pair">
+      <div><h3 data-i18n="pumpHeading"></h3><div id="pump-plot" class="chart" role="img"></div></div>
+      <div><h3 data-i18n="rateHeading"></h3><div id="rate-plot" class="chart" role="img"></div></div>
+    </div>
+    <p class="note" data-i18n="frequencyNote"></p>
+  </section>
+  <section data-view="modes">
+    <div class="controls"><label><span data-i18n="display"></span> <select id="mode-choice"><option value="canonical" data-i18n="canonical"></option><option value="curvature" data-i18n="curvature"></option><option value="ratio" data-i18n="ratio"></option><option value="squeezing" data-i18n="squeezing"></option></select></label></div>
+    <h3 id="mode-heading"></h3>
+    <div id="mode-plot" class="chart wide" role="img"></div>
+    <p class="note" id="mode-note"></p>
+  </section>
+  <section data-view="spectrum">
+    <div class="readouts" id="spectrum-readouts">
+      <span>\(n_s\) = <output id="ns">—</output></span>
+      <span>\(r\) = <output id="ratio">—</output></span>
+      <span>\(n_T\) = <output id="nt">—</output></span>
+      <span>\(-r/8\) = <output id="consistency">—</output></span>
+      <span>\(H_*\) = <output id="hubble">—</output> GeV</span>
+      <span>\(V_*^{1/4}\) = <output id="energy">—</output> GeV</span>
+      <span class="ending-only">\(r_{k_*}(\text{end})\) = <output id="squeezing-end">—</output></span>
+    </div>
+    <div class="chart-pair">
+      <div><h3><label><select id="power-choice"><option value="power" data-i18n="powerHeading"></option><option value="relative" data-i18n="powerErrorHeading"></option><option value="relativeFull" data-i18n="powerErrorFull"></option></select></label></h3><div id="power-plot" class="chart" role="img"></div></div>
+      <div><h3><label><select id="tilt-choice"><option value="ns" data-i18n="tiltNs"></option><option value="r" data-i18n="tiltR"></option><option value="nt" data-i18n="tiltNt"></option><option value="end" data-i18n="tiltEnd"></option></select></label></h3><div id="tilt-plot" class="chart" role="img"></div></div>
+    </div>
+    <p class="note" data-i18n="cmbNote"></p>
+    <p class="note" id="spectrum-note"></p>
+  </section>
+  <p id="support-error" role="alert" hidden></p>
+</main>
+<script src="frame.js"></script>
+<script src="common.js"></script>
+<script src="supporting.js"></script>
+</body>
+</html>

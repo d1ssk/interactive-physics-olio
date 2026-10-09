@@ -606,6 +606,8 @@ The function $G_\zeta$ probes the ellipse’s projection along $Q$. Representing
 
 ## 8. An exactly solvable example: a massless scalar on de Sitter space
 
+This section calculates squeezing explicitly for an exactly solvable scalar field on a de Sitter background. The sequel, [Quantum Fluctuations in Single-Field Slow-Roll Inflation](../slow-roll-inflation-squeezing/), computes curvature and tensor perturbations on backgrounds determined by inflaton potentials.
+
 ### Model and correspondence
 
 The following figures use exact de Sitter spacetime,

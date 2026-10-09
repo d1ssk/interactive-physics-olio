@@ -2,6 +2,10 @@
 
 新規公開・改訂した記事を、更新日の新しい順に掲載しています。更新日が同じ記事は、ホームページの分野順、各分野内での掲載順に並べています。
 
+## 2026年10月10日
+
+- [単一場 slow-roll インフレーションの量子揺らぎ](../cosmology/slow-roll-inflation-squeezing/) — 宇宙論
+
 ## 2026年10月8日
 
 - [インフレーションの量子揺らぎと squeezing](../cosmology/inflation-squeezing/) — 宇宙論

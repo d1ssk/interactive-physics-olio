@@ -20,4 +20,7 @@ Thermal history, structure formation, and the early universe.
 ## Primordial quantum fluctuations
 
 - **[Inflationary Quantum Fluctuations and Squeezing](inflation-squeezing/)**<br>
-  Follow vacuum fluctuations through Bogoliubov transformations and Wigner-function animations to superhorizon freeze-out and CMB acoustic phase coherence.
+  Follow vacuum fluctuations through superhorizon freeze-out and Wigner-function visualizations to CMB acoustic phase coherence.
+
+- **[Quantum Fluctuations in Single-Field Slow-Roll Inflation](slow-roll-inflation-squeezing/)**<br>
+  Curvature and tensor perturbations solved on Starobinsky, monomial, and power-law backgrounds.
