@@ -1,0 +1,15 @@
+id: slow-roll-inflation-squeezing
+title: Quantum Fluctuations and Squeezing in Single-Field Slow-Roll Inflation
+title_ja: 単一場 slow-roll インフレーションの量子揺らぎと squeezing
+field: cosmology
+topics:
+  - slow-roll inflation
+  - curvature perturbation
+  - quantum squeezing
+  - primordial power spectrum
+level:
+  - graduate
+runtime: plotly-static
+page: cosmology/slow-roll-inflation-squeezing
+summary: Solve curvature and tensor modes on real slow-roll backgrounds, watch three wavenumbers squeeze in turn, and compare with de Sitter, Hankel, and slow-roll spectrum formulas.
+summary_ja: 実際の slow-roll 背景で曲率摂動とテンソルのモードを解き、三つの波数が順に squeezing される様子と de Sitter・Hankel 近似と slow-roll 公式との違いを比較

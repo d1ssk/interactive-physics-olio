@@ -354,7 +354,7 @@ html[lang="en"] .md-nav--primary {
 }
 
 /* Use the site link color instead of MathJax's default blue for equation references. */
-.md-typeset .arithmatex mjx-container[jax="SVG"] a[href*="inflation-"] {
+.md-typeset .arithmatex mjx-container[jax="SVG"] :is(a[href*="inflation-"], a[href*="slowroll-"]) {
   color: var(--md-typeset-a-color);
   fill: currentColor;
   stroke: currentColor;

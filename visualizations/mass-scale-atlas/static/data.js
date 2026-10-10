@@ -409,7 +409,7 @@
       "inflation", 1e22, 1.4e25, "speculative", 0,
       "インフレーション ?", "Inflation ?",
       "代表域 10¹³–1.4×10¹⁶ GeV", "illustrative 10¹³–1.4×10¹⁶ GeV",
-      "インフレーションのエネルギーは直接測定されていない。単一場スローロール関係と r < 0.036 を用いると V¹ᐟ⁴ ≲ 1.4×10¹⁶ GeV。下限はなく、帯よりはるかに低い模型も可能なので上端以外は意図的に曖昧。",
+      "インフレーションのエネルギーは直接測定されていない。単一場 slow-roll 関係と r < 0.036 を用いると V¹ᐟ⁴ ≲ 1.4×10¹⁶ GeV。下限はなく、帯よりはるかに低い模型も可能なので上端以外は意図的に曖昧。",
       "The inflationary energy has not been directly measured. The single-field slow-roll relation with r < 0.036 gives V¹ᐟ⁴ ≲ 1.4×10¹⁶ GeV. There is no comparable lower bound and much lower-scale models remain possible, so only the upper edge has a firm interpretation.",
       "pdgInflation", {status: "model", openLow: true, cap: "upper"},
     ),
