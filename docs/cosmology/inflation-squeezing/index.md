@@ -908,7 +908,7 @@ so the $k_*$ mode crosses the horizon at $N=0$. The other two modes cross at $N=
 
 Initially, the nearly circular distributions of the short-wavelength vacuum shrink as expansion lowers the physical wavenumbers. Modes with larger wavenumbers cross later, but after enough time all three approach the same horizontal width.
 
-Both axes are displayed in units of $H/(2\pi)$. The dashed lines at $X=\pm1$ mark the frozen horizontal standard deviation. The three panels share the same axis ranges and aspect ratio, so their distribution sizes can be compared directly.
+Both axes are displayed in units of $H/(2\pi)$. The vertical dashed lines at $X=\pm1$ mark the frozen horizontal standard deviation. The three panels share the same axis ranges and aspect ratio, so their distribution sizes can be compared directly.
 
 Select **Use original canonical coordinates** to view the same quantum states in the $Q,P$ phase space. The width along $Q$ continues to grow with expansion, but the field amplitude $\phi_k=Q/(\sqrt{k}a)$ freezes, so the field-width history below the panels remains unchanged.
 
