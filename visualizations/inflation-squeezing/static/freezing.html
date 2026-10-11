@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Three wavenumbers: freezing of the field amplitude</title>
+  <link rel="stylesheet" href="visualization-theme.css"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="freezing.css">
+  <script src="visualization-theme.js"></script>
+  <script>
+    window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},startup:{ready(){
+      MathJax.startup.defaultReady(); MathJax.startup.promise.then(()=>window.dispatchEvent(new Event('physics-atlas:mathjax-ready')));
+    }}};
+  </script>
+  <script defer src="mathjax-tex-svg.js"></script>
+</head>
+<body>
+<main>
+  <h2 data-i18n="title"></h2><p data-i18n="intro"></p>
+  <div class="controls">
+    <button id="play" disabled data-i18n="play"></button>
+    <button id="reset" disabled data-i18n="reset"></button>
+    <button id="crossing" disabled data-i18n="crossing"></button>
+    <button id="late" disabled data-i18n="late"></button>
+    <label><span data-i18n="speed"></span> <select id="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label>
+  </div>
+  <label class="timeline"><span data-i18n="time"></span><input type="range" id="time" min="0" max="0" value="0" disabled></label>
+  <div class="controls coordinate-controls">
+    <label><input type="checkbox" id="canonical" disabled> <span data-i18n="canonical"></span></label>
+    <label><span data-i18n="zoom"></span> <select id="zoom" disabled><option value="0" data-i18n="wide"></option><option value="1" data-i18n="medium"></option><option value="2" selected data-i18n="close"></option></select></label>
+    <span>\(N\): <output id="n">—</output></span>
+  </div>
+  <p class="formula rescaled-only"><span>\(X=\dfrac{k}{\sqrt2\pi a}Q\)</span><span>\(Y=\dfrac{k}{\sqrt2\pi a}P\)</span><span data-i18n="units"></span></p>
+  <p class="formula canonical-only" hidden><span>\(Q=\sqrt{k}a\phi_k\)</span><span>\(P=\dfrac{a^2}{\sqrt{k}}\dot\phi_k\)</span></p>
+  <div class="panels" id="mode-panels"></div>
+  <p class="note rescaled-only" data-i18n="rescaledNote"></p>
+  <p class="note canonical-only" data-i18n="canonicalNote" hidden></p>
+  <div class="history-panel">
+    <h3 data-i18n="history"></h3>
+    <p class="formula">\(\sqrt{\mathcal P_\phi}/[H/(2\pi)]\)</p>
+    <svg id="history" viewBox="0 0 900 245" role="img"></svg>
+    <p class="formula">\(N=\ln(a/a_{\mathrm{cross},*})\)</p>
+    <p class="note" data-i18n="historyNote"></p>
+  </div>
+  <p class="note" data-i18n="contourNote"></p>
+  <p id="error" role="alert" hidden></p>
+  <noscript>This animation requires JavaScript. このアニメーションにはJavaScriptが必要です。</noscript>
+</main>
+<script src="frame.js"></script><script src="freezing.js"></script>
+</body></html>

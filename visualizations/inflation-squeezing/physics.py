@@ -27,6 +27,41 @@ def covariance(x: float) -> np.ndarray:
     return 0.5 * np.array([[1 + x**-2, -1 / x], [-1 / x, 1.0]])
 
 
+def field_phase_space_scale(k: float, a: float | np.ndarray) -> float | np.ndarray:
+    """Map both Q,P to X,Y, with Var(X)=k^3 P_phi/(2 pi^2).
+
+    Y = sqrt(k^3/(2 pi^2)) dot(phi)/(k/a), not the unscaled field velocity.
+    This time-dependent change of coordinates is not canonical.
+    """
+    return k / (np.sqrt(2) * np.pi * a)
+
+
+def freezing_history(times: np.ndarray, k_ratio: float, hubble: float) -> dict:
+    """One mode at common times N=ln(a/a_cross,*), in canonical and field coordinates.
+
+    The reference crossing has a_*=1, k_*=H. All contours are material curves
+    of unit Mahalanobis radius. No state or contour is refitted after rescaling.
+    """
+    a = np.exp(times)
+    k = k_ratio * hubble
+    x = k_ratio / a
+    scales = field_phase_space_scale(k, a)
+    canonical_covariances = np.array([covariance(value) for value in x])
+    field_covariances = scales[:, None, None] ** 2 * canonical_covariances
+    # Each matrix maps the unit circle to the material Wigner contour.
+    canonical_maps = np.array([solution_basis(value) / np.sqrt(2) for value in x])
+    field_maps = scales[:, None, None] * canonical_maps
+    field_widths = np.sqrt(np.diagonal(field_covariances, axis1=1, axis2=2))
+    return {
+        "x": x,
+        "canonical_maps": canonical_maps,
+        "field_maps": field_maps,
+        "canonical_widths": np.sqrt(np.diagonal(canonical_covariances, axis1=1, axis2=2)),
+        "field_widths": field_widths,
+        "velocity_ratio": x * field_widths[:, 1] / field_widths[:, 0],
+    }
+
+
 def mode_functions(x: float, k: float = 1.0) -> tuple[complex, complex]:
     """Positive-frequency q and p coefficients multiplying the in annihilator."""
     phase = np.exp(1j * x)

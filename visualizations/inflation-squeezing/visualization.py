@@ -91,6 +91,37 @@ def build(output_dir: Path) -> None:
     (output_dir / "data.json").write_text(
         json.dumps(application_payload(), separators=(",", ":")), encoding="utf-8"
     )
+    (output_dir / "freezing.json").write_text(
+        json.dumps(freezing_payload(), separators=(",", ":")), encoding="utf-8"
+    )
+
+
+def freezing_payload() -> dict:
+    """Three modes at the same cosmic time, with X,Y in units of H/(2 pi)."""
+    ratios = (0.5, 1.0, 2.0)
+    times = np.unique(np.concatenate((np.linspace(-np.log(7), np.log(16), 281), np.log(ratios))))
+    modes = []
+    for ratio in ratios:
+        history = physics.freezing_history(times, ratio, hubble=2 * np.pi)
+        modes.append(
+            {
+                "ratio": ratio,
+                "crossing": float(np.log(ratio)),
+                "x": _rounded(history["x"]),
+                "canonical": _rounded(history["canonical_maps"]),
+                "rescaled": _rounded(history["field_maps"]),
+                "canonicalWidths": _rounded(history["canonical_widths"]),
+                "rescaledWidths": _rounded(history["field_widths"]),
+                "velocityRatio": _rounded(history["velocity_ratio"]),
+            }
+        )
+    angles = np.linspace(0, 2 * np.pi, 241)
+    return {
+        "times": times.tolist(),
+        "modes": modes,
+        "limits": [24, 6, 4],
+        "circle": _rounded(np.column_stack((np.cos(angles), np.sin(angles)))),
+    }
 
 
 def supporting_payload() -> dict:
