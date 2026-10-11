@@ -1,9 +1,9 @@
 ---
-title: Quantum fluctuations in single-field slow-roll inflation
+title: Quantum Fluctuations in Single-Field Slow-Roll Inflation
 description: Solve curvature and tensor modes on backgrounds fixed by inflaton potentials, and compare the growth of squeezing, de Sitter and Hankel approximations, and the primordial spectra.
 ---
 
-# Quantum fluctuations and squeezing in single-field slow-roll inflation
+# Quantum Fluctuations in Single-Field Slow-Roll Inflation
 
 <span class="center-material-tables"></span>
 

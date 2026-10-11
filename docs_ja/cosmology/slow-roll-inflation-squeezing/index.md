@@ -1,9 +1,9 @@
 ---
-title: 単一場 slow-roll インフレーションでの量子揺らぎ
+title: 単一場 slow-roll インフレーションの量子揺らぎ
 description: インフラトンのポテンシャルから決まる実際の背景の上で曲率摂動とテンソルのモードを解き、squeezing の進み方、de Sitter・Hankel 近似との違い、原始スペクトルを比較する記事。
 ---
 
-# 単一場 slow-roll インフレーションの量子揺らぎと squeezing
+# 単一場 slow-roll インフレーションの量子揺らぎ
 
 <span class="center-material-tables"></span>
 
