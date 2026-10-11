@@ -1,0 +1,27 @@
+:root { --mode-0: #397da9; --mode-1: #b26b22; --mode-2: #8871b4; --freeze-reference: #569d88; }
+[hidden] { display: none !important; }
+.coordinate-controls { margin-top: 8px; }
+input[type=checkbox] { width: 18px; height: 18px; vertical-align: middle; accent-color: var(--atlas-viz-accent); }
+.mode-0 { --mode-color: var(--mode-0); }
+.mode-1 { --mode-color: var(--mode-1); }
+.mode-2 { --mode-color: var(--mode-2); }
+.mode-card { border-top: 3px solid var(--mode-color) !important; }
+.mode-card h3 { font-size: 15px; }
+.mode-card .readouts { justify-content: center; gap: 2px 10px; padding: 0 8px; font-size: 12px; }
+.mode-card .regime { text-align: center; font-size: 12px; margin: 4px; min-height: 1.65em; }
+.mode-card .plot { max-width: 430px; margin: auto; padding-top: 24px; }
+.mode-card .x-label { left: 48%; bottom: 0; }
+.mode-card .y-label { left: 2px; top: 4px; }
+.mode-card .contour { fill: var(--mode-color); stroke: var(--mode-color); stroke-width: 2; }
+.reference { stroke: var(--freeze-reference); stroke-width: 1.5; stroke-dasharray: 5 4; fill: none; }
+.width-guide { stroke: var(--mode-color); stroke-width: 3; fill: none; }
+.history-panel { border: 1px solid var(--atlas-viz-border); border-radius: 8px; padding: 8px 12px; background: var(--atlas-viz-panel); }
+#history { display: block; width: 100%; height: auto; }
+.history-curve { stroke: var(--mode-color); stroke-width: 2.5; fill: none; }
+.history-dot { fill: var(--mode-color); }
+.time-marker { stroke: var(--ink); stroke-width: 1.5; }
+.crossing-marker { stroke: var(--mode-color); stroke-width: 1; stroke-dasharray: 3 5; opacity: .7; }
+@media (max-width: 650px) {
+  .history-panel { padding: 8px 2px; }
+  .mode-card .readouts, .mode-card .regime { font-size: 14px; }
+}

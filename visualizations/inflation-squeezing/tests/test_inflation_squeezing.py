@@ -387,3 +387,89 @@ def test_traveling_covariance_has_two_mode_squeezed_form(inflation):
             ]
         )
         np.testing.assert_allclose(inflation.pair_covariances(x)[0], expected, atol=1e-13)
+
+
+def test_rescaled_contours_match_field_and_velocity_mode_functions(inflation):
+    times = np.array([-2.0, 0, 2.0, 4.0])
+    for ratio, hubble in [(0.5, 0.7), (2.0, 3.1)]:
+        history = inflation.freezing_history(times, ratio, hubble)
+        k = ratio * hubble
+        for i, n in enumerate(times):
+            a, x = np.exp(n), history["x"][i]
+            f, g = inflation.mode_functions(x, k)
+            coefficients = np.sqrt(k**3 / (2 * np.pi**2)) * np.array([f / a, (g / a**2) / (k / a)])
+            sigma = (coefficients[:, None] * coefficients.conjugate()[None, :]).real
+            np.testing.assert_allclose(history["field_widths"][i] ** 2, sigma.diagonal())
+            expected = (hubble / (2 * np.pi)) ** 2 * np.array([[1 + x**2, -x], [-x, x**2]])
+            np.testing.assert_allclose(sigma, expected)
+            angles = np.linspace(0, 2 * np.pi, 31)
+            circle = np.array([np.cos(angles), np.sin(angles)])
+            ring = (history["field_maps"][i] @ circle).T
+            radii = np.einsum("ni,ij,nj->n", ring, np.linalg.inv(sigma), ring)
+            np.testing.assert_allclose(radii, 1, atol=2e-11)
+            scale = inflation.field_phase_space_scale(k, a)
+            np.testing.assert_allclose(ring, scale * (history["canonical_maps"][i] @ circle).T)
+            np.testing.assert_allclose(
+                ring, scale * inflation.wigner_contour(x, angles).T, atol=1e-14
+            )
+            commutator = 2 * (coefficients[0] * coefficients[1].conjugate()).imag
+            np.testing.assert_allclose(commutator, scale**2)
+            np.testing.assert_allclose(np.linalg.det(sigma), commutator**2 / 4, rtol=1e-10)
+
+
+def test_rescaled_flow_obeys_damped_field_equation(inflation):
+    times = np.linspace(-np.log(8), np.log(16), 61)
+    ratio, hubble = 2.0, 0.8
+    history = inflation.freezing_history(times, ratio, hubble)
+    # X_N=xY, Y_N=-xX-2Y implies X_NN+3X_N+x^2 X=0, the cosmic-time field ODE.
+    result = solve_ivp(
+        lambda n, z: np.array([[0, ratio * np.exp(-n)], [-ratio * np.exp(-n), -2]]) @ z,
+        (times[0], times[-1]),
+        history["field_maps"][0, :, 0],
+        t_eval=times,
+        method="DOP853",
+        rtol=1e-11,
+        atol=1e-13,
+    )
+    assert result.success
+    np.testing.assert_allclose(result.y.T, history["field_maps"][:, :, 0], atol=2e-11)
+
+
+def test_freezing_is_scale_independent_and_subhorizon_vacuum_is_circular(inflation):
+    for ratio in [0.5, 1, 2]:
+        hubble = 1.7
+        times = np.array([-12, 12])
+        history = inflation.freezing_history(times, ratio, hubble)
+        vacuum_radius = ratio * hubble / (2 * np.pi * np.exp(times[0]))
+        np.testing.assert_allclose(history["field_widths"][0], vacuum_radius, rtol=1e-9)
+        np.testing.assert_allclose(history["field_widths"][-1, 0], hubble / (2 * np.pi))
+        assert history["field_widths"][-1, 1] < 4e-6
+        assert history["velocity_ratio"][-1] < 2e-10
+        assert history["canonical_widths"][-1, 0] > 1e4
+
+
+def test_three_mode_payload_retains_common_time_and_coordinate_equivalence(builder):
+    payload = builder.freezing_payload()
+    times = np.array(payload["times"])
+    for mode in payload["modes"]:
+        crossing = np.flatnonzero(times == mode["crossing"])
+        assert crossing.size == 1
+        assert mode["x"][crossing[0]] == 1
+        np.testing.assert_allclose(mode["x"], mode["ratio"] * np.exp(-times), atol=5e-8)
+        np.testing.assert_allclose(
+            mode["rescaled"],
+            np.sqrt(2) * (mode["ratio"] * np.exp(-times))[:, None, None] * mode["canonical"],
+            atol=2e-6,
+        )
+        for key in ["rescaled", "canonical"]:
+            transforms = np.array(mode[key])
+            rings = np.einsum("nij,pj->npi", transforms, payload["circle"])
+            assert np.max(np.abs(rings)) < payload["limits"][0]
+            np.testing.assert_allclose(
+                np.sum(transforms**2, axis=2), np.array(mode[f"{key}Widths"]) ** 2, atol=5e-6
+            )
+    root = Path(__file__).resolve().parents[3]
+    for locale, docs in [("en", "docs"), ("ja", "docs_ja")]:
+        page = (root / docs / "cosmology/inflation-squeezing/index.md").read_text()
+        assert page.index("app/index.html?lang=") < page.index(f"app/freezing.html?lang={locale}")
+        assert page.index(f"app/freezing.html?lang={locale}") < page.index("&amp;view=basis")

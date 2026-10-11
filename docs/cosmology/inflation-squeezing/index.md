@@ -732,6 +732,197 @@ The contour $\mathbf Z^T\Sigma^{-1}\mathbf Z=1$ encloses probability $1-e^{-1/2}
 
 These plots follow $r_k$ and $\varphi_k$ to four e-folds after Hubble crossing. At late times, $r_k\simeq N$ and the angle approaches zero.
 
+### Field amplitude: freezing at three wavenumbers
+
+As we have seen, squeezing broadens the distribution of the canonical coordinate $Q$. The original field amplitude, however, is $\phi_k=Q/(\sqrt{k}a)$. Once the growth of $a$ due to expansion is taken into account, the field fluctuations approach a constant amplitude.
+
+Moreover, modes with different wavenumbers eventually freeze at the same dimensionless power. This is the origin of scale-invariant fluctuations in de Sitter space.
+
+We focus on one real standing-wave mode, suppressing the labels $A,\mathbf k$ and writing its amplitude as $\phi_k$. The wavenumber $k$ is comoving.
+
+#### Decrease and freezing of vacuum fluctuations
+
+First consider Minkowski space. With $a=1$, $\phi_k$ behaves as a harmonic oscillator of frequency $k$, whose vacuum variance is
+
+$$
+\left\langle\hat\phi_k^2\right\rangle_{\mathrm{Mink}}
+=\frac{1}{2k}
+$$
+
+The $1/k$ dependence reflects the weaker restoring force at longer wavelengths. The mode's potential energy is $k^2\phi_k^2/2$, so a smaller $k$ means a smaller energy cost for a large amplitude. For a massless field, the frequency $\omega_k=k$ tends to zero as $k\to0$. The vacuum wavefunction therefore broadens at longer wavelengths, with a variance proportional to $1/k$.
+
+In an expanding universe, the conformal-time kinetic term carries a factor of $a^2$, so the canonically normalized variable is $q_k=a\phi_k$. Its equation of motion is
+
+$$
+q_k''+\left(k^2-\frac{a''}{a}\right)q_k=0
+$$
+
+where primes denote conformal-time derivatives.
+
+At short wavelengths, $k/a\gg H$, the oscillation period is much shorter than the expansion timescale, so the background changes very little during an oscillation. A mode in the vacuum therefore follows the instantaneous oscillator ground state adiabatically.
+
+In this regime, the background term $a''/a$ is also negligible, and the effective frequency of $q_k$ is approximately $k$. Its vacuum variance thus remains approximately the same as in Minkowski space:
+
+$$
+\left\langle\hat q_k^2\right\rangle
+\simeq\frac{1}{2k}
+\qquad (k/a\gg H)
+$$
+
+The Bunch–Davies vacuum is the state selected by imposing this short-wavelength vacuum condition as an initial condition.
+
+Since the original field is $\phi_k=q_k/a$,
+
+$$
+\left\langle\hat\phi_k^2\right\rangle
+\simeq\frac{1}{2ka^2}.
+$$
+
+Converting this to the dimensionless power spectrum gives
+
+$$
+\mathcal P_\phi(k)
+=\frac{k^3}{2\pi^2}
+\left\langle\hat\phi_k^2\right\rangle
+\simeq
+\left(\frac{k/a}{2\pi}\right)^2.
+$$
+
+Thus, at short wavelengths, the field fluctuation amplitude $\sqrt{\mathcal P_\phi}$ is proportional to the physical wavenumber $k/a$ and decreases as the universe expands.
+
+This decrease begins to level off as the physical wavenumber $k/a$ approaches $H$. To see why, write the field equation in cosmic time:
+
+$$
+\ddot\phi_k+3H\dot\phi_k
++\left(\frac{k}{a}\right)^2\phi_k=0
+$$
+
+For $k/a\ll H$, the gradient term becomes small, oscillations subside, and the field amplitude becomes nearly constant.
+
+Neglecting the gradient term entirely gives, in de Sitter space,
+
+$$
+\phi_k=C_1+C_2a^{-3}
+$$
+
+so a constant mode survives. At finite $k$, even this mode retains time dependence of order $O((k/aH)^2)$, but that variation decreases as the universe expands.
+
+In exact de Sitter space, $H$ is constant. Every mode therefore encounters the same physical conditions when $k/a\sim H$, although at a different time. We consequently expect the final dimensionless power to be independent of wavenumber.
+
+Indeed, the exact Bunch–Davies solution, eq. (75), gives, with $x=k/(aH)$,
+
+$$
+\mathcal P_\phi(k)
+=
+\left(\frac{H}{2\pi}\right)^2(1+x^2)
+$$
+
+For $x\gg1$, this agrees with the short-wavelength approximation above. For $x\ll1$,
+
+$$
+\mathcal P_\phi(k)\longrightarrow
+\left(\frac{H}{2\pi}\right)^2
+$$
+
+This is the scale-invariant power spectrum.
+
+Freezing is smooth. At horizon crossing, $x=1$, the amplitude is still $\sqrt2\,H/(2\pi)$ and continues to approach its asymptotic value afterward.
+
+#### Field amplitude and velocity in phase space
+
+We can view this process through the Wigner distribution.
+
+Rescale each of the canonical coordinates $Q,P$ by the same factor, defining
+
+$$
+X=\frac{k}{\sqrt2\pi a}Q
+=\sqrt{\frac{k^3}{2\pi^2}}\phi_k,
+$$
+
+$$
+Y=\frac{k}{\sqrt2\pi a}P
+=\sqrt{\frac{k^3}{2\pi^2}}\frac{\dot\phi_k}{k/a}
+$$
+
+Here we treat $X,Y$ as the phase-space coordinates of the Wigner distribution.
+
+The horizontal coordinate $X$ is the field amplitude with the spectral weighting, so its variance is the dimensionless power spectrum itself. The vertical coordinate $Y$ is the field velocity divided by the physical wavenumber $k/a$, with the same weighting.
+
+In these coordinates, the short-wavelength vacuum distribution is nearly circular. The exact covariance matrix of the Bunch–Davies vacuum is
+
+$$
+\Sigma_{XY}
+=
+\left(\frac{H}{2\pi}\right)^2
+\begin{pmatrix}
+1+x^2 & -x\\
+-x & x^2
+\end{pmatrix}
+$$
+
+The standard deviations of its projections onto the two axes are
+
+$$
+\sigma_X
+=\sqrt{\mathcal P_\phi}
+=\frac{H}{2\pi}\sqrt{1+x^2},
+\qquad
+\sigma_Y=\frac{H}{2\pi}x
+$$
+
+For $x\gg1$, the widths in the two directions are nearly equal. The nearly circular distribution, with radius approximately $k/(2\pi a)$, shrinks as the universe expands.
+
+For $x\ll1$, the horizontal width approaches $H/(2\pi)$ while the vertical width continues to decrease. The distribution becomes a thin, nearly horizontal ellipse, showing how the field amplitude becomes almost constant.
+
+The relation to the field's time variation can also be checked directly. Using $N=\ln a$ as the time variable,
+
+$$
+\frac{dX}{dN}=xY
+$$
+
+Comparing the field's change over a Hubble time with its amplitude width therefore gives
+
+$$
+\frac{\sigma_{dX/dN}}{\sigma_X}
+=
+\frac{x\sigma_Y}{\sigma_X}
+=
+\frac{x^2}{\sqrt{1+x^2}}
+\simeq x^2
+\qquad(x\ll1)
+$$
+
+On superhorizon scales, the field's time variation rapidly becomes small relative to its amplitude. This property also connects to the initial conditions for acoustic oscillations discussed in §9.
+
+#### Visualization
+
+<iframe src="app/freezing.html?lang=en" title="Three wavenumbers freezing at the same field amplitude, with a switch to canonical coordinates" data-auto-height scrolling="no" style="display: block; width: 100%; height: 1800px; min-height: 900px; border: 0; overflow: hidden;" loading="eager"></iframe>
+
+The visualization compares the Wigner distributions of three wavenumbers, $k_*/2,k_*,2k_*$, along a common time axis. Time is expressed as
+
+$$
+N=\ln(a/a_{\mathrm{cross},*})
+$$
+
+so the $k_*$ mode crosses the horizon at $N=0$. The other two modes cross at $N=-\ln2,\ln2$, respectively.
+
+Initially, the nearly circular distributions of the short-wavelength vacuum shrink as expansion lowers the physical wavenumbers. Modes with larger wavenumbers cross later, but after enough time all three approach the same horizontal width.
+
+Both axes are displayed in units of $H/(2\pi)$. The dashed lines at $X=\pm1$ mark the frozen horizontal standard deviation. The three panels share the same axis ranges and aspect ratio, so their distribution sizes can be compared directly.
+
+Select **Use original canonical coordinates** to view the same quantum states in the $Q,P$ phase space. The width along $Q$ continues to grow with expansion, but the field amplitude $\phi_k=Q/(\sqrt{k}a)$ freezes, so the field-width history below the panels remains unchanged.
+
+The rescaling to $X,Y$ is time dependent and noncanonical. The commutator of the corresponding operators and the determinant of the covariance matrix are
+
+$$
+[\hat X,\hat Y]
+=i\frac{k^2}{2\pi^2a^2},
+\qquad
+\det\Sigma_{XY}
+=
+\left(\frac{H}{2\pi}\right)^4x^4
+$$
+
 ### Four-dimensional covariance in the traveling-wave basis
 
 Return from the ellipse of one standing wave to the four-dimensional phase space of the pair. In standing-wave coordinates $\hat{\mathbf Z}_{\mathrm{st}}=(\hat Q_c,\hat P_c,\hat Q_s,\hat P_s)^T$, the two components have the same state, so
