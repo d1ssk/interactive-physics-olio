@@ -2,7 +2,7 @@
 site_name = "Interactive Physics Olio"
 site_url = "https://d1ssk.github.io/interactive-physics-olio/"
 site_description = "An interactive visual atlas of physical and mathematical concepts."
-copyright = "Copyright &copy; 2026 Daichi Sasaki"
+copyright = 'Copyright &copy; 2026 <a href="https://d1ssk.github.io/">Daichi Sasaki</a>'
 docs_dir = "build/docs-en"
 site_dir = "site"
 extra_css = ["stylesheets/palette.css", "stylesheets/extra.css"]
