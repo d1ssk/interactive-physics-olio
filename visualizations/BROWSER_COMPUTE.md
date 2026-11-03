@@ -126,6 +126,13 @@ provenance. Keep heavy assets lazy and verify that an ordinary preset view does
 not request them. Record deterministic raw sizes in tests and raw/compressed
 transfer sizes plus cold/warm timing in the PR that changes a runtime.
 
+Individual builders stage Pyodide under `runtime/pyodide/` for isolated tests. The complete
+production build verifies those copies against the vendored subset, publishes one versioned
+directory under `assets/vendor/`, and relinks both the Worker module import and `indexURL`.
+Keep the module import `"./pyodide/pyodide.mjs"` and index base `"./pyodide/"` explicit in Worker
+templates so publication can verify and rewrite both. Kernels, providers, and loading/cancellation
+behavior remain application-specific. Browser QA must use the final site, after consolidation.
+
 All controls, phases, terminal states, errors, cancellation text, accessibility
 labels, and recovery guidance must be aligned in English and Japanese. Plot
 internals remain English when the repository policy permits a shared figure

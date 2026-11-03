@@ -55,6 +55,15 @@ The export script requires Node 22 or later. Inspect the 1200 × 630 output befo
 Social titles, descriptions, locales, and image alternative text are generated in
 `src/physics_atlas/seo.py` for every public page; embedded applications remain nonindexable.
 
+The final production step `physics_atlas.library_publication.publish_shared_libraries` links
+both languages and all applications to one copy of each heavy browser library. MathJax uses a
+version-and-content-hash filename in `javascripts/`; Plotly uses the existing pinned `gl3d`
+bundle there; Pyodide and NumPy use one version-and-content-hash directory in `assets/vendor/`.
+Builders still stage local copies for isolated tests. Publication verifies identical bytes before
+removing duplicates, updates HTML script URLs and Worker import/index URLs, and preserves figure
+data and kernel wheels. Reusing these URLs permits HTTP caching; runtime initialization still
+occurs separately in each Worker. Inspect cold and warm requests over HTTP when changing this step.
+
 Search metadata policy and Search Console setup are documented in
 [`SEARCH_CONSOLE.md`](SEARCH_CONSOLE.md). Use the host-wide `https://d1ssk.github.io/`
 URL-prefix property and submit `https://d1ssk.github.io/sitemap-index.xml` once; this

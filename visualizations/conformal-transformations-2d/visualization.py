@@ -7,11 +7,15 @@ from pathlib import Path
 
 import numpy as np
 import plotly.graph_objects as go
-from plotly.offline import get_plotlyjs
 from plotly.subplots import make_subplots
 from plotly.utils import PlotlyJSONEncoder
 
-from physics_atlas.assets import copy_mathjax_assets, copy_visualization_theme_assets
+from physics_atlas.assets import (
+    PLOTLY_GL3D_ASSET_NAME,
+    copy_mathjax_assets,
+    copy_plotly_assets,
+    copy_visualization_theme_assets,
+)
 
 from .physics import (
     MobiusTransformation,
@@ -538,6 +542,7 @@ def build(output_dir: Path) -> None:
 
     output_dir.mkdir(parents=True, exist_ok=True)
     copy_mathjax_assets(output_dir)
+    copy_plotly_assets(output_dir)
     copy_visualization_theme_assets(output_dir)
     payload = json.dumps(
         _build_application_data(), cls=PlotlyJSONEncoder, separators=(",", ":")
@@ -549,7 +554,7 @@ def build(output_dir: Path) -> None:
             "__APPLICATION_CSS__",
             (SOURCE_DIR / "static" / "style.css").read_text(encoding="utf-8"),
         )
-        .replace("__PLOTLY_JS__", get_plotlyjs())
+        .replace("__PLOTLY_ASSET__", PLOTLY_GL3D_ASSET_NAME)
         .replace("__APPLICATION_DATA__", payload)
         .replace(
             "__APPLICATION_JS__",

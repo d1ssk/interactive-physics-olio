@@ -18,6 +18,7 @@ from physics_atlas.assets import (
 )
 from physics_atlas.fields import FIELDS
 from physics_atlas.images import build_card_images
+from physics_atlas.library_publication import publish_shared_libraries
 from physics_atlas.seo import publish_search_metadata
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -92,6 +93,7 @@ def main() -> int:
         check=True,
     )
     publish_search_metadata(ROOT, directories)
+    publish_shared_libraries(ROOT / "site")
     # Google's verification response must retain its original filename and bytes.
     shutil.copy2(
         SEARCH_CONSOLE_VERIFICATION_FILE, ROOT / "site" / SEARCH_CONSOLE_VERIFICATION_FILE.name

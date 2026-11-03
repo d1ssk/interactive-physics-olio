@@ -80,6 +80,9 @@ so that one scientifically identical figure payload can be shared.
 - Stage MathJax with `physics_atlas.assets.copy_mathjax_assets(output_dir)` and load the copied
   `mathjax-tex-svg.js` as a deferred external asset. Do not inline the multi-megabyte bundle into
   `index.html`; doing so delays parsing, height reporting, and first content display.
+- These are isolated-build paths. The production build consolidates verified copies with
+  `physics_atlas.library_publication.publish_shared_libraries`, including supporting HTML panels,
+  so every language and application loads the same versioned MathJax URL.
 - Define the MathJax configuration before loading the bundle.
 - Dynamic UI text that contains LaTeX must be passed through MathJax after every relevant update.
   Wait for `MathJax.startup.promise`, clear previous typesetting for changed targets, and use
@@ -147,6 +150,11 @@ Whenever practical, test:
 ## Plotly
 
 Prefer Plotly for standard interactive 2D/3D visualizations.
+
+Use the vendored, pinned `gl3d` bundle for supported trace types (including `scatter`, `scatter3d`,
+and `surface`). Stage it with `copy_plotly_assets` for a synchronous external script, or use the
+existing shared Plotly loader. Do not inline `get_plotlyjs()` in application HTML. The production
+build publishes one common copy. Verify required trace types before introducing another bundle.
 
 Avoid using browser-side Python unless runtime numerical computation is
 genuinely required.
