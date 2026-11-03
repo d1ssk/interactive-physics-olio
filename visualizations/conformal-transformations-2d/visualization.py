@@ -7,11 +7,16 @@ from pathlib import Path
 
 import numpy as np
 import plotly.graph_objects as go
-from plotly.offline import get_plotlyjs
 from plotly.subplots import make_subplots
 from plotly.utils import PlotlyJSONEncoder
 
-from physics_atlas.assets import copy_mathjax_assets, copy_visualization_theme_assets
+from physics_atlas.assets import (
+    PLOTLY_GL3D_ASSET_NAME,
+    copy_mathjax_assets,
+    copy_plotly_assets,
+    copy_visualization_theme_assets,
+)
+from physics_atlas.figure_data import write_figure_chunks
 
 from .physics import (
     MobiusTransformation,
@@ -533,15 +538,39 @@ def _build_application_data() -> dict[str, object]:
     }
 
 
+def _partition_application_data(data: dict) -> tuple[dict, dict]:
+    """Group all slider states by selection; keep the reference sphere separate."""
+    metadata = {
+        key: data.get(key, [])
+        for key in ("mixingKeys", "mixingValues", "epsilonKeys", "epsilonValues")
+    }
+    metadata["mobius"] = {
+        name: {key: value for key, value in family.items() if key != "variants"}
+        for name, family in data.get("mobius", {}).items()
+    }
+    chunks = {
+        f"local-{name}": ({"variants": data["localVariants"]} if name == "mixed" else item)
+        for name, item in data.get("local", {}).items()
+    }
+    if "mobiusBase" in data:
+        chunks["mobius-base"] = data["mobiusBase"]
+    chunks.update(
+        {f"mobius-{name}": family["variants"] for name, family in data.get("mobius", {}).items()}
+    )
+    chunks.update({f"witt-{mode}": variants for mode, variants in data.get("witt", {}).items()})
+    return metadata, chunks
+
+
 def build(output_dir: Path) -> None:
     """Build the localized, same-origin static application."""
 
     output_dir.mkdir(parents=True, exist_ok=True)
     copy_mathjax_assets(output_dir)
+    copy_plotly_assets(output_dir)
     copy_visualization_theme_assets(output_dir)
-    payload = json.dumps(
-        _build_application_data(), cls=PlotlyJSONEncoder, separators=(",", ":")
-    ).replace("</", "<\\/")
+    original = json.loads(json.dumps(_build_application_data(), cls=PlotlyJSONEncoder))
+    metadata, chunks = _partition_application_data(original)
+    payload = write_figure_chunks(output_dir, metadata, chunks)
     html = (
         (SOURCE_DIR / "static" / "index.html")
         .read_text(encoding="utf-8")
@@ -549,8 +578,9 @@ def build(output_dir: Path) -> None:
             "__APPLICATION_CSS__",
             (SOURCE_DIR / "static" / "style.css").read_text(encoding="utf-8"),
         )
-        .replace("__PLOTLY_JS__", get_plotlyjs())
+        .replace("__PLOTLY_ASSET__", PLOTLY_GL3D_ASSET_NAME)
         .replace("__APPLICATION_DATA__", payload)
+        .replace("__FIGURE_LOADER__", json.loads(payload)["loader"])
         .replace(
             "__APPLICATION_JS__",
             (SOURCE_DIR / "static" / "app.js").read_text(encoding="utf-8"),

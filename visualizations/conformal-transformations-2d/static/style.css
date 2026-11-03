@@ -68,3 +68,9 @@ output { color: var(--ink); text-align: right; font: 600 12px/1.2 ui-monospace, 
   label, .control-cluster { min-width: 100%; width: 100%; }
   .plot { min-height: 400px; }
 }
+
+[data-figure-status] { margin: 10px 0; color: var(--muted); font-size: 14px; }
+[data-figure-status] button { margin-left: 8px; padding: 5px 10px; border: 1px solid var(--border); border-radius: 3px; background: var(--panel); color: var(--ink); font: inherit; cursor: pointer; }
+[data-figure-status] button:focus-visible { outline: 3px solid var(--atlas-viz-focus); outline-offset: 2px; }
+[data-figure-state="loading"] .plot,
+[data-figure-state="error"] .plot { opacity: .35; }

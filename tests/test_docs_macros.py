@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from physics_atlas.docs_macros import render_topic_cards, visualization_counts
+from physics_atlas.fields import FIELDS
 
 
 def test_topic_cards_count_field_listings(tmp_path: Path) -> None:
@@ -17,21 +18,14 @@ def test_topic_cards_count_field_listings(tmp_path: Path) -> None:
 
     assert counts["mathematics-for-physics"] == 1
     assert 'href="mathematics-for-physics/"' in cards
-    assert "background-image: url('assets/images/classical-mechanics.png')" in cards
-    assert "background-image: url('assets/images/cosmology.png')" in cards
-    assert "background-image: url('assets/images/quantum-mechanics.png')" in cards
-    assert "background-image: url('assets/images/thermodynamics.png')" in cards
-    assert "background-image: url('assets/images/mathematics-for-physics.png')" in cards
-    assert "background-image: url('assets/images/statistical-physics.png')" in cards
-    assert "background-image: url('assets/images/relativity.png')" in cards
-    assert "background-image: url('assets/images/quantum-field-theory.png')" in cards
-    assert "background-image: url('assets/images/string-theory.png')" in cards
-    assert "background-image: url('assets/images/electromagnetism.png')" in cards
-    assert "background-image: url('assets/images/fluid-mechanics.png')" in cards
-    assert "background-image: url('assets/images/particle-physics.png')" in cards
-    assert "background-image: url('assets/images/condensed-matter-physics.png')" in cards
-    assert cards.count("background-image:") == 13
-    assert japanese_cards.count("background-image:") == 13
+    for field in FIELDS:
+        if field.card_image:
+            assert f'src="{field.card_image}"' in cards
+            assert f'src="../{field.card_image}"' in japanese_cards
+    assert cards.count("<img ") == japanese_cards.count("<img ") == 13
+    assert cards.count('loading="eager"') == 2
+    assert cards.count('loading="lazy"') == 11
+    assert "background-image" not in cards
     assert "1 visualization" in cards
     assert "0 visualizations" in cards
     assert cards.count('class="topic-card"') == 14
@@ -39,7 +33,7 @@ def test_topic_cards_count_field_listings(tmp_path: Path) -> None:
     assert 'class="topic-card__summary"' not in japanese_cards
     assert "An example visualization." not in cards
     assert "物理数学" in japanese_cards
-    assert "1 visualization" in japanese_cards
+    assert "1 件の可視化" in japanese_cards
 
 
 def test_counts_include_cross_field_and_external_listings(tmp_path: Path) -> None:
@@ -55,8 +49,8 @@ def test_counts_include_cross_field_and_external_listings(tmp_path: Path) -> Non
     )
 
     assert visualization_counts(tmp_path)["cosmology"] == 3
-    for locale in ("en", "ja"):
-        assert "3 visualizations" in render_topic_cards(tmp_path, locale)
+    assert "3 visualizations" in render_topic_cards(tmp_path, "en")
+    assert "3 件の可視化" in render_topic_cards(tmp_path, "ja")
 
 
 def test_published_field_counts_include_all_listings() -> None:

@@ -5,6 +5,7 @@ import tomllib
 from pathlib import Path
 
 from build_site import stage_english_docs, stage_japanese_docs
+from PIL import Image
 
 from physics_atlas.fields import FIELDS
 
@@ -166,6 +167,11 @@ def test_japanese_staging_overlays_pages_and_keeps_shared_assets(
     japanese.mkdir()
     (english / "index.md").write_text("English", encoding="utf-8")
     (english / "stylesheets" / "extra.css").write_text("body {}", encoding="utf-8")
+    for field in FIELDS:
+        if field.image:
+            source = english / field.image
+            source.parent.mkdir(parents=True, exist_ok=True)
+            Image.new("RGB", (12, 10), "white").save(source)
     (japanese / "index.md").write_text("日本語", encoding="utf-8")
     mathjax.parent.mkdir()
     mathjax.write_text("window.MathJax = {};", encoding="utf-8")

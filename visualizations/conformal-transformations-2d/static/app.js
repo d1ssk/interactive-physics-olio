@@ -7,6 +7,12 @@ const PLOT_CONFIG = {
 };
 const LOCALE = new URLSearchParams(window.location.search).get("lang") === "ja" ? "ja" : "en";
 
+const manifestElement = byId("figure-data-manifest");
+const figures = PhysicsFigureData.createStore(DATA, new URL(manifestElement.dataset.base, document.baseURI));
+const localPanel = PhysicsFigureData.createPanel(byId("local-panel"), [byId("mixing")], LOCALE);
+const mobiusPanel = PhysicsFigureData.createPanel(byId("mobius-panel"), [byId("mobius-parameter")], LOCALE);
+const wittPanel = PhysicsFigureData.createPanel(byId("witt-panel"), [byId("epsilon")], LOCALE);
+
 const MESSAGES = {
   en: {
     title: "Two-Dimensional Conformal Transformations",
@@ -251,17 +257,23 @@ function renderLocal() {
   const usesMixing = key === "mixed";
   byId("mixing-control").classList.toggle("is-hidden", !usesMixing);
   const mixingIndex = Number(byId("mixing").value);
-  const item = usesMixing ? DATA.localVariants[DATA.mixingKeys[mixingIndex]] : DATA.local[key];
-  Plotly.react("local-grid", item.grid.data, item.grid.layout, PLOT_CONFIG);
-  byId("partial-z").textContent = item.partialZ;
-  byId("partial-zbar").textContent = item.partialZbar;
-  byId("distortion").textContent = item.distortion === "infinite" ? "∞" : item.distortion;
-  const orientationKey = `orientation${item.orientation[0].toUpperCase()}${item.orientation.slice(1)}`;
-  byId("orientation").textContent = t(orientationKey);
-  byId("local-note").innerHTML = t("localNotes")[key];
-  byId("mixing-value").textContent = Number(DATA.mixingValues[mixingIndex]).toFixed(2);
-  typeset(byId("local-note"));
-  schedulePlotResize();
+  const chunkKey = `local-${key}`;
+  return localPanel.run(async current => {
+    const source = await figures.load(chunkKey);
+    if (!current()) return;
+    const item = structuredClone(usesMixing ? source.variants[DATA.mixingKeys[mixingIndex]] : source);
+    await Plotly.react("local-grid", item.grid.data, item.grid.layout, PLOT_CONFIG);
+    if (!current()) return;
+    byId("partial-z").textContent = item.partialZ;
+    byId("partial-zbar").textContent = item.partialZbar;
+    byId("distortion").textContent = item.distortion === "infinite" ? "∞" : item.distortion;
+    const orientationKey = `orientation${item.orientation[0].toUpperCase()}${item.orientation.slice(1)}`;
+    byId("orientation").textContent = t(orientationKey);
+    byId("local-note").innerHTML = t("localNotes")[key];
+    byId("mixing-value").textContent = Number(DATA.mixingValues[mixingIndex]).toFixed(2);
+    typeset(byId("local-note"));
+    schedulePlotResize();
+  }, {loading: !figures.has(chunkKey)});
 }
 
 function renderMobius() {
@@ -270,23 +282,30 @@ function renderMobius() {
   const parameterized = family.values.length > 1;
   byId("mobius-parameter-control").classList.toggle("is-hidden", !parameterized);
   const parameterIndex = parameterized ? Number(byId("mobius-parameter").value) : 0;
-  const item = family.variants[family.keys[parameterIndex]];
-  const parameter = Number(item.parameter).toFixed(2);
-  const layout = {
-    ...DATA.mobiusBase.layout,
-    title: {...DATA.mobiusBase.layout.title, text: MOBIUS_TITLES[item.family]},
-  };
-  Plotly.react("mobius-sphere", [...DATA.mobiusBase.data, ...item.traces], layout, PLOT_CONFIG);
-  byId("mobius-note").innerHTML = t("mobiusNotes")[key];
-  byId("mobius-expression").innerHTML = t("mobiusExpressions")[key].replace("{parameter}", parameter);
-  byId("mobius-matrix").textContent = `\\(M\\sim\\begin{pmatrix}${item.matrix[0][0]}&${item.matrix[0][1]}\\\\${item.matrix[1][0]}&${item.matrix[1][1]}\\end{pmatrix},\\quad\\det M=1\\)`;
-  if (parameterized) {
-    byId("mobius-parameter-value").textContent = Number(family.values[parameterIndex]).toFixed(2);
-  }
-  typeset(byId("mobius-note"));
-  typeset(byId("mobius-expression"));
-  typeset(byId("mobius-matrix"));
-  schedulePlotResize();
+  const chunkKey = `mobius-${key}`;
+  return mobiusPanel.run(async current => {
+    const [baseSource, variants] = await Promise.all([figures.load("mobius-base"), figures.load(chunkKey)]);
+    if (!current()) return;
+    const base = structuredClone(baseSource);
+    const item = structuredClone(variants[family.keys[parameterIndex]]);
+    const parameter = Number(item.parameter).toFixed(2);
+    const layout = {
+      ...base.layout,
+      title: {...base.layout.title, text: MOBIUS_TITLES[item.family]},
+    };
+    await Plotly.react("mobius-sphere", [...base.data, ...item.traces], layout, PLOT_CONFIG);
+    if (!current()) return;
+    byId("mobius-note").innerHTML = t("mobiusNotes")[key];
+    byId("mobius-expression").innerHTML = t("mobiusExpressions")[key].replace("{parameter}", parameter);
+    byId("mobius-matrix").textContent = `\\(M\\sim\\begin{pmatrix}${item.matrix[0][0]}&${item.matrix[0][1]}\\\\${item.matrix[1][0]}&${item.matrix[1][1]}\\end{pmatrix},\\quad\\det M=1\\)`;
+    if (parameterized) {
+      byId("mobius-parameter-value").textContent = Number(family.values[parameterIndex]).toFixed(2);
+    }
+    typeset(byId("mobius-note"));
+    typeset(byId("mobius-expression"));
+    typeset(byId("mobius-matrix"));
+    schedulePlotResize();
+  }, {loading: !figures.has("mobius-base") || !figures.has(chunkKey)});
 }
 
 function configureMobiusParameter() {
@@ -307,13 +326,19 @@ function renderWitt() {
   const mode = byId("witt-mode").value;
   const epsilonIndex = Number(byId("epsilon").value);
   const epsilon = Number(DATA.epsilonValues[epsilonIndex]);
-  const figure = DATA.witt[mode][DATA.epsilonKeys[epsilonIndex]];
-  Plotly.react("witt-plot", figure.data, figure.layout, PLOT_CONFIG);
-  const direction = epsilon < 0 ? t("flowBackward") : epsilon > 0 ? t("flowForward") : t("flowZero");
-  byId("witt-note").innerHTML = t("wittNotes")[mode] + direction;
-  byId("epsilon-value").textContent = epsilon.toFixed(3);
-  typeset(byId("witt-note"));
-  schedulePlotResize();
+  const chunkKey = `witt-${mode}`;
+  return wittPanel.run(async current => {
+    const variants = await figures.load(chunkKey);
+    if (!current()) return;
+    const figure = structuredClone(variants[DATA.epsilonKeys[epsilonIndex]]);
+    await Plotly.react("witt-plot", figure.data, figure.layout, PLOT_CONFIG);
+    if (!current()) return;
+    const direction = epsilon < 0 ? t("flowBackward") : epsilon > 0 ? t("flowForward") : t("flowZero");
+    byId("witt-note").innerHTML = t("wittNotes")[mode] + direction;
+    byId("epsilon-value").textContent = epsilon.toFixed(3);
+    typeset(byId("witt-note"));
+    schedulePlotResize();
+  }, {loading: !figures.has(chunkKey)});
 }
 
 localizeStaticContent();

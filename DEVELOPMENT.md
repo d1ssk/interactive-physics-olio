@@ -36,6 +36,55 @@ site/            generated output; never edit or commit
 ```
 
 Repository-specific development rules live in `AGENTS.md`.
+
+Home-page card PNGs in `docs/assets/images/` are retained as editing sources. The production
+build converts the 13 images referenced by `FIELDS` to WebP at a maximum width of 600px and
+quality 85, then excludes those PNGs from publication. Both languages use the English-root
+thumbnail URLs. The first two cards load eagerly; subsequent cards use native lazy loading.
+
+The shared OG/Twitter image is `docs/assets/images/social-card.png`. Its authored layout is
+`scripts/assets/social-card.html`, using the existing condensed-matter figure and the site's
+self-hosted font. To re-export it, serve the repository root over loopback HTTP, start a separate
+Chrome instance with a temporary profile and remote debugging enabled, then run:
+
+```bash
+node scripts/render_social_card.mjs http://127.0.0.1:8000 http://127.0.0.1:9222
+```
+
+The export script requires Node 22 or later. Inspect the 1200 × 630 output before committing it.
+Social titles, descriptions, locales, and image alternative text are generated in
+`src/physics_atlas/seo.py` for every public page; embedded applications remain nonindexable.
+
+The final production step `physics_atlas.library_publication.publish_shared_libraries` links
+both languages and all applications to one copy of each heavy browser library. MathJax uses a
+version-and-content-hash filename in `javascripts/`; Plotly uses the existing pinned `gl3d`
+bundle there; Pyodide and NumPy use one version-and-content-hash directory in `assets/vendor/`.
+Builders still stage local copies for isolated tests. Publication verifies identical bytes before
+removing duplicates, updates HTML script URLs and Worker import/index URLs, and preserves figure
+data and kernel wheels. Reusing these URLs permits HTTP caching; runtime initialization still
+occurs separately in each Worker. Inspect cold and warm requests over HTTP when changing this step.
+
+The conformal-transformations and AdS₂/dS₂ applications publish figure data with
+`physics_atlas.figure_data`. HTML contains only control metadata and a manifest. JSON files
+are grouped by transformation family/Witt mode or spacetime/chart, with all slider states for
+one group fetched together. File names include content hashes. The lossless reference pool
+shares repeated JSON containers; it preserves coordinate precision, sample counts, singularity
+breaks, and Plotly settings. The browser expands references to independent objects, caches
+successful groups, and gives Plotly fresh copies so rendering cannot mutate cached data.
+Failed requests can be retried; an older request cannot overwrite a newer selection.
+Publication verifies that both language copies match before linking Japanese pages to the
+English-root figure files and removing the duplicate files. No browser computation runtime is
+needed for these applications.
+
+Node 22 or later is also required for the figure-data tests run by `pytest`. They decode every
+published state with the actual browser decoder and compare it against the original Python
+output, and exercise request sharing, retries, and selection races. For browser QA, serve the
+complete site over HTTP; inspect initial requests, all selection groups, slider updates without
+new requests, error recovery, language cache reuse, and iframe height at desktop/mobile widths.
+Use Chromium and Firefox. Measure HTML plus initial figure chunks separately from shared
+libraries and from the total size of all states; merely moving all data to one JSON file would
+not reduce the first transfer.
+
 Search metadata policy and Search Console setup are documented in
 [`SEARCH_CONSOLE.md`](SEARCH_CONSOLE.md). Use the host-wide `https://d1ssk.github.io/`
 URL-prefix property and submit `https://d1ssk.github.io/sitemap-index.xml` once; this

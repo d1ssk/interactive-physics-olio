@@ -78,12 +78,13 @@ def test_static_build_contract(tmp_path, monkeypatch, visualization):
         "notes": {},
     }
     monkeypatch.setattr(visualization, "_build_application_data", lambda: minimal)
-    monkeypatch.setattr(visualization, "get_plotlyjs", lambda: "window.Plotly = {};")
 
     visualization.build(tmp_path)
     html = (tmp_path / "index.html").read_text(encoding="utf-8")
     assert "__APPLICATION_DATA__" not in html
-    assert "window.Plotly = {};" in html
+    assert f'src="{visualization.PLOTLY_GL3D_ASSET_NAME}"' in html
+    assert (tmp_path / visualization.PLOTLY_GL3D_ASSET_NAME).is_file()
+    assert "plotly.js v" not in html
     assert "ipywidgets" not in html.lower()
     assert "AdS₂ and dS₂" in html
     assert "physics-atlas:frame-height" in html
@@ -120,7 +121,6 @@ def test_build_stages_mathjax_theme_and_same_origin_height_contract(
     tmp_path, monkeypatch, visualization
 ):
     monkeypatch.setattr(visualization, "_build_application_data", lambda: {})
-    monkeypatch.setattr(visualization, "get_plotlyjs", lambda: "window.Plotly = {};")
 
     visualization.build(tmp_path)
     html = (tmp_path / "index.html").read_text(encoding="utf-8")

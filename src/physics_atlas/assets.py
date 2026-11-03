@@ -1,5 +1,6 @@
 """Paths and staging helpers for shared, vendored browser assets."""
 
+import hashlib
 import shutil
 from pathlib import Path
 
@@ -11,6 +12,11 @@ VISUALIZATION_THEME_CSS_PATH = STATIC_DIR / VISUALIZATION_THEME_CSS_NAME
 VISUALIZATION_THEME_SCRIPT_PATH = STATIC_DIR / VISUALIZATION_THEME_SCRIPT_NAME
 MATHJAX_SVG_PATH = VENDOR_DIR / "mathjax" / "tex-svg.js"
 MATHJAX_LICENSE_PATH = VENDOR_DIR / "mathjax" / "LICENSE"
+MATHJAX_VERSION = "3.2.2"
+MATHJAX_ASSET_NAME = (
+    f"mathjax-tex-svg-{MATHJAX_VERSION}-"
+    f"{hashlib.sha256(MATHJAX_SVG_PATH.read_bytes()).hexdigest()[:12]}.js"
+)
 PLOTLY_GL3D_VERSION = "3.7.0"
 PLOTLY_GL3D_ASSET_NAME = f"plotly-gl3d-{PLOTLY_GL3D_VERSION}.min.js"
 PLOTLY_LICENSE_ASSET_NAME = f"plotly-{PLOTLY_GL3D_VERSION}-LICENSE.txt"
@@ -54,6 +60,13 @@ def copy_shared_plotly_assets(docs_dir: Path) -> None:
     javascript_dir.mkdir(parents=True, exist_ok=True)
     shutil.copy2(PLOTLY_GL3D_PATH, javascript_dir / PLOTLY_GL3D_ASSET_NAME)
     shutil.copy2(PLOTLY_LICENSE_PATH, javascript_dir / PLOTLY_LICENSE_ASSET_NAME)
+
+
+def copy_plotly_assets(output_dir: Path) -> None:
+    """Stage the same pinned gl3d bundle for an independently built application."""
+
+    shutil.copy2(PLOTLY_GL3D_PATH, output_dir / PLOTLY_GL3D_ASSET_NAME)
+    shutil.copy2(PLOTLY_LICENSE_PATH, output_dir / PLOTLY_LICENSE_ASSET_NAME)
 
 
 def copy_pyodide_runtime_assets(output_dir: Path) -> None:
