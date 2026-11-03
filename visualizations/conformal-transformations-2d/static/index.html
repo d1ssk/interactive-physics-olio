@@ -32,6 +32,7 @@
   </header>
 
   <section class="panel" id="local-panel">
+    <div data-figure-status hidden><span role="status"></span> <button type="button" hidden></button></div>
     <div class="heading-row">
       <h2 data-i18n="localTitle">Local Conformality</h2>
       <div class="control-cluster">
@@ -55,6 +56,7 @@
   </section>
 
   <section class="panel" id="mobius-panel">
+    <div data-figure-status hidden><span role="status"></span> <button type="button" hidden></button></div>
     <div class="heading-row">
       <h2 data-i18n="globalTitle">Möbius Transformations</h2>
       <div class="control-cluster">
@@ -82,6 +84,7 @@
   </section>
 
   <section class="panel" id="witt-panel">
+    <div data-figure-status hidden><span role="status"></span> <button type="button" hidden></button></div>
     <div class="heading-row">
       <h2 data-i18n="algebraTitle">Witt Algebra</h2>
       <div class="control-cluster">
@@ -150,7 +153,9 @@
     report();
   })();
 </script>
-<script>const DATA = __APPLICATION_DATA__;</script>
+<script id="figure-data-manifest" data-base="figure-data/" type="application/json">__APPLICATION_DATA__</script>
+<script src="__FIGURE_LOADER__"></script>
+<script>const DATA = JSON.parse(document.getElementById("figure-data-manifest").textContent);</script>
 <script>__APPLICATION_JS__</script>
 </body>
 </html>

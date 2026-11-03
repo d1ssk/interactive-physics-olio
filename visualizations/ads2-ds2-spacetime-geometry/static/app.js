@@ -7,6 +7,11 @@ const PLOT_CONFIG = {
 };
 const LOCALE = new URLSearchParams(window.location.search).get("lang") === "ja" ? "ja" : "en";
 
+const manifestElement = byId("figure-data-manifest");
+const figures = PhysicsFigureData.createStore(DATA, new URL(manifestElement.dataset.base, document.baseURI));
+const geometryPanel = PhysicsFigureData.createPanel(document.querySelector("main"), [byId("q1"), byId("q2"), byId("boost")], LOCALE);
+let activeGeometry;
+
 const MESSAGES = {
   en: {
     title: "AdS₂ and dS₂ Spacetime Geometry",
@@ -200,20 +205,26 @@ function configureCharts() {
 
 function configureCoordinateBars() {
   const key = `${byId("spacetime").value}|${byId("chart").value}`;
-  const controls = DATA.coordinateControls[key];
-  for (const [axis, values, defaultIndex] of [["q1", controls.q1Values, controls.defaultQ1], ["q2", controls.q2Values, controls.defaultQ2]]) {
-    const input = byId(axis);
-    input.min = 0;
-    input.max = values.length - 1;
-    input.step = 1;
-    input.value = defaultIndex;
-  }
-  const labels = t("coordinateLabels")[key];
-  byId("q1-label").innerHTML = labels[0];
-  byId("q2-label").innerHTML = labels[1];
-  typeset(byId("q1-label"));
-  typeset(byId("q2-label"));
-  render();
+  const [kind, chart] = key.split("|");
+  return geometryPanel.run(async current => {
+    const [space, chartData] = await Promise.all([figures.load(`space-${kind}`), figures.load(`chart-${kind}-${chart}`)]);
+    if (!current()) return;
+    activeGeometry = {kind, chart, space, chartData};
+    const controls = chartData.controls;
+    for (const [axis, values, defaultIndex] of [["q1", controls.q1Values, controls.defaultQ1], ["q2", controls.q2Values, controls.defaultQ2]]) {
+      const input = byId(axis);
+      input.min = 0;
+      input.max = values.length - 1;
+      input.step = 1;
+      input.value = defaultIndex;
+    }
+    const labels = t("coordinateLabels")[key];
+    byId("q1-label").innerHTML = labels[0];
+    byId("q2-label").innerHTML = labels[1];
+    typeset(byId("q1-label"));
+    typeset(byId("q2-label"));
+    await render();
+  });
 }
 
 function selectedCoordinateTraces(controls, boostKey) {
@@ -242,7 +253,7 @@ function selectedCoordinateTraces(controls, boostKey) {
 }
 
 function embeddingLayoutWithPreservedCamera(kind) {
-  const source = DATA.layouts[kind];
+  const source = structuredClone(activeGeometry.space.layout);
   const scene = {...source.scene};
   const savedCamera = savedEmbeddingCameras.get(kind);
   if (savedCamera) scene.camera = JSON.parse(JSON.stringify(savedCamera));
@@ -268,18 +279,19 @@ function formatNumber(value, digits) {
 }
 
 function render() {
-  const kind = byId("spacetime").value;
-  const chart = byId("chart").value;
+  if (!activeGeometry) return;
+  const {kind, chart, space, chartData} = activeGeometry;
   const boostIndex = Number(byId("boost").value);
   const boostKey = DATA.boostKeys[boostIndex];
-  const controls = DATA.coordinateControls[`${kind}|${chart}`];
-  const traces = [DATA.surfaces[kind], ...DATA.charts[`${kind}|${chart}`], ...DATA.geodesics[`${kind}|${chart}|${boostKey}`], ...selectedCoordinateTraces(controls, boostKey)];
+  const controls = chartData.controls;
+  const traces = structuredClone([space.surface, ...chartData.traces, ...chartData.geodesics[boostKey], ...selectedCoordinateTraces(controls, boostKey)]);
   const embeddingUpdate = Plotly.react(
     "embedding-plot", traces, embeddingLayoutWithPreservedCamera(kind), PLOT_CONFIG,
   );
   renderedEmbeddingKind = kind;
-  Promise.resolve(embeddingUpdate).then(attachEmbeddingCameraListener);
-  Plotly.react("penrose-plot", DATA.penrose[kind].data, DATA.penrose[kind].layout, PLOT_CONFIG);
+
+  const penrose = structuredClone(space.penrose);
+  const penroseUpdate = Plotly.react("penrose-plot", penrose.data, penrose.layout, PLOT_CONFIG);
   byId("chart-note").innerHTML = t("notes")[`${kind}|${chart}`];
   byId("q1-value").textContent = formatNumber(Number(controls.q1Values[Number(byId("q1").value)]), 2);
   byId("q2-value").textContent = formatNumber(Number(controls.q2Values[Number(byId("q2").value)]), 2);
@@ -290,6 +302,7 @@ function render() {
   typeset(byId("curvature-copy"));
   typeset(byId("metric-copy"));
   schedulePlotResize();
+  return Promise.all([embeddingUpdate, penroseUpdate]).then(attachEmbeddingCameraListener);
 }
 
 localizeStaticContent();

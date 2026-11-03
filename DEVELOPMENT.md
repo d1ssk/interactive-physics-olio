@@ -64,6 +64,27 @@ removing duplicates, updates HTML script URLs and Worker import/index URLs, and 
 data and kernel wheels. Reusing these URLs permits HTTP caching; runtime initialization still
 occurs separately in each Worker. Inspect cold and warm requests over HTTP when changing this step.
 
+The conformal-transformations and AdS₂/dS₂ applications publish figure data with
+`physics_atlas.figure_data`. HTML contains only control metadata and a manifest. JSON files
+are grouped by transformation family/Witt mode or spacetime/chart, with all slider states for
+one group fetched together. File names include content hashes. The lossless reference pool
+shares repeated JSON containers; it preserves coordinate precision, sample counts, singularity
+breaks, and Plotly settings. The browser expands references to independent objects, caches
+successful groups, and gives Plotly fresh copies so rendering cannot mutate cached data.
+Failed requests can be retried; an older request cannot overwrite a newer selection.
+Publication verifies that both language copies match before linking Japanese pages to the
+English-root figure files and removing the duplicate files. No browser computation runtime is
+needed for these applications.
+
+Node 22 or later is also required for the figure-data tests run by `pytest`. They decode every
+published state with the actual browser decoder and compare it against the original Python
+output, and exercise request sharing, retries, and selection races. For browser QA, serve the
+complete site over HTTP; inspect initial requests, all selection groups, slider updates without
+new requests, error recovery, language cache reuse, and iframe height at desktop/mobile widths.
+Use Chromium and Firefox. Measure HTML plus initial figure chunks separately from shared
+libraries and from the total size of all states; merely moving all data to one JSON file would
+not reduce the first transfer.
+
 Search metadata policy and Search Console setup are documented in
 [`SEARCH_CONSOLE.md`](SEARCH_CONSOLE.md). Use the host-wide `https://d1ssk.github.io/`
 URL-prefix property and submit `https://d1ssk.github.io/sitemap-index.xml` once; this

@@ -49,6 +49,7 @@
     </label>
   </section>
 
+  <div data-figure-status hidden><span role="status"></span> <button type="button" hidden></button></div>
   <p id="chart-note" class="note" role="status"></p>
 
   <section class="panel">
@@ -128,7 +129,9 @@
     report();
   })();
 </script>
-<script>const DATA = __APPLICATION_DATA__;</script>
+<script id="figure-data-manifest" data-base="figure-data/" type="application/json">__APPLICATION_DATA__</script>
+<script src="__FIGURE_LOADER__"></script>
+<script>const DATA = JSON.parse(document.getElementById("figure-data-manifest").textContent);</script>
 <script>__APPLICATION_JS__</script>
 </body>
 </html>

@@ -15,6 +15,7 @@ from physics_atlas.assets import (
     copy_plotly_assets,
     copy_visualization_theme_assets,
 )
+from physics_atlas.figure_data import write_figure_chunks
 
 from .physics import AntiDeSitter2, DeSitter2
 
@@ -577,6 +578,29 @@ def _build_application_data() -> dict[str, object]:
     }
 
 
+def _partition_application_data(data: dict) -> tuple[dict, dict]:
+    """Share spacetime geometry; fetch all slider states for one chart together."""
+    metadata = {key: data.get(key, []) for key in ("boostKeys", "boostValues")}
+    metadata["chartOptions"] = data.get("chartOptions", {})
+    chunks = {}
+    for kind, charts in metadata["chartOptions"].items():
+        chunks[f"space-{kind}"] = {
+            "surface": data["surfaces"][kind],
+            "layout": data["layouts"][kind],
+            "penrose": data["penrose"][kind],
+        }
+        for chart in charts:
+            key = f"{kind}|{chart}"
+            chunks[f"chart-{kind}-{chart}"] = {
+                "traces": data["charts"][key],
+                "controls": data["coordinateControls"][key],
+                "geodesics": {
+                    boost: data["geodesics"][f"{key}|{boost}"] for boost in data["boostKeys"]
+                },
+            }
+    return metadata, chunks
+
+
 def build(output_dir: Path) -> None:
     """Build the localized, same-origin static application."""
 
@@ -584,9 +608,9 @@ def build(output_dir: Path) -> None:
     copy_mathjax_assets(output_dir)
     copy_plotly_assets(output_dir)
     copy_visualization_theme_assets(output_dir)
-    payload = json.dumps(
-        _build_application_data(), cls=PlotlyJSONEncoder, separators=(",", ":")
-    ).replace("</", "<\\/")
+    original = json.loads(json.dumps(_build_application_data(), cls=PlotlyJSONEncoder))
+    metadata, chunks = _partition_application_data(original)
+    payload = write_figure_chunks(output_dir, metadata, chunks)
     html = (
         (SOURCE_DIR / "static" / "index.html")
         .read_text(encoding="utf-8")
@@ -596,6 +620,7 @@ def build(output_dir: Path) -> None:
         )
         .replace("__PLOTLY_ASSET__", PLOTLY_GL3D_ASSET_NAME)
         .replace("__APPLICATION_DATA__", payload)
+        .replace("__FIGURE_LOADER__", json.loads(payload)["loader"])
         .replace(
             "__APPLICATION_JS__",
             (SOURCE_DIR / "static" / "app.js").read_text(encoding="utf-8"),
