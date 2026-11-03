@@ -36,6 +36,25 @@ site/            generated output; never edit or commit
 ```
 
 Repository-specific development rules live in `AGENTS.md`.
+
+Home-page card PNGs in `docs/assets/images/` are retained as editing sources. The production
+build converts the 13 images referenced by `FIELDS` to WebP at a maximum width of 600px and
+quality 85, then excludes those PNGs from publication. Both languages use the English-root
+thumbnail URLs. The first two cards load eagerly; subsequent cards use native lazy loading.
+
+The shared OG/Twitter image is `docs/assets/images/social-card.png`. Its authored layout is
+`scripts/assets/social-card.html`, using the existing condensed-matter figure and the site's
+self-hosted font. To re-export it, serve the repository root over loopback HTTP, start a separate
+Chrome instance with a temporary profile and remote debugging enabled, then run:
+
+```bash
+node scripts/render_social_card.mjs http://127.0.0.1:8000 http://127.0.0.1:9222
+```
+
+The export script requires Node 22 or later. Inspect the 1200 × 630 output before committing it.
+Social titles, descriptions, locales, and image alternative text are generated in
+`src/physics_atlas/seo.py` for every public page; embedded applications remain nonindexable.
+
 Search metadata policy and Search Console setup are documented in
 [`SEARCH_CONSOLE.md`](SEARCH_CONSOLE.md). Use the host-wide `https://d1ssk.github.io/`
 URL-prefix property and submit `https://d1ssk.github.io/sitemap-index.xml` once; this

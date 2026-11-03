@@ -16,6 +16,8 @@ from physics_atlas.assets import (
     STATIC_DIR,
     copy_shared_plotly_assets,
 )
+from physics_atlas.fields import FIELDS
+from physics_atlas.images import build_card_images
 from physics_atlas.seo import publish_search_metadata
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -51,6 +53,7 @@ def stage_english_docs() -> Path:
     shutil.copy2(MATHJAX_SVG_PATH, javascript_dir / "mathjax-tex-svg.js")
     shutil.copy2(MATHJAX_LICENSE_PATH, javascript_dir / "mathjax-LICENSE.txt")
     copy_shared_plotly_assets(ENGLISH_BUILD_DOCS_DIR)
+    build_card_images(ENGLISH_DOCS_DIR, ENGLISH_BUILD_DOCS_DIR)
     return ENGLISH_BUILD_DOCS_DIR
 
 
@@ -64,6 +67,10 @@ def stage_japanese_docs() -> Path:
     javascript_dir = JAPANESE_BUILD_DOCS_DIR / "javascripts"
     for shared_asset in (PLOTLY_GL3D_ASSET_NAME, PLOTLY_LICENSE_ASSET_NAME):
         (javascript_dir / shared_asset).unlink()
+    for field in FIELDS:
+        if field.card_image:
+            (JAPANESE_BUILD_DOCS_DIR / field.card_image).unlink()
+    (JAPANESE_BUILD_DOCS_DIR / "assets/images/social-card.png").unlink(missing_ok=True)
     for relative_dir in ENGLISH_ONLY_RUNTIME_DIRS:
         runtime_dir = JAPANESE_BUILD_DOCS_DIR / relative_dir
         if runtime_dir.exists():

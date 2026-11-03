@@ -75,6 +75,10 @@ and all mathematical conventions consistent across languages.
 
 Assume a technically sophisticated reader.
 
+Use Title Case for English article titles, consistently across H1, front matter, field
+listings, visualization metadata, and sharing metadata. Use sentence case for prose section
+headings, preserving proper nouns, abbreviations, and mathematical notation.
+
 Prefer concise mathematical explanation over introductory textbook
 padding.
 

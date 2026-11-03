@@ -1,8 +1,8 @@
 ---
-title: Inflationary quantum fluctuations and squeezing
+title: Inflationary Quantum Fluctuations and Squeezing
 ---
 
-# Inflationary quantum fluctuations and squeezing
+# Inflationary Quantum Fluctuations and Squeezing
 
 <span class="center-material-tables"></span>
 

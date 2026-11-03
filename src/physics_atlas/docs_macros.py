@@ -35,22 +35,26 @@ def render_topic_cards(project_root: Path, locale: str = "en") -> str:
 
     counts = visualization_counts(project_root)
     cards: list[str] = ['<div class="topic-grid">']
-    for field in FIELDS:
+    for index, field in enumerate(FIELDS):
         count = counts[field.slug]
         noun = "visualization" if count == 1 else "visualizations"
-        image_style = (
-            f" style=\"background-image: url('{escape(field.image, quote=True)}')\""
-            if field.image
-            else ""
-        )
+        count_label = f"{count} {noun}" if locale == "en" else f"{count} 件の可視化"
+        image = ""
+        if field.card_image:
+            source = ("../" if locale == "ja" else "") + field.card_image
+            loading = "eager" if index < 2 else "lazy"
+            image = (
+                f'<img src="{escape(source, quote=True)}" alt="" '
+                f'loading="{loading}" decoding="async">'
+            )
         cards.extend(
             [
                 f'<a class="topic-card" href="{escape(field.slug, quote=True)}/">',
-                f'  <span class="topic-card__media"{image_style} aria-hidden="true"></span>',
+                f'  <span class="topic-card__media" aria-hidden="true">{image}</span>',
                 '  <span class="topic-card__body">',
                 '    <strong class="topic-card__title">'
                 f"{escape(field.localized_label(locale))}</strong>",
-                f'    <span class="topic-card__count">{count} {noun}</span>',
+                f'    <span class="topic-card__count">{count_label}</span>',
                 "  </span>",
                 "</a>",
             ]

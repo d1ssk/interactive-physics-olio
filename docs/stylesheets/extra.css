@@ -414,13 +414,20 @@ html[lang="en"] .md-nav--primary {
 }
 
 .topic-card__media {
+  position: relative;
   display: block;
   min-height: 8.5rem;
+  overflow: hidden;
   background-color: var(--atlas-placeholder);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
   border-right: 1px solid var(--atlas-line);
+}
+
+.topic-card__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .topic-card__body {

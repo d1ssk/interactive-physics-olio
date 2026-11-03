@@ -189,7 +189,7 @@ The visualization's **Induced field only** quantity subtracts this uniform exter
 calculated total field. Consequently, at every point,
 
 $$
-\text{全場}=\text{外場}+\text{誘導された場}
+\text{total field}=\text{external field}+\text{induced field}
 $$
 
 The object cross-sections are assumed to continue indefinitely perpendicular to the screen, and

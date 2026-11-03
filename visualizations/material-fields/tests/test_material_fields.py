@@ -128,7 +128,18 @@ def test_bilingual_articles_are_aligned_and_embedded() -> None:
     def extract_math(source: str) -> list[str]:
         return re.findall(r"\$\$\s*(.*?)\s*\$\$", source, re.DOTALL)
 
-    assert extract_math(english) == extract_math(japanese)
+    # Only the explanatory words in this identity are localized; every mathematical
+    # expression, operator, and numerical value must still agree exactly.
+    localized_labels = {
+        r"\text{全場}": r"\text{total field}",
+        r"\text{外場}": r"\text{external field}",
+        r"\text{誘導された場}": r"\text{induced field}",
+    }
+    translated = japanese
+    for source, target in localized_labels.items():
+        assert source not in english
+        translated = translated.replace(source, target)
+    assert extract_math(english) == extract_math(translated)
     assert "app/index.html?lang=en" in english
     assert "app/index.html?lang=ja" in japanese
     for source in (english, japanese):

@@ -18,6 +18,11 @@ from .metadata import VisualizationMetadata, load_metadata
 BRAND = "Interactive Physics Olio"
 SITEMAP_NAMESPACE = "http://www.sitemaps.org/schemas/sitemap/0.9"
 LOCALES = ("en", "ja")
+SOCIAL_IMAGE = "assets/images/social-card.png"
+SOCIAL_IMAGE_ALT = {
+    "en": "Interactive Physics Olio beside cyan and orange band surfaces on a dark background.",
+    "ja": "濃紺の背景に、Interactive Physics Olio の文字と青緑・オレンジのバンド曲面。",
+}
 
 
 @dataclass(frozen=True)
@@ -174,11 +179,18 @@ class _MetadataEditor(HTMLParser):
         elif tag == "html" and self.page:
             self.edits.append((start, end, _set_attribute(raw, "lang", self.page.locale)))
         elif self.in_head and tag == "meta":
-            if (attributes.get("name") or "").lower() in {
-                "description",
-                "robots",
-                "google-site-verification",
-            }:
+            name = (attributes.get("name") or "").lower()
+            property_name = (attributes.get("property") or "").lower()
+            if (
+                name
+                in {
+                    "description",
+                    "robots",
+                    "google-site-verification",
+                }
+                or name.startswith(("twitter:", "og:"))
+                or property_name.startswith(("og:", "twitter:"))
+            ):
                 self.remove_metadata(start, end)
         elif self.in_head and tag == "link":
             relations = (attributes.get("rel") or "").lower().split()
@@ -248,6 +260,36 @@ def enrich_html(
             f'<meta name="description" content="{escape(page.description, quote=True)}">\n'
             f'<link rel="canonical" href="{escape(urls[page.locale], quote=True)}">\n'
         )
+        image_url = base_urls["en"] + SOCIAL_IMAGE
+        og_values = {
+            "title": page.title,
+            "description": page.description,
+            "type": "website",
+            "url": urls[page.locale],
+            "site_name": BRAND,
+            "locale": "ja_JP" if page.locale == "ja" else "en_US",
+            "locale:alternate": "en_US" if page.locale == "ja" else "ja_JP",
+            "image": image_url,
+            "image:type": "image/png",
+            "image:width": "1200",
+            "image:height": "630",
+            "image:alt": SOCIAL_IMAGE_ALT[page.locale],
+        }
+        twitter_values = {
+            "card": "summary_large_image",
+            "title": page.title,
+            "description": page.description,
+            "image": image_url,
+            "image:alt": SOCIAL_IMAGE_ALT[page.locale],
+        }
+        for prefix, attribute, values in (
+            ("og", "property", og_values),
+            ("twitter", "name", twitter_values),
+        ):
+            for key, value in values.items():
+                metadata += (
+                    f'<meta {attribute}="{prefix}:{key}" content="{escape(value, quote=True)}">\n'
+                )
         for locale in LOCALES:
             metadata += (
                 f'<link rel="alternate" hreflang="{locale}" '

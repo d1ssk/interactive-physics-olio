@@ -16,6 +16,12 @@ class FieldDefinition:
     summary_ja: str
     image: str | None = None
 
+    @property
+    def card_image(self) -> str | None:
+        """Published thumbnail; ``image`` retains the full-resolution source path."""
+
+        return self.image.removesuffix(".png") + ".webp" if self.image else None
+
     def localized_label(self, locale: str) -> str:
         """Return the field label for a supported publication locale."""
 

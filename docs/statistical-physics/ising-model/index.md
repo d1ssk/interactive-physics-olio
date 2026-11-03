@@ -39,8 +39,6 @@ In the thermodynamic limit, the existence of a phase transition depends strongly
     \simeq 2.269185
     $$
 
-    This is the exact critical temperature.
-
 * **Three-dimensional cubic lattice**: A continuous phase transition occurs at finite temperature,
   with numerically estimated critical temperature
 

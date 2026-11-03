@@ -9,6 +9,8 @@ import pytest
 
 from physics_atlas.metadata import discover_visualizations, load_metadata
 from physics_atlas.seo import (
+    SOCIAL_IMAGE,
+    SOCIAL_IMAGE_ALT,
     PublicPage,
     collect_public_pages,
     enrich_html,
@@ -23,6 +25,8 @@ BASE_URLS = {
 HTML = """<!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="description" content="Generic">
 <meta name="robots" content="noindex"><link rel="canonical" href="https://wrong.example/">
+<meta property="og:image" content="https://wrong.example/old.png">
+<meta name="twitter:card" content="summary">
 <link rel="alternate" hreflang="ja" href="https://wrong.example/ja/">
 <title>Original title</title><script>const data = {x: [1, 2], equation: "a < b"};</script>
 </head><body><main><a id="brand-home" class="brand" href="../../">Interactive Physics Olio</a>
@@ -95,6 +99,24 @@ def test_initial_head_has_one_canonical_and_reciprocal_locales(locale):
     ]
     assert not any(meta.get("name") == "robots" for meta in parsed.metas)
     assert "Title &amp; &quot;value&quot; — Interactive Physics Olio" in output
+    social = {meta["property"]: meta["content"] for meta in parsed.metas if "property" in meta}
+    twitter = {
+        meta["name"]: meta["content"]
+        for meta in parsed.metas
+        if meta.get("name", "").startswith("twitter:")
+    }
+    assert social["og:title"] == twitter["twitter:title"] == page.title
+    assert social["og:description"] == twitter["twitter:description"] == page.description
+    assert social["og:url"] == BASE_URLS[locale] + "topic/explorer/"
+    assert social["og:image"] == twitter["twitter:image"] == BASE_URLS["en"] + SOCIAL_IMAGE
+    assert social["og:image:alt"] == twitter["twitter:image:alt"] == SOCIAL_IMAGE_ALT[locale]
+    assert (social["og:image:width"], social["og:image:height"]) == ("1200", "630")
+    assert social["og:locale"] == ("ja_JP" if locale == "ja" else "en_US")
+    assert social["og:locale:alternate"] == ("en_US" if locale == "ja" else "ja_JP")
+    assert twitter["twitter:card"] == "summary_large_image"
+    assert sum(meta.get("property") == "og:image" for meta in parsed.metas) == 1
+    assert sum(meta.get("name") == "twitter:card" for meta in parsed.metas) == 1
+    assert enrich_html(output, page, BASE_URLS) == output
 
 
 def test_standalone_heading_and_navigation_exist_before_javascript():
@@ -121,6 +143,8 @@ def test_embedded_pages_are_noindex_without_blocking_link_discovery():
     parsed = parse(output)
     assert [meta["content"] for meta in parsed.metas if meta.get("name") == "robots"] == ["noindex"]
     assert not parsed.links
+    assert not any(meta.get("property", "").startswith("og:") for meta in parsed.metas)
+    assert not any(meta.get("name", "").startswith("twitter:") for meta in parsed.metas)
     assert output.split("<body>", 1)[1] == HTML.split("<body>", 1)[1]
 
 
